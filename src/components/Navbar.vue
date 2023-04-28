@@ -20,19 +20,14 @@
       <div class="collapse navbar-collapse ms-5" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto my-2 my-lg-0" style="background-color: ; text-align: center">
           <li class="nav-item me-4">
-            <a class="nav-link" id="links" href="/">Home</a>
-            <!-- <router-link class="nav-link" id="homeLink" :to="{ name: 'home' }">Home</router-link> -->
+            <router-link class="nav-link" id="links" :to="{ name: 'home' }">Home</router-link>
           </li>
           <li class="nav-item me-4">
-            <a class="nav-link" id="links" href="/about">About Us</a>
-            <!-- <router-link class="nav-link" id="aboutLink" :to="{ name: 'about' }"
-              >About Us</router-link >-->
+            <router-link class="nav-link" id="links" :to="{ name: 'about' }">About Us</router-link>
           </li>
 
           <li class="nav-item me-4">
-            <a class="nav-link" id="links" href="/contact">Contact</a>
-            <!-- <router-link class="nav-link" id="contactLink" :to="{ name: 'contact' }"
-              >Contact</router-link> -->
+            <router-link class="nav-link" id="links" :to="{ name: 'contact' }">Contact</router-link>
           </li>
         </ul>
       </div>

@@ -1,12 +1,15 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
 import Header from './components/Header.vue'
-import Home from './pages/Home.vue'
+import Main from './components/Main.vue'
+import Footer from './components/Footer.vue'
 </script>
 
 <template>
   <Header />
-  <Home />
+
+  <Main />
+
+  <Footer />
 </template>
 
 <style scoped></style>
