@@ -1,7 +1,7 @@
 <script setup></script>
 <template>
   <div class="container" id="contact">
-    <h1>Contact Us</h1>
+    <h1>KONTAKT</h1>
   </div>
 </template>
 <style scoped>

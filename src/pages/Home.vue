@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import HomeVideo from '../components/HomeVideo.vue'
+import HomeContent from '../components/HomeContent.vue'
 /*import { useRoute } from 'vue-router'
 const pageName = useRoute()
 console.log(pageName.fullPath)*/
@@ -10,11 +11,12 @@ const showHomeVideo = ref(true)
 <template>
   <div class="container" id="home">
     <HomeVideo />
-    <h1>Home</h1>
+    <!-- <h1>Home</h1> -->
+    <HomeContent />
   </div>
 </template>
 <style scoped>
-#home {
+/* #home {
   background-color: chartreuse;
-}
+} */
 </style>

@@ -8,9 +8,5 @@
 </template>
 <style scoped>
 footer {
-  background-color: darkgray;
-  position: absolute;
-  width: 100%;
-  min-height: 25vh;
 }
 </style>

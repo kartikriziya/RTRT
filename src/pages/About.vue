@@ -1,7 +1,7 @@
 <script setup></script>
 <template>
   <div class="container" id="about">
-    <h1>About US</h1>
+    <h1>ÜBER UNS</h1>
   </div>
 </template>
 <style scoped>

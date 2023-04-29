@@ -19,6 +19,8 @@ import Footer from './components/Footer.vue'
 
 <style scoped>
 #app {
+  /* background: url('assets/bg_image.jpeg');
+  background-size: contain; */
   background-color: rgba(0, 0, 0, 0.3);
   position: relative;
   display: flex;
@@ -27,5 +29,8 @@ import Footer from './components/Footer.vue'
 }
 #app_header_main {
   min-height: 100vh;
+}
+#app_footer {
+  background-color: red;
 }
 </style>
