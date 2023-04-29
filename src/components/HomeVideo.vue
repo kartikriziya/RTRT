@@ -6,10 +6,13 @@
   </video>
 </template>
 <style scoped>
-#bgVideo {
+video {
   position: absolute;
-  right: 0;
-  bottom: 0;
+  min-height: 100vh;
+  width: 100%;
+  top: 0;
+  left: 0;
   z-index: -1;
+  object-fit: fill;
 }
 </style>

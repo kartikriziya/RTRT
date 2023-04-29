@@ -3,13 +3,13 @@ import Navbar from './Navbar.vue'
 </script>
 
 <template>
-  <header>
+  <header id="header">
     <Navbar @hideHomeVideo="hideHomeVideo" />
   </header>
 </template>
 
 <style scoped>
-/* header {
+/* #header {
   min-height: calc(100vh);
 } */
 </style>
