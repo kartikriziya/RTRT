@@ -6,7 +6,4 @@
     </div>
   </footer>
 </template>
-<style scoped>
-footer {
-}
-</style>
+<style scoped></style>

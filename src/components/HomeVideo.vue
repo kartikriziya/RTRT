@@ -12,7 +12,7 @@
 <style scoped>
 video {
   position: absolute;
-  max-height: 100vh;
+  height: 100vh;
   width: 100%;
   top: 0;
   left: 0;
