@@ -1,15 +1,23 @@
-<script setup></script>
+<script setup>
+const bgVideo = document.getElementById('bgVideo')
+
+function test() {
+  bgVideo.style.display = 'none'
+  console.log(bgVideo)
+}
+</script>
 <template>
-  <div class="row" id="content">
-    <div class="col-12">
+  <div class="d-flex flex-column text-center justify-content-between" id="videoContent">
+    <div class="">
       <img src="../assets/golden_spoon.jpg" id="logoWrapper" height="236" width="229" alt="" />
+      <div class="mt-5" id="reserve">
+        <router-link class="nav-link" id="reserveBtn" :to="{ name: 'reservieren' }"
+          >jetzt reservieren</router-link
+        >
+      </div>
     </div>
-    <div class="col-12" id="reserve">
-      <router-link class="nav-link" id="reserveBtn" :to="{ name: 'reservieren' }"
-        >jetzt reservieren</router-link
-      >
-    </div>
-    <div class="col-12" id="scroll">
+
+    <div class="mb-4" id="scroll">
       <span id="scroll_link">
         Esplorare
         <img src="../assets/icons/arrow_down.png" class="mt-3" id="arrow" alt="" />
@@ -18,28 +26,20 @@
   </div>
 </template>
 <style scoped>
-#content {
-  /* background-color: red; */
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  left: 50%;
-  transform: translateX(-50%);
+#videoContent {
+  min-height: calc(100vh - 150px);
+  padding-top: 15rem;
 }
 #logoWrapper {
-  margin: 20vh 0 0 35px;
+  /* margin: 20vh 0 0 35px; */
   border-radius: 50% 50%;
 }
-#reserve {
+/* #reserve {
   margin-bottom: 20vh;
-}
+} */
 #reserveBtn {
-  background-color: transparent;
   color: #fff;
-  text-decoration: none;
-  margin: 20% 0px 0 0;
   display: inline-block;
-  position: relative;
   font-size: 25px;
   font-weight: 700;
   font-family: 'trade_gothic_bdcn20', 'Roboto', Helvetica Neue, Helvetica, Arial, sans-serif;
@@ -57,21 +57,14 @@
   opacity: 1;
 }
 #scroll {
-  /* background-color: red; */
-  position: relative;
-  display: flex;
-  flex-direction: column;
   text-align: center;
   cursor: pointer;
-  opacity: 0.3;
+  /* opacity: 0.3; */
 }
 #scroll_link {
   color: #fff;
   font-size: 1.625rem;
   font-family: 'BoucherieCursive', cursive;
-  font-variant-ligatures: no-contextual;
-  letter-spacing: 0;
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;

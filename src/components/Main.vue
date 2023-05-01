@@ -2,8 +2,6 @@
 import { RouterView } from 'vue-router'
 </script>
 <template>
-  <div class="container-fluid" id="main">
-    <RouterView />
-  </div>
+  <RouterView />
 </template>
 <style scoped></style>

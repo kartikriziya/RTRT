@@ -10,6 +10,6 @@ import Navbar from './Navbar.vue'
 
 <style scoped>
 /* #header {
-  min-height: calc(100vh);
+  background-color: aqua;
 } */
 </style>

@@ -6,4 +6,8 @@
     </div>
   </footer>
 </template>
-<style scoped></style>
+<style scoped>
+#footer {
+  min-height: 25vh;
+}
+</style>

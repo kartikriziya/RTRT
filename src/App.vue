@@ -19,13 +19,7 @@ import Footer from './components/Footer.vue'
 
 <style scoped>
 #app {
-  /* background: url('assets/bg_image.jpeg');
-  background-size: contain; */
-  background-color: rgba(0, 0, 0, 0.3);
   position: relative;
-  display: flex;
-  flex-direction: column;
-  z-index: 0;
 }
 #app_header_main {
   min-height: 100vh;
