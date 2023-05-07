@@ -9,7 +9,7 @@ function test() {
 <template>
   <div class="d-flex flex-column text-center justify-content-between" id="videoContent">
     <div class="">
-      <img src="../assets/golden_spoon.jpg" id="logoWrapper" height="236" width="229" alt="" />
+      <img src="../assets/los.svg" id="logoWrapper" height="236" width="229" alt="" />
       <div class="mt-5" id="reserve">
         <router-link class="nav-link" id="reserveBtn" :to="{ name: 'reservieren' }"
           >jetzt reservieren</router-link
@@ -49,20 +49,21 @@ function test() {
   border-radius: 50px;
   padding: 1px 45px 5px 45px;
   transition: 0.3s;
-  opacity: 0.8;
 }
 #reserveBtn:hover {
   background-color: #fff;
-  color: #4dba87;
-  opacity: 1;
+  color: #f8b333;
 }
 #scroll {
+  color: #fff;
   text-align: center;
   cursor: pointer;
-  /* opacity: 0.3; */
+  opacity: 0.7;
+}
+#scroll:hover {
+  color: #f8b333;
 }
 #scroll_link {
-  color: #fff;
   font-size: 1.625rem;
   font-family: 'BoucherieCursive', cursive;
   display: flex;

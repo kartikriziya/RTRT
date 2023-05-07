@@ -43,6 +43,6 @@
   font-weight: 500;
 }
 #links:hover {
-  color: #4dba87;
+  color: #f8b333;
 }
 </style>

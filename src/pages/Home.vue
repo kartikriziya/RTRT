@@ -39,7 +39,7 @@ console.log(pageName.fullPath)
   z-index: -1;
 }
 #homeSection2 {
-  background-color: coral;
+  background-color: #faf9f6;
   min-height: 100vh;
 }
 </style>
