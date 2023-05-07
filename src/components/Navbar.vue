@@ -38,11 +38,12 @@
 </template>
 <style scoped>
 #links {
-  color: white;
+  color: #f8b333;
   font-size: 25px;
   font-weight: 500;
 }
 #links:hover {
-  color: #f8b333;
+  color: #b47501;
+  font-weight: 700;
 }
 </style>

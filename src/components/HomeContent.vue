@@ -52,7 +52,8 @@ function test() {
 }
 #reserveBtn:hover {
   background-color: #fff;
-  color: #f8b333;
+  color: #b47501;
+  border-color: #f8b333;
 }
 #scroll {
   color: #fff;
@@ -61,7 +62,7 @@ function test() {
   opacity: 0.7;
 }
 #scroll:hover {
-  color: #f8b333;
+  color: #b47501;
 }
 #scroll_link {
   font-size: 1.625rem;

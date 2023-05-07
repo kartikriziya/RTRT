@@ -1,8 +1,8 @@
 <script setup></script>
 <template>
   <div class="row pb-5" style="">
-    <div class="col-lg-12 text-center" id="menuTxt">
-      <h1>Menu</h1>
+    <div class="col-lg-12 text-center" id="menu">
+      <h1 id="menuTxt">Menu</h1>
     </div>
   </div>
   <!--********************************************************************************************
@@ -19,6 +19,16 @@
           <div class="text-center" id="itemText">
             <h3>Pizza</h3>
           </div>
+          <div id="name_price">
+            <div id="names">
+              <h6>margerita</h6>
+              <h6>Caprese</h6>
+            </div>
+            <div id="prices">
+              <h6>11€</h6>
+              <h6>13€</h6>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -31,6 +41,16 @@
         <div id="back">
           <div class="text-center" id="itemText">
             <h3>Pasta</h3>
+          </div>
+          <div id="name_price">
+            <div id="names">
+              <h6>margerita</h6>
+              <h6>Caprese</h6>
+            </div>
+            <div id="prices">
+              <h6>11€</h6>
+              <h6>13€</h6>
+            </div>
           </div>
         </div>
       </div>
@@ -45,6 +65,16 @@
           <div class="text-center" id="itemText">
             <h3>Risotto</h3>
           </div>
+          <div id="name_price">
+            <div id="names">
+              <h6>margerita</h6>
+              <h6>Caprese</h6>
+            </div>
+            <div id="prices">
+              <h6>11€</h6>
+              <h6>13€</h6>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -57,6 +87,16 @@
         <div id="back">
           <div class="text-center" id="itemText">
             <h3>Antipasti</h3>
+          </div>
+          <div id="name_price">
+            <div id="names">
+              <h6>margerita</h6>
+              <h6>Caprese</h6>
+            </div>
+            <div id="prices">
+              <h6>11€</h6>
+              <h6>13€</h6>
+            </div>
           </div>
         </div>
       </div>
@@ -71,6 +111,16 @@
           <div class="text-center" id="itemText">
             <h3>Burger</h3>
           </div>
+          <div id="name_price">
+            <div id="names">
+              <h6>margerita</h6>
+              <h6>Caprese</h6>
+            </div>
+            <div id="prices">
+              <h6>11€</h6>
+              <h6>13€</h6>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -83,6 +133,16 @@
         <div id="back">
           <div class="text-center" id="itemText">
             <h3>Drinks</h3>
+          </div>
+          <div id="name_price">
+            <div id="names">
+              <h6>margerita</h6>
+              <h6>Caprese</h6>
+            </div>
+            <div id="prices">
+              <h6>11€</h6>
+              <h6>13€</h6>
+            </div>
           </div>
         </div>
       </div>
@@ -97,6 +157,16 @@
           <div class="text-center" id="itemText">
             <h3>Dessert</h3>
           </div>
+          <div id="name_price">
+            <div id="names">
+              <h6>margerita</h6>
+              <h6>Caprese</h6>
+            </div>
+            <div id="prices">
+              <h6>11€</h6>
+              <h6>13€</h6>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -104,13 +174,16 @@
   <!-- ******************************************************************************************** -->
 </template>
 <style scoped>
-#menuTxt {
+#menu {
   color: #f8b333;
   font-size: 1.625rem;
   font-family: 'BoucherieCursive', cursive;
   /* border-top: 2px dashed #f8b333;
   border-bottom: 2px dashed #f8b333; */
   text-shadow: 11px 7px 9px #5a5650;
+}
+#menu:hover {
+  text-shadow: none;
 }
 
 /*****************************************************************************************************
@@ -130,6 +203,15 @@
   width: 150px;
   height: 250px;
 }
+#item:hover #names {
+  animation: 1.2s ease-out 0s 1 slideUp;
+}
+#item:hover #itemText {
+  animation: 1.2s ease-out 0s 1 slideDown;
+}
+#item:hover #prices {
+  animation: 1.2s ease-out 0s 1 slideUp;
+}
 #front {
   position: relative;
   top: 0;
@@ -144,12 +226,47 @@
 }
 #back {
   position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
   border-radius: 20px;
+  opacity: 1;
+}
+#itemText {
+  color: #f8b333;
+  opacity: 0.8;
+}
+#name_price {
+  width: 100%;
+  /* height: 100%; */
+  height: auto;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   opacity: 0.5;
+}
+@keyframes slideDown {
+  0% {
+    transform: translateY(-10vh);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 0.9;
+  }
+}
+@keyframes slideUp {
+  0% {
+    transform: translateY(20vh);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 
 #item > #front {
@@ -175,6 +292,7 @@ both hovers takes place at a same time
 /* disable's front */
 #item:hover > #front {
   transform: perspective(600px) rotateY(-180deg);
+  cursor: pointer;
 }
 
 /* enable's front */

@@ -25,6 +25,6 @@ import Footer from './components/Footer.vue'
   min-height: 100vh;
 }
 #app_footer {
-  background-color: red;
+  background-color: #262626;
 }
 </style>
