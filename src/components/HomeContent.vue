@@ -1,14 +1,7 @@
-<script setup>
-const bgVideo = document.getElementById('bgVideo')
-
-function test() {
-  bgVideo.style.display = 'none'
-  console.log(bgVideo)
-}
-</script>
+<script setup></script>
 <template>
   <div class="d-flex flex-column text-center justify-content-between" id="videoContent">
-    <div class="">
+    <div id="wrapper">
       <img src="../assets/los.svg" id="logoWrapper" height="236" width="229" alt="" />
       <div class="mt-5" id="reserve">
         <router-link class="nav-link" id="reserveBtn" :to="{ name: 'reservieren' }"
@@ -29,6 +22,10 @@ function test() {
 #videoContent {
   min-height: calc(100vh - 150px);
   padding-top: 15rem;
+}
+#wrapper {
+  position: relative;
+  z-index: 1;
 }
 #logoWrapper {
   /* margin: 20vh 0 0 35px; */

@@ -281,6 +281,12 @@
   transform: perspective(600px) rotateY(180deg);
   background: #262626;
   color: #fff;
+  box-shadow: rgba(248, 179, 51, 1) 0px 20px 30px -10px;
+  /* box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset,
+    rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
+    rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
+    rgba(0, 0, 0, 0.09) 0px 32px 16px; */
   padding: 15px;
   backface-visibility: hidden; /* cant see the backside elements as theyre turning around */
   transition: transform 0.5s linear 0s;

@@ -1,7 +1,7 @@
 <script setup></script>
 <template>
   <footer>
-    <div class="container-fluid">
+    <div class="container-fluid mt-5 pt-5">
       <!-- <h1>Footer</h1> -->
       <div class="d-flex flex-column" id="footer">
         <div class="d-flex flex-column" id="footer_links">

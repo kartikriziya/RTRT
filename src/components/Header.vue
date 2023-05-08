@@ -4,7 +4,7 @@ import Navbar from './Navbar.vue'
 
 <template>
   <header id="header">
-    <Navbar @hideHomeVideo="hideHomeVideo" />
+    <Navbar />
   </header>
 </template>
 
