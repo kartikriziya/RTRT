@@ -82,7 +82,7 @@
     <div class="col-sm-4 col-md-4 col-lg-3 mt-5" id="itemCol">
       <div id="item">
         <div id="front">
-          <img src="../assets/spoon.jpg" alt="items" id="itemImg" />
+          <img src="../assets/pp.jpg" alt="items" id="itemImg" />
         </div>
         <div id="back">
           <div class="text-center" id="itemText">
