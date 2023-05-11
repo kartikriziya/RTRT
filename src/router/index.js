@@ -4,8 +4,8 @@ import Home from '../pages/Home.vue'
 import About from '../pages/About.vue'
 import Contact from '../pages/Contact.vue'
 import Reservation from '../pages/Reservation.vue'
-import Login from '../pages/Login.vue'
-import SignUp from '../pages/SignUp.vue'
+import Account from '../pages/Account.vue'
+import test from '../pages/test.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,14 +31,14 @@ const router = createRouter({
       component: Reservation
     },
     {
-      path: '/login',
-      name: 'login',
-      component: Login
+      path: '/account',
+      name: 'account',
+      component: Account
     },
     {
-      path: '/signup',
-      name: 'signup',
-      component: SignUp
+      path: '/test',
+      name: 'test',
+      component: test
     }
   ]
 })
