@@ -7,6 +7,11 @@ function showLogin() {
   slider.classList.add('showLogin') /* -------> */
   document.querySelector('#loginLink').style.display = 'none'
   document.querySelector('#signUpLink').style.display = 'block'
+
+  const loginForm = document.querySelector('#loginForm')
+  loginForm.classList.add('loginForm_animation')
+  const signUpForm = document.querySelector('#signUpForm')
+  signUpForm.classList.remove('signUpForm_animation')
 }
 function showSignUp() {
   const slider = document.querySelector('#slider')
@@ -14,6 +19,11 @@ function showSignUp() {
   slider.classList.add('showSignUp') /* <------- */
   document.querySelector('#signUpLink').style.display = 'none'
   document.querySelector('#loginLink').style.display = 'block'
+
+  const signUpForm = document.querySelector('#signUpForm')
+  signUpForm.classList.add('signUpForm_animation')
+  const loginForm = document.querySelector('#loginForm')
+  loginForm.classList.remove('loginForm_animation')
 }
 </script>
 <template>
