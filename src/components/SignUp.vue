@@ -1,4 +1,17 @@
-<script setup></script>
+<script setup>
+import axios from 'axios'
+
+function verifyEmail() {
+  //console.log('verify clicked')
+  axios
+    .post('https://olivewood.000webhostapp.com/connection.php', {
+      action: 'test'
+    })
+    .then((result) => {
+      console.log(result.data)
+    })
+}
+</script>
 <template>
   <form
     action=""
@@ -50,7 +63,7 @@
     </div>
     <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center d-grid pt-3">
-      <button class="btn" id="signUpBtn">Verify Email</button>
+      <button class="btn" id="signUpBtn" @click.prevent="verifyEmail()">Verify Email</button>
     </div>
   </form>
   <form
