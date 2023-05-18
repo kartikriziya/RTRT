@@ -1,90 +1,155 @@
 <script setup></script>
 <template>
   <footer>
-    <div class="container-fluid mt-5 pt-5">
-      <!-- <h1>Footer</h1> -->
-      <div class="d-flex flex-column" id="footer">
-        <div class="d-flex flex-column" id="footer_links">
-          <div class="d-flex flex-row" id="footer_navbar">
-            <div class="d-flex flex-column gap-3" id="footer_navbar_links">
-              <router-link class="nav-link" id="links" :to="{ name: 'home' }">HOME</router-link>
-              <router-link class="nav-link" id="links" :to="{ name: 'ueber-uns' }"
-                >ÜBER UNS</router-link
-              >
-              <router-link class="nav-link" id="links" :to="{ name: 'kontakt' }"
-                >KONTAKT</router-link
-              >
-            </div>
-            <div class="d-flex flex-column gap-4" id="footer_terms">
-              <router-link class="nav-link" id="links" :to="{ name: 'home' }"
-                >Impressum</router-link
-              >
-              <router-link class="nav-link" id="links" :to="{ name: 'ueber-uns' }"
-                >Datenschutz</router-link
-              >
-              <router-link class="nav-link" id="links" :to="{ name: 'kontakt' }"
-                >Kontaktdatenerhebung Covid-19</router-link
-              >
-            </div>
-          </div>
-          <div class="d-flex flex-row gap-3" id="footer_social">
-            <img src="../assets/insta.png" alt="" id="social" />
-            <img src="../assets/snapchat.png" alt="" id="social" />
-            <img src="../assets/twitter.png" alt="" id="social" />
-            <img src="../assets/fb.png" alt="" id="social" />
-          </div>
-        </div>
-        <div class="text-center" id="copyright">
-          <h6><span style="color: #f8b333">©</span>2023 OliveWood</h6>
-        </div>
+  <div class="footer-basic">
+      <div class="social">
+        <a href="https://www.instagram.com/">
+          <i class="icon-ion-social-instagram"></i>
+        </a>
+        <a href="https://www.snapchat.com/">
+            <i class="icon-ion-social-snapchat"></i>
+        </a>
+        <a href="https://twitter.com/">
+            <i class="icon-ion-social-twitter"></i>
+        </a>
+        <a href="https://www.facebook.com/">
+            <i class="icon-ion-social-facebook"></i>
+        </a>
       </div>
+
+      <ul class="list-inline" id = "ft">
+        <li class="list-inline-item"><a href="#">Home</a></li>
+        <li class="list-inline-item"><a href="#">Services</a></li>
+        <li class="list-inline-item"><a href="#">About</a></li>
+        <li class="list-inline-item"><a href="#">Terms</a></li>
+        <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+      </ul>
+      <p class="copyright">OliveWood © 2023</p>
     </div>
+
+    
   </footer>
+
+
 </template>
 <style scoped>
-#footer {
-  min-height: 25vh;
-  justify-content: space-between;
-}
-#footer_links {
-  width: 100%;
-  height: auto;
-  justify-content: space-between;
-}
-#footer_navbar {
-  width: 100%;
-  height: auto;
-  padding: 20px;
-  justify-content: space-around;
-}
-#links {
-  color: #b47501;
-  font-size: 15px;
-  font-weight: 500;
-}
-#links:hover {
-  color: #f8b333;
-}
-#footer_social {
-  width: 100%;
-  height: auto;
-  padding: 20px;
-  justify-content: center;
-}
-#social {
-  height: 30px;
-  width: 30px;
-  cursor: pointer;
-}
-#copyright {
-  color: #b47501;
-  width: 100%;
+
+
+.footer-basic {
+  padding: 40px 0;
+  background-color: #000;
+  color: #4b4c4d;
 }
 
-/* Medium devices (tablets, 768px and up) */
-@media (min-width: 768px) {
-  #footer_social {
-    justify-content: flex-end;
-  }
+.footer-basic ul {
+  padding: 0;
+  list-style: none;
+  text-align: center;
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 0;
 }
+
+.footer-basic li {
+  padding: 0 10px;
+}
+
+.footer-basic ul a {
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.8;
+}
+
+.footer-basic ul a:hover {
+  opacity: 1;
+}
+
+.footer-basic .social {
+  text-align: center;
+  padding-bottom: 25px;
+}
+
+.footer-basic .social>a {
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  display: inline-block;
+  text-align: center;
+  border-radius: 50%;
+  /* border: 1px solid #ccc; */
+  margin: 0 8px;
+  color: inherit;
+  opacity: 0.75;
+}
+
+.footer-basic .social>a:hover {
+  opacity: 0.9;
+}
+
+.footer-basic .copyright {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 13px;
+  color: #aaa;
+  margin-bottom: 0;
+}
+
+
+.footer-basic .social .icon-ion-social-instagram{
+  
+  display: inline-block;
+  width: 40px; 
+  height: 40px; 
+  background-image: url('../assets/insta.png'); /* set the image as the background */
+  background-size: cover; /* scale the image to cover the entire icon */
+  background-position: center; /* center the image within the icon */
+  border-radius: 50%; /* make the icon circular */
+
+}
+.footer-basic .social .icon-ion-social-snapchat{
+  
+  display: inline-block;
+  width: 40px; 
+  height: 40px; 
+  background-image: url('../assets/snapchat.png'); /* set the image as the background */
+   background-size: cover; /*scale the image to cover the entire icon */
+  background-position: center; /* center the image within the icon */
+  border-radius: 50%; /* make the icon circular */
+
+}
+.footer-basic .social .icon-ion-social-twitter{
+  
+  display: inline-block;
+  width: 40px; 
+  height: 40px; 
+  background-image: url('../assets/twitter.png'); /* set the image as the background */
+  background-size: cover; /* scale the image to cover the entire icon */
+  background-position: center; /* center the image within the icon */
+  border-radius: 50%; /* make the icon circular */
+
+}
+.footer-basic .social .icon-ion-social-facebook{
+  
+  display: inline-block;
+  width: 40px; 
+  height: 40px; 
+  background-image: url('../assets/fb.png'); /* set the image as the background */
+  background-size: cover; /* scale the image to cover the entire icon */
+  background-position: center; /* center the image within the icon */
+  border-radius: 50%; /* make the icon circular */
+
+}
+
+.footer-basic .list-inline{
+  color: #fff;
+}
+
+#ft :hover{
+  color : #F8B333;
+}
+
 </style>
+
+
+

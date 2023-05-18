@@ -19,7 +19,7 @@ import Footer from './components/Footer.vue'
 
 <style scoped>
 #app {
-  background-color: #262626;
+  background-color: #FAF9F6;
   position: relative;
 }
 #app_header_main {
