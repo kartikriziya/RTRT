@@ -72,7 +72,7 @@ function showSignUp() {
 </template>
 <style scoped>
 #Account {
-  background-color: #f4ebd9;
+  background-color: #fff;
   min-height: calc(100vh - 151px);
 }
 #Account_box {
@@ -81,15 +81,15 @@ function showSignUp() {
 }
 #signUpLink {
   display: none;
-  color: #b47501;
+  color: #fff;
 }
 #loginLink {
-  color: #b47501;
+  color: #fff;
 }
 #showLogin,
 #showSignUp {
   text-decoration: none;
-  color: #b47501;
+  color: burlywood;
 }
 #showLogin:hover,
 #showSignUp:hover {
@@ -97,7 +97,7 @@ function showSignUp() {
   cursor: pointer;
 }
 #slider {
-  background-color: #f4ebd9;
+  background-color: #ea3c53;
   position: absolute;
   height: 100%;
 }
