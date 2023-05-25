@@ -63,7 +63,7 @@
   margin-bottom: 20px;
 }
 #links {
-  color: #f4ebd9;
+  color: #f8b333;
   font-size: 15px;
   font-weight: 500;
 }
