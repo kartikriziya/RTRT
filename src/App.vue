@@ -19,13 +19,13 @@ import Footer from './components/Footer.vue'
 
 <style scoped>
 #app {
-  background-color: #FAF9F6;
+  background-color: #262626;
   position: relative;
 }
 #app_header_main {
   min-height: calc(100vh - 151px);
 }
 #app_footer {
-  background-color: #262626;
+  background-color: black;
 }
 </style>

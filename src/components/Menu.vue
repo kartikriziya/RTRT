@@ -21,11 +21,23 @@
           </div>
           <div id="name_price">
             <div id="names">
-              <h6>margerita</h6>
+              <h6>Margerita</h6>
               <h6>Caprese</h6>
+              <h6>Carbonara</h6>
+              <h6>Frutti di Romana</h6>
+              <h6>Bombay</h6>
+              <h6>Calzone</h6>
+              <h6>Pizza al Pesto</h6>
+              <h6>Pizza al Pesto</h6>
             </div>
             <div id="prices">
               <h6>11€</h6>
+              <h6>13€</h6>
+              <h6>12€</h6>
+              <h6>9€</h6>
+              <h6>12.50€</h6>
+              <h6>11.50</h6>
+              <h6>13€</h6>
               <h6>13€</h6>
             </div>
           </div>
@@ -44,11 +56,23 @@
           </div>
           <div id="name_price">
             <div id="names">
-              <h6>margerita</h6>
+              <h6>Margerita</h6>
               <h6>Caprese</h6>
+              <h6>Carbonara</h6>
+              <h6>Frutti di Romana</h6>
+              <h6>Bombay</h6>
+              <h6>Calzone</h6>
+              <h6>Pizza al Pesto</h6>
+              <h6>Pizza al Pesto</h6>
             </div>
             <div id="prices">
               <h6>11€</h6>
+              <h6>13€</h6>
+              <h6>12€</h6>
+              <h6>9€</h6>
+              <h6>12.50€</h6>
+              <h6>11.50</h6>
+              <h6>13€</h6>
               <h6>13€</h6>
             </div>
           </div>
@@ -67,11 +91,23 @@
           </div>
           <div id="name_price">
             <div id="names">
-              <h6>margerita</h6>
+              <h6>Margerita</h6>
               <h6>Caprese</h6>
+              <h6>Carbonara</h6>
+              <h6>Frutti di Romana</h6>
+              <h6>Bombay</h6>
+              <h6>Calzone</h6>
+              <h6>Pizza al Pesto</h6>
+              <h6>Pizza al Pesto</h6>
             </div>
             <div id="prices">
               <h6>11€</h6>
+              <h6>13€</h6>
+              <h6>12€</h6>
+              <h6>9€</h6>
+              <h6>12.50€</h6>
+              <h6>11.50</h6>
+              <h6>13€</h6>
               <h6>13€</h6>
             </div>
           </div>
@@ -90,80 +126,23 @@
           </div>
           <div id="name_price">
             <div id="names">
-              <h6>margerita</h6>
+              <h6>Margerita</h6>
               <h6>Caprese</h6>
+              <h6>Carbonara</h6>
+              <h6>Frutti di Romana</h6>
+              <h6>Bombay</h6>
+              <h6>Calzone</h6>
+              <h6>Pizza al Pesto</h6>
+              <h6>Pizza al Pesto</h6>
             </div>
             <div id="prices">
               <h6>11€</h6>
               <h6>13€</h6>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Item 5 -->
-    <div class="col-sm-4 col-md-4 col-lg-3 mt-5" id="itemCol">
-      <div id="item">
-        <div id="front">
-          <img src="../assets/burger.png" alt="items" id="itemImg" />
-        </div>
-        <div id="back">
-          <div class="text-center" id="itemText">
-            <h3>Burger</h3>
-          </div>
-          <div id="name_price">
-            <div id="names">
-              <h6>margerita</h6>
-              <h6>Caprese</h6>
-            </div>
-            <div id="prices">
-              <h6>11€</h6>
+              <h6>12€</h6>
+              <h6>9€</h6>
+              <h6>12.50€</h6>
+              <h6>11.50</h6>
               <h6>13€</h6>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Item 6 -->
-    <div class="col-sm-4 col-md-4 col-lg-3 mt-5" id="itemCol">
-      <div id="item">
-        <div id="front">
-          <img src="../assets/cocktail.png" alt="items" id="itemImg" />
-        </div>
-        <div id="back">
-          <div class="text-center" id="itemText">
-            <h3>Drinks</h3>
-          </div>
-          <div id="name_price">
-            <div id="names">
-              <h6>margerita</h6>
-              <h6>Caprese</h6>
-            </div>
-            <div id="prices">
-              <h6>11€</h6>
-              <h6>13€</h6>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Item 7 -->
-    <div class="col-sm-4 col-md-4 col-lg-3 mt-5" id="itemCol">
-      <div id="item">
-        <div id="front">
-          <img src="../assets/dessert.png" alt="items" id="itemImg" />
-        </div>
-        <div id="back">
-          <div class="text-center" id="itemText">
-            <h3>Dessert</h3>
-          </div>
-          <div id="name_price">
-            <div id="names">
-              <h6>margerita</h6>
-              <h6>Caprese</h6>
-            </div>
-            <div id="prices">
-              <h6>11€</h6>
               <h6>13€</h6>
             </div>
           </div>

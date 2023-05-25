@@ -1,40 +1,50 @@
 <script setup></script>
 <template>
   <footer>
-    <div class="container-fluid mt-5 pt-5">
-      <!-- <h1>Footer</h1> -->
-      <div class="d-flex flex-column" id="footer">
-        <div class="d-flex flex-column" id="footer_links">
-          <div class="d-flex flex-row" id="footer_navbar">
-            <div class="d-flex flex-column gap-3" id="footer_navbar_links">
-              <router-link class="nav-link" id="links" :to="{ name: 'home' }">HOME</router-link>
-              <router-link class="nav-link" id="links" :to="{ name: 'ueber-uns' }"
-                >ÜBER UNS</router-link
-              >
-              <router-link class="nav-link" id="links" :to="{ name: 'kontakt' }"
-                >KONTAKT</router-link
-              >
-            </div>
-            <div class="d-flex flex-column gap-4" id="footer_terms">
-              <router-link class="nav-link" id="links" :to="{ name: 'home' }"
-                >Impressum</router-link
-              >
-              <router-link class="nav-link" id="links" :to="{ name: 'ueber-uns' }"
-                >Datenschutz</router-link
-              >
-              <router-link class="nav-link" id="links" :to="{ name: 'kontakt' }"
-                >Kontaktdatenerhebung Covid-19</router-link
-              >
-            </div>
-          </div>
-          <div class="d-flex flex-row gap-3" id="footer_social">
-            <img src="../assets/insta.png" alt="" id="social" />
-            <img src="../assets/snapchat.png" alt="" id="social" />
-            <img src="../assets/twitter.png" alt="" id="social" />
-            <img src="../assets/fb.png" alt="" id="social" />
-          </div>
+    <div class="container-fluid pt-5" id="footer">
+      <div class="row">
+        <div class="col-sm-4 p-3" id="footer_start">
+          <router-link class="nav-link mb-2" id="links" :to="{ name: 'home' }">HOME</router-link>
+          <router-link class="nav-link mb-2" id="links" :to="{ name: 'ueber-uns' }"
+            >ÜBER UNS</router-link
+          >
+          <router-link class="nav-link mb-2" id="links" :to="{ name: 'kontakt' }"
+            >KONTAKT</router-link
+          >
         </div>
-        <div class="text-center" id="copyright">
+        <div class="col-sm-4 p-3" id="footer_center">
+          <router-link class="nav-link mb-2" id="links" :to="{ name: 'account' }"
+            >SignUp</router-link
+          >
+          <router-link class="nav-link mb-2" id="links" :to="{ name: 'account' }"
+            >Cancel Reservation</router-link
+          >
+        </div>
+        <div class="col-sm-4 p-3" id="footer_end">
+          <router-link class="nav-link mb-2" id="links" :to="{ name: 'home' }"
+            >Impressum</router-link
+          >
+          <router-link class="nav-link mb-2" id="links" :to="{ name: 'ueber-uns' }"
+            >Datenschutz</router-link
+          >
+          <router-link class="nav-link mb-2" id="links" :to="{ name: 'kontakt' }"
+            >Kontaktdatenerhebung Covid-19</router-link
+          >
+        </div>
+      </div>
+      <div class="row">
+        <div
+          class="col-12 text-center p-3"
+          style="display: flex; flex-direction: row; justify-content: center"
+        >
+          <div class="ms-5" id="instagram"></div>
+          <div class="ms-5" id="snapchat"></div>
+          <div class="ms-5" id="twitter"></div>
+          <div class="ms-5" id="facebook"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 text-center" id="copyright">
           <h6><span style="color: #f8b333">©</span>2023 OliveWood</h6>
         </div>
       </div>
@@ -46,45 +56,81 @@
   min-height: 25vh;
   justify-content: space-between;
 }
-#footer_links {
-  width: 100%;
-  height: auto;
-  justify-content: space-between;
-}
-#footer_navbar {
-  width: 100%;
-  height: auto;
-  padding: 20px;
-  justify-content: space-around;
+#footer_start,
+#footer_center,
+#footer_end {
+  text-align: center !important;
+  margin-bottom: 20px;
 }
 #links {
-  color: #b47501;
+  color: #f4ebd9;
   font-size: 15px;
   font-weight: 500;
 }
 #links:hover {
-  color: #f8b333;
+  color: #b47501;
 }
-#footer_social {
-  width: 100%;
-  height: auto;
-  padding: 20px;
-  justify-content: center;
-}
-#social {
+#instagram {
   height: 30px;
   width: 30px;
   cursor: pointer;
+  background: url('../assets/instagram.png') no-repeat;
+  background-size: contain;
+}
+#instagram:hover {
+  background: url('../assets/snapchat.png') no-repeat;
+  background-size: contain;
+}
+#snapchat {
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+  background: url('../assets/snapchat.png') no-repeat;
+  background-size: contain;
+}
+#snapchat:hover {
+  background: url('../assets/snapchat.png') no-repeat;
+  background-size: contain;
+}
+#twitter {
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+  background: url('../assets/twitter.png') no-repeat;
+  background-size: contain;
+}
+#twitter:hover {
+  background: url('../assets/snapchat.png') no-repeat;
+  background-size: contain;
+}
+#facebook {
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+  background: url('../assets/facebook.png') no-repeat;
+  background-size: contain;
+}
+#facebook:hover {
+  background: url('../assets/snapchat.png') no-repeat;
+  background-size: contain;
 }
 #copyright {
   color: #b47501;
   width: 100%;
 }
 
-/* Medium devices (tablets, 768px and up) */
-@media (min-width: 768px) {
-  #footer_social {
-    justify-content: flex-end;
+@media (min-width: 576px) {
+  #footer_start {
+    text-align: right !important;
+    margin-bottom: 20px;
+  }
+  #footer_center {
+    text-align: center !important;
+    margin-bottom: 20px;
+  }
+  #footer_end {
+    text-align: left !important;
+    margin-bottom: 20px;
   }
 }
 </style>

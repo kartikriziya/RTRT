@@ -38,7 +38,7 @@
 </template>
 <style scoped>
 #links {
-  color: #f8b333;
+  color: #f4ebd9;
   font-size: 25px;
   font-weight: 500;
 }

@@ -27,98 +27,88 @@ function showSignUp() {
 }
 </script>
 <template>
-  <div class="container-fluid pt-5" id="">
-    <div class="row pt-2">
-      <div class="col-sm-1 col-md-1 col-lg-2 col-xl-2"></div>
-      <div
-        class="col-sm-10 col-md-8 col-lg-8 col-xl-8"
-        id="Account"
-        style="background-color: rgb(226, 43, 43)"
-      >
+  <div class="container-fluid pt-5 pb-3" id="Account">
+    <div class="row pt-5">
+      <div class="col-md-1 col-lg-2 col-xl-3"></div>
+      <div class="col-md-10 col-lg-8 col-xl-6" id="Account_box">
         <div class="row">
           <!-- Login -->
-          <div
-            class="col-sm-6 col-md-6 col-lg-6 col-xl-6"
-            id=""
-            style="background-color: #fff"
-          >
+          <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6" id="" style="background-color: #262626">
             <Login />
           </div>
           <!-- SignUp -->
-          <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6" id="" style="background-color: #fff">
+          <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6" id="" style="background-color: #262626">
             <SignUp />
           </div>
           <!-- Slider----------------------------------------------------------------------------------------------------------------- -->
           <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6" id="slider">
             <div class="row">
               <div class="col-12 text-center mt-5" id="signUpLink">
-                <br>
+                <br />
                 <h3>Hello, Friend!</h3>
-                <br>
+                <br />
                 <h4>Enter your personal details and start your journey with us</h4>
-                <br>
-                <h6>Don't have an account?<span id="showSignUp" @click="showSignUp()">SignUp</span></h6>
+                <br />
+                <h6>
+                  Don't have an account?<span id="showSignUp" @click="showSignUp()"> SignUp</span>
+                </h6>
               </div>
               <div class="col-12 text-center mt-5" id="loginLink">
-                <br><h3>Welcome Back!</h3>
-                <br>
+                <br />
+                <h3>Welcome Back!</h3>
+                <br />
                 <h4>To keep connected with us please login with your personal info</h4>
-                <br>
-                <h6>Already an account?<span id="showLogin" @click="showLogin()">Login</span></h6>
+                <br />
+                <h6>Already an account?<span id="showLogin" @click="showLogin()"> Login</span></h6>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="col-sm-1 col-md-1 col-lg-2 col-xl-2"></div>
+      <div class="col-md-1 col-lg-2 col-xl-3"></div>
     </div>
   </div>
 </template>
 <style scoped>
 #Account {
+  background-color: #f4ebd9;
+  min-height: calc(100vh - 151px);
+}
+#Account_box {
+  /* box-shadow: rgba(248, 179, 51, 0.1) 0px 20px 30px; */
   position: relative;
 }
 #signUpLink {
   display: none;
-  color : #fff;
+  color: #b47501;
 }
 #loginLink {
-  color : #fff;
+  color: #b47501;
 }
 #showLogin,
 #showSignUp {
   text-decoration: none;
-  color: burlywood;
+  color: #b47501;
 }
 #showLogin:hover,
 #showSignUp:hover {
-  color: b47501;
-  text-decoration: underline;
+  font-weight: 700;
   cursor: pointer;
 }
 #slider {
-  background-color: #EA3C53;
+  background-color: #f4ebd9;
   position: absolute;
   height: 100%;
 }
 
 /* Slider-Animation */
 .showLogin {
-  transform: translateX(100%);
+  transform: translateX(100.1%);
   transition: all 0.75s ease;
 }
 .showSignUp {
   transform: translateX(0);
   transition: all 0.75s ease;
-}
-#login_box{
-  border-radius: 10px;
-  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.4);
-}
-#signup_box{
-  border-radius: 10px;
-  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.4);
-
 }
 </style>

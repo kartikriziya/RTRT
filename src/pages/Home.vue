@@ -35,7 +35,7 @@ console.log(pageName.fullPath)
   left: 0;
 }
 #homeSection2 {
-  /* background-color: #faf9f6; */
+  background-color: #f4ebd9;
   min-height: 100vh;
 }
 </style>

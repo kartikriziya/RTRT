@@ -2,7 +2,7 @@
 <template>
   <form
     action=""
-    class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-2"
+    class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
     autocomplete="off"
     id="loginForm"
   >
@@ -44,6 +44,10 @@
 #loginForm {
   margin-top: 5%;
   /* box-shadow: rgba(248, 179, 51, 0.1) 0px 20px 30px; */
+}
+#loginEmail,
+#loginPassword {
+  background-color: #f4ebd9;
 }
 .loginForm_animation {
   animation: 0.7s ease-out 0s 1 slideFromLeft;

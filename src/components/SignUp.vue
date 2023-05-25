@@ -1,21 +1,24 @@
 <script setup>
 import axios from 'axios'
 
-function verifyEmail() {
-  //console.log('verify clicked')
-  axios
-    .post('https://olivewood.000webhostapp.com/connection.php', {
-      action: 'test'
+async function verifyEmail() {
+  console.log('verify clicked')
+  await axios
+    .post('https://olivewood.elementfx.com/connection.php', {
+      action: 'check'
     })
     .then((result) => {
       console.log(result.data)
+    })
+    .catch(function (error) {
+      console.log(error)
     })
 }
 </script>
 <template>
   <form
     action=""
-    class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-2"
+    class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
     autocomplete="off"
     id="signUpForm"
     novalidate
@@ -62,7 +65,7 @@ function verifyEmail() {
       </div>
     </div>
     <div class="col-sm-3"></div>
-    <div class="col-sm-6 text-center d-grid pt-3">
+    <div class="col-sm-6 text-center d-grid pt-4">
       <button class="btn" id="signUpBtn" @click.prevent="verifyEmail()">Verify Email</button>
     </div>
   </form>
