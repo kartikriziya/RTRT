@@ -5,7 +5,9 @@ async function verifyEmail() {
   console.log('verify clicked')
   await axios
     .post('https://olivewood.elementfx.com/connection.php', {
-      action: 'check'
+      action: 'check',
+      first: 'Kartik',
+      last: 'Riziya'
     })
     .then((result) => {
       console.log(result.data)
