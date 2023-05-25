@@ -27,7 +27,7 @@ function showSignUp() {
 }
 </script>
 <template>
-  <h1>Account</h1>
+  <h1 style="color: aqua">Account</h1>
   <div class="container-fluid pt-5 pb-3" id="Account">
     <div class="row pt-5">
       <div class="col-md-1 col-lg-2 col-xl-3"></div>
