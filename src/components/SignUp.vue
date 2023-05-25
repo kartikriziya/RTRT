@@ -154,6 +154,18 @@ async function verifyEmail() {
   margin-top: 5%;
   /*box-shadow: rgba(248, 179, 51, 0.1) 0px 20px 30px;*/
 }
+#signUpFname,
+#signUpLname,
+#signUpEmail {
+  background-color: #f4ebd9;
+}
+#signUpPassword1,
+#signUpPassword2 {
+  background-color: #f4ebd9;
+}
+#signUpOTP {
+  background-color: #f4ebd9;
+}
 .signUpForm_animation {
   animation: 0.7s ease-out 0s 1 slideFromRight;
 }
