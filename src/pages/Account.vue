@@ -33,11 +33,11 @@ function showSignUp() {
       <div class="col-md-10 col-lg-8 col-xl-6" id="Account_box">
         <div class="row">
           <!-- Login -->
-          <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6" id="" style="background-color: #262626">
+          <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6" id="" style="background-color: #fff">
             <Login />
           </div>
           <!-- SignUp -->
-          <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6" id="" style="background-color: #262626">
+          <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6" id="" style="background-color: #fff">
             <SignUp />
           </div>
           <!-- Slider----------------------------------------------------------------------------------------------------------------- -->
