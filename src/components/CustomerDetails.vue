@@ -34,6 +34,9 @@ const timinings = ref([
 <template>
   <div class="row pb-5">
     <div class="col-xl-7 ps-5 pt-3 pe-5 pb-2" id="details" style="background-color: burlywood">
+      <!--                     -->
+      <!--    No of People     -->
+      <!--                     -->
       <div class="row">
         <div class="col-12 pb-2" style="background-color: cadetblue">
           <h3>No of People</h3>
@@ -54,9 +57,15 @@ const timinings = ref([
             </div>
           </div>
         </div>
+        <!--                     -->
+        <!--        Calender     -->
+        <!--                     -->
         <div class="col-12 pt-2"></div>
       </div>
     </div>
+    <!--                     -->
+    <!--      Time Slot's    -->
+    <!--                     -->
     <div class="col-xl-5 pt-3 pb-2" style="background-color: darkgray">
       <h2>Time Slot's</h2>
       <div class="row pt-2" id="timinings">
@@ -74,6 +83,7 @@ const timinings = ref([
       </div>
     </div>
   </div>
+  <!-- Reservation Button -->
   <div class="row pb-2">
     <div class="col-lg-4"></div>
     <div class="col-lg-4 text-center d-grid">
@@ -83,6 +93,9 @@ const timinings = ref([
   </div>
 </template>
 <style scoped>
+/* ********************************** */
+/*            No of People            */
+/* ********************************** */
 #noOfPeople {
   display: flex;
   flex-direction: row;
@@ -126,6 +139,9 @@ const timinings = ref([
   color: #f4ebd9;
 }
 
+/* ********************************** */
+/*             Time Slot's            */
+/* ********************************** */
 #timinings {
   display: flex;
   flex-direction: row;
@@ -171,6 +187,9 @@ const timinings = ref([
   color: #f4ebd9;
 }
 
+/* ********************************** */
+/*          Reservation Button        */
+/* ********************************** */
 #reserveBtn {
   --bs-btn-color: #b47501;
   --bs-btn-border-color: #b47501;
