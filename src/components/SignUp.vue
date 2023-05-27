@@ -1,16 +1,79 @@
 <script setup>
+import { ref } from 'vue'
 import axios from 'axios'
 
+const Base_Url = 'https://olivewood.elementfx.com'
+
+const signUpFname = ref('')
+const signUpLname = ref('')
+const signUpEmail = ref('')
+
+const signUpOTP = ref('')
+
+const signUpPassword1 = ref('')
+const signUpPassword2 = ref('')
+
+/* ______ verifyEmail ______ */
 async function verifyEmail() {
-  console.log('verify clicked')
+  console.log('verifyEmail')
   await axios
-    .post('https://olivewood.elementfx.com/connection.php', {
-      action: 'check',
-      first: 'Kartik',
-      last: 'Riziya'
+    .post(Base_Url + '/connection.php', {
+      action: 'check'
     })
     .then((result) => {
       console.log(result.data)
+      console.log(signUpFname.value + ', ' + signUpLname.value + ', ' + signUpEmail.value)
+      document.querySelector('#signUpForm').style.display = 'none'
+      document.querySelector('#signUpOTPForm').style.display = 'flex'
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+}
+/* ______ verifyOTP ______ */
+async function verifyOTP() {
+  console.log('verifyOTP')
+  await axios
+    .post(Base_Url + '/connection.php', {
+      action: 'check'
+    })
+    .then((result) => {
+      console.log(result.data)
+      console.log(signUpOTP.value)
+      document.querySelector('#signUpOTPForm').style.display = 'none'
+      document.querySelector('#signUpPasswordForm').style.display = 'flex'
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+}
+/* ________ SignUp _______ */
+async function SignUp() {
+  console.log('SignUp')
+  await axios
+    .post(Base_Url + '/connection.php', {
+      action: 'check'
+    })
+    .then((result) => {
+      console.log(result.data)
+      console.log(signUpPassword1.value + ', ' + signUpPassword2.value)
+      document.querySelector('#signUpPasswordForm').style.display = 'none'
+      document.querySelector('#signUpForm').style.display = 'flex'
+
+      if (result.data === 'successfully signup') {
+        const slider = document.querySelector('#slider')
+        slider.classList.remove('showSignUp')
+        slider.classList.add('showLogin') /* -------> */
+        document.querySelector('#loginLink').style.display = 'none'
+        document.querySelector('#signUpLink').style.display = 'block'
+
+        const loginForm = document.querySelector('#loginForm')
+        loginForm.classList.add('loginForm_animation')
+        const signUpForm = document.querySelector('#signUpForm')
+        signUpForm.classList.remove('signUpForm_animation')
+      } else {
+        alert(result.data)
+      }
     })
     .catch(function (error) {
       console.log(error)
@@ -18,6 +81,9 @@ async function verifyEmail() {
 }
 </script>
 <template>
+  <!-- --------------------------------------------------------------------------------------------------- -->
+  <!--                                            signUpForm                                               -->
+  <!-- --------------------------------------------------------------------------------------------------- -->
   <form
     action=""
     class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
@@ -28,6 +94,7 @@ async function verifyEmail() {
     <div class="col-sm-6">
       <div class="form-floating">
         <input
+          v-model="signUpFname"
           type="text"
           class="form-control"
           name="signUpFname"
@@ -41,6 +108,7 @@ async function verifyEmail() {
     <div class="col-sm-6">
       <div class="form-floating">
         <input
+          v-model="signUpLname"
           type="text"
           class="form-control"
           name="signUpLname"
@@ -54,6 +122,7 @@ async function verifyEmail() {
     <div class="col-sm-12">
       <div class="form-floating">
         <input
+          v-model="signUpEmail"
           type="email"
           class="form-control"
           name="signUpEmail"
@@ -71,17 +140,21 @@ async function verifyEmail() {
       <button class="btn" id="signUpBtn" @click.prevent="verifyEmail()">Verify Email</button>
     </div>
   </form>
+  <!-- --------------------------------------------------------------------------------------------------- -->
+  <!--                                          signUpOTPForm                                              -->
+  <!-- --------------------------------------------------------------------------------------------------- -->
   <form
     action=""
-    class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-2"
+    class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
     autocomplete="off"
     id="signUpOTPForm"
     novalidate
     style="display: none"
   >
-    <div class="col-sm-6">
+    <div class="col-sm-6 pb-5">
       <div class="form-floating">
         <input
+          v-model="signUpOTP"
           type="text"
           class="form-control"
           name="signUpOTP"
@@ -92,7 +165,7 @@ async function verifyEmail() {
         <label for="signUpOTP" id="signUpLabels">OTP</label>
       </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-6 pb-5">
       <div class="row">
         <div class="col-12">
           <a href="#" id="signUpResendOTP">Resend OTP?</a>
@@ -101,22 +174,26 @@ async function verifyEmail() {
       </div>
     </div>
     <div class="col-sm-3"></div>
-    <div class="col-sm-6 text-center d-grid pt-3">
-      <button class="btn" id="signUpBtn">Verify OTP</button>
+    <div class="col-sm-6 text-center d-grid">
+      <button class="btn" id="signUpBtn" @click.prevent="verifyOTP()">Verify OTP</button>
     </div>
     <div class="col-sm-3"></div>
   </form>
+  <!-- --------------------------------------------------------------------------------------------------- -->
+  <!--                                         signUpPasswordForm                                          -->
+  <!-- --------------------------------------------------------------------------------------------------- -->
   <form
     action=""
-    class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-2"
+    class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
     autocomplete="off"
     id="signUpPasswordForm"
     novalidate
     style="display: none"
   >
-    <div class="col-sm-6">
+    <div class="col-sm-12">
       <div class="form-floating">
         <input
+          v-model="signUpPassword1"
           type="password"
           class="form-control"
           name="signUpPassword"
@@ -127,9 +204,10 @@ async function verifyEmail() {
         <label for="signUpPassword1" id="signUpLabels">Password</label>
       </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-12">
       <div class="form-floating">
         <input
+          v-model="signUpPassword2"
           type="password"
           class="form-control"
           name="signUpPassword"
@@ -142,7 +220,7 @@ async function verifyEmail() {
     </div>
     <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center d-grid pt-3">
-      <button class="btn" id="signUpBtn">Signup</button>
+      <button class="btn" id="signUpBtn" @click.prevent="SignUp()">Signup</button>
     </div>
     <div class="col-sm-3"></div>
   </form>
