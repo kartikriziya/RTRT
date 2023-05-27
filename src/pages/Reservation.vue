@@ -1,5 +1,6 @@
 <script setup>
 import Rating from '../components/Rating.vue'
+import CustomerDetails from '../components/CustomerDetails.vue'
 </script>
 <template>
   <div class="container-fluid" id="reservation">
@@ -21,17 +22,16 @@ import Rating from '../components/Rating.vue'
           <Rating />
         </div>
       </div>
-      <div
-        class="col-md-6 col-lg-7 col-xl-8"
-        id="tableLayout"
-        style="background-color: brown"
-      ></div>
+      <div class="col-md-6 col-lg-7 col-xl-8" id="tableLayout" style="background-color: brown">
+        <CustomerDetails />
+      </div>
     </div>
-    <div class="row pt-5">
-      <div class="col-sm-1"></div>
-      <div class="col-sm-5"></div>
-      <div class="col-sm-4"></div>
-      <div class="col-sm-5"></div>
+    <div class="row pt-5 pb-5">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-8" style="background-color: blue">
+        <img src="../assets/golden_spoon.jpg" alt="" id="layoutImg" />
+      </div>
+      <div class="col-sm-2"></div>
     </div>
   </div>
 </template>
@@ -39,5 +39,9 @@ import Rating from '../components/Rating.vue'
 #reservation {
   background-color: #f4ebd9;
   min-height: calc(100vh - 151px);
+}
+#layoutImg {
+  height: 100%;
+  width: 100%;
 }
 </style>
