@@ -18,7 +18,10 @@ async function verifyEmail() {
   console.log('verifyEmail')
   await axios
     .post(Base_Url + '/connection.php', {
-      action: 'check'
+      action: 'verify_email',
+      firstName: signUpFname.value,
+      lastName: signUpLname.value,
+      Email: signUpEmail.value
     })
     .then((result) => {
       console.log(result.data)
@@ -35,7 +38,8 @@ async function verifyOTP() {
   console.log('verifyOTP')
   await axios
     .post(Base_Url + '/connection.php', {
-      action: 'check'
+      action: 'verify_otp',
+      signUpOTP: signUpOTP.value
     })
     .then((result) => {
       console.log(result.data)
@@ -52,7 +56,9 @@ async function SignUp() {
   console.log('SignUp')
   await axios
     .post(Base_Url + '/connection.php', {
-      action: 'check'
+      action: 'signup',
+      Password1: signUpPassword1.value,
+      Password2: signUpPassword2.value
     })
     .then((result) => {
       console.log(result.data)
