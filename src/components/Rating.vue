@@ -1,6 +1,7 @@
 <script></script>
 <template>
-  <div class="col-sm-8 col-md-12 pe-4 gap-2" id="wrapperRating">
+  <div class="col-sm-4"></div>
+  <div class="col-sm-4 pe-4 gap-2" id="wrapperRating">
     <input type="radio" id="star5" name="rate" value="5" />
     <label id="stars" for="star5"><i class="fa fa-star"></i></label>
 
@@ -16,7 +17,6 @@
     <input type="radio" id="star1" name="rate" value="1" />
     <label id="stars" for="star1"><i class="fa fa-star"></i></label>
   </div>
-  <div class="col-sm-4 col-md-12"></div>
 </template>
 <style scoped>
 /**************************************/
@@ -26,7 +26,7 @@
   background-color: darkolivegreen;
   display: flex;
   flex-direction: row-reverse;
-  justify-content: end;
+  justify-content: start;
 }
 #wrapperRating input {
   display: none;
