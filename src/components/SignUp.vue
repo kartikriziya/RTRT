@@ -17,7 +17,7 @@ const signUpPassword2 = ref('')
 async function verifyEmail() {
   console.log('verifyEmail')
   await axios
-    .post(Base_Url + '/connection.php', {
+    .post(Base_Url + '/account.php', {
       action: 'verify_email',
       firstName: signUpFname.value,
       lastName: signUpLname.value,
@@ -37,7 +37,7 @@ async function verifyEmail() {
 async function verifyOTP() {
   console.log('verifyOTP')
   await axios
-    .post(Base_Url + '/connection.php', {
+    .post(Base_Url + '/account.php', {
       action: 'verify_otp',
       signUpOTP: signUpOTP.value
     })
@@ -55,7 +55,7 @@ async function verifyOTP() {
 async function SignUp() {
   console.log('SignUp')
   await axios
-    .post(Base_Url + '/connection.php', {
+    .post(Base_Url + '/account.php', {
       action: 'signup',
       Password1: signUpPassword1.value,
       Password2: signUpPassword2.value
