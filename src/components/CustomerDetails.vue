@@ -33,7 +33,7 @@ const timinings = ref([
 </script>
 <template>
   <div class="row pb-5">
-    <div class="col-xl-7 ps-5 pt-3 pe-5 pb-2" id="details" style="background-color: burlywood">
+    <div class="col-sm-12 ps-5 pt-3 pe-5 pb-2" id="details" style="background-color: burlywood">
       <!--                     -->
       <!--    No of People     -->
       <!--                     -->
@@ -66,7 +66,7 @@ const timinings = ref([
     <!--                     -->
     <!--      Time Slot's    -->
     <!--                     -->
-    <div class="col-xl-5 pt-3 pb-2" style="background-color: darkgray">
+    <div class="col-sm-12 pt-3 pb-2" style="background-color: darkgray">
       <h2>Time Slot's</h2>
       <div class="row pt-2" id="timinings">
         <div
