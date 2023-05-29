@@ -1,6 +1,18 @@
 <script setup>
 import { ref } from 'vue'
 
+function myFunction() {
+  var today = new Date()
+  var month = today.getMonth()
+  console.log(daysInMonth(month + 1, today.getFullYear()) + ' ' + month + ' ' + today.getFullYear())
+}
+
+function daysInMonth(month, year) {
+  return new Date(year, month, 0).getDate()
+}
+
+myFunction()
+
 const noOfPeople = ref([
   { id: 'check2', people: '2' },
   { id: 'check4', people: '4' },
@@ -60,7 +72,53 @@ const timinings = ref([
         <!--                     -->
         <!--        Calender     -->
         <!--                     -->
-        <div class="col-12 pt-2"></div>
+        <div class="col-12 pt-2" style="background-color: blueviolet">
+          <div class="row" style="background-color: cornsilk">
+            <div class="col-sm-3"></div>
+            <div
+              class="col-sm-6"
+              style="background-color: coral; display: flex; justify-content: center"
+            >
+              <h4>Mai / 2023</h4>
+            </div>
+            <div class="col-sm-3"></div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3"></div>
+            <div
+              class="col-sm-6"
+              style="background-color: seagreen; display: flex; flex-direction: row"
+            >
+              <div class="row">
+                <div class="col-2"></div>
+                <div class="col-1" style="background-color: cadetblue">
+                  <h5>M</h5>
+                </div>
+                <div class="col-1" style="background-color: cadetblue">
+                  <h5>T</h5>
+                </div>
+                <div class="col-1" style="background-color: cadetblue">
+                  <h5>W</h5>
+                </div>
+                <div class="col-1" style="background-color: cadetblue">
+                  <h5>Th</h5>
+                </div>
+                <div class="col-1" style="background-color: cadetblue">
+                  <h5>F</h5>
+                </div>
+                <div class="col-1" style="background-color: cadetblue">
+                  <h5>S</h5>
+                </div>
+                <div class="col-1" style="background-color: cadetblue">
+                  <h5>Su</h5>
+                </div>
+
+                <div class="col-3"></div>
+              </div>
+            </div>
+            <div class="col-sm-3"></div>
+          </div>
+        </div>
       </div>
     </div>
     <!--                     -->
