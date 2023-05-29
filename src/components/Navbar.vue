@@ -20,16 +20,16 @@
       <div class="collapse navbar-collapse ms-5" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto my-2 my-lg-0" style="background-color: ; text-align: center">
           <li class="nav-item me-4">
-            <router-link class="nav-link" id="links" :to="{ name: 'home' }">HOME</router-link>
+            <router-link class="nav-link" id="links" :to="{ name: 'home' }">Home</router-link>
           </li>
           <li class="nav-item me-4">
             <router-link class="nav-link" id="links" :to="{ name: 'ueber-uns' }"
-              >ÜBER UNS</router-link
+              >About Us</router-link
             >
           </li>
 
           <li class="nav-item me-4">
-            <router-link class="nav-link" id="links" :to="{ name: 'kontakt' }">KONTAKT</router-link>
+            <router-link class="nav-link" id="links" :to="{ name: 'kontakt' }">Contact</router-link>
           </li>
         </ul>
       </div>
@@ -41,6 +41,7 @@
   color: #f8b333;
   font-size: 25px;
   font-weight: 500;
+  font-family: Rockwell;
 }
 #links:hover {
   color: #b47501;
