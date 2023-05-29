@@ -1,14 +1,44 @@
-<script setup></script>
+<script setup>
+import { ref } from 'vue'
+import axios from 'axios'
+
+const Base_Url = 'https://olivewood.elementfx.com'
+
+const loginEmail = ref('')
+const loginPassword = ref('')
+
+/* ______ login ______ */
+async function login() {
+  console.log('login')
+  await axios
+    .post(Base_Url + '/account.php', {
+      action: 'login_login',
+      logEmail: loginEmail.value,
+      logPassword: loginPassword.value
+    })
+    .then((result) => {
+      console.log(result.data)
+      console.log(loginEmail.value + ', ' + loginPassword.value)
+      document.querySelector('#loginForm').style.display = 'none'
+      document.querySelector('#loginForm').style.display = 'flex'
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+}
+</script>
 <template>
   <form
     action=""
     class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
     autocomplete="off"
     id="loginForm"
+    novalidate
   >
     <div class="col-12">
       <div class="form-floating">
         <input
+          v-model="loginEmail"
           type="email"
           class="form-control"
           id="loginEmail"
@@ -21,6 +51,7 @@
     <div class="col-12">
       <div class="form-floating">
         <input
+          v-model="loginPassword"
           type="Password"
           class="form-control"
           id="loginPassword"
@@ -35,7 +66,7 @@
     </div>
     <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center d-grid pt-3">
-      <button class="btn" id="loginBtn">Login</button>
+      <button class="btn" id="loginBtn" @click.prevent="login()">Login</button>
     </div>
     <div class="col-sm-3"></div>
   </form>
