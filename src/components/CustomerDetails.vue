@@ -253,20 +253,5 @@ const timinings = ref([
 #reserveBtn:hover{
   background-color: #f7bb08;
 }
-/* #reserveBtn {
-  --bs-btn-color: #b47501;
-  --bs-btn-border-color: #b47501;
-  --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #b47501;
-  --bs-btn-hover-border-color: #b47501;
-  --bs-btn-focus-shadow-rgb: 25, 135, 84;
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #b47501;
-  --bs-btn-active-border-color: #b47501;
-  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #b47501;
-  --bs-btn-disabled-bg: transparent;
-  --bs-btn-disabled-border-color: #b47501;
-  --bs-gradient: none;
-} */
+
 </style>
