@@ -7,6 +7,13 @@ const Base_Url = 'https://olivewood.elementfx.com'
 const loginEmail = ref('')
 const loginPassword = ref('')
 
+const forgetPasswordEmail = ref('')
+
+const loginVverifyOTP = ref('')
+
+const password1 = ref('')
+const password2 = ref('')
+
 /* ______ login ______ */
 async function login() {
   console.log('login')
@@ -26,22 +33,103 @@ async function login() {
       console.log(error)
     })
 }
+
+/* ______ forgetPassword ______ */
+function forgetPassword() {
+    document.querySelector('#loginForm').style.display = 'none'
+    document.querySelector('#getOTPForm').style.display = 'flex' 
+}
+
+/* ______ getOTP ______ */
+async function getOTP() {
+  console.log('getOTP')
+  await axios
+    .post(Base_Url + '/forgetPassword.php', {
+      action: 'get_OTP',
+      forgetPasswordEmail: forgetPasswordEmail.value
+    })
+    .then((result) => {
+      console.log(result.data)
+      console.log(forgetPasswordEmail.value)
+      document.querySelector('#getOTPForm').style.display = 'none'
+      document.querySelector('#verifyOTPForm').style.display = 'flex'
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+}
+
+/* ______ verifyOTP ______ */
+async function verifyOTP() {
+  console.log('verifyOTP')
+  await axios
+    .post(Base_Url + '/forgetPassword.php', {
+      action: 'verify_OTP',
+      forgetPasswordEmail: forgetPasswordEmail.value,
+      loginVverifyOTP: loginVverifyOTP.value
+    })
+    .then((result) => {
+      console.log(result.data)
+      console.log(forgetPasswordEmail.value + ',' + loginVverifyOTP.value)
+      if(result.data != "Incorrect_OTP")
+      {
+        document.querySelector('#verifyOTPForm').style.display = 'none'
+        document.querySelector('#changePasswordFrom').style.display = 'flex'
+      }
+      else{
+        alert(result.data)
+      }     
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+}
+
+/* ______ Reset Password ______ */
+async function resetPassword() {
+  console.log('resetPassword')
+  await axios
+    .post(Base_Url + '/forgetPassword.php', {
+      action: 'reset_Password',
+      forgetPasswordEmail: forgetPasswordEmail.value,
+      password1: password1.value,
+      password2: password2.value
+    })
+    .then((result) => {
+      console.log(result.data)
+      console.log(password1.value + ',' + password2.value)
+      if(password1.value == password2.value){
+        document.querySelector('#changePasswordFrom').style.display = 'none'
+        document.querySelector('#loginForm').style.display = 'flex'
+      }
+      else {
+        alert(result.data)
+      }
+  
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+}
 </script>
 <template>
+ <!-- --------------------------------------------------------------------------------------------------- -->
+  <!--                                            LogIn Form                                               -->
+  <!-- --------------------------------------------------------------------------------------------------- -->
   <form
     action=""
-    class="row gy-3 needs-validation pt-2 ps-3 pe-3 pb-2"
+    class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
     autocomplete="off"
     id="loginForm"
   >
+
   <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center vertical-top d-grid pt-1" id = "signin1">
       <div id = "signin">Sign in</div>
     </div>
-    <div class="col-sm-3"></div>
+  <div class="col-sm-3"></div>
 
     <div class="col-12">
-
       <div class="form-floating">
         <input
           v-model="loginEmail"
@@ -68,122 +156,146 @@ async function login() {
       </div>
     </div>
     <div class="col-12 ms-2">
-      <a href="#" id="loginForgot">Forgot Password?</a>
+      <a id="loginForgot" @click.prevent="forgetPassword()">Forgot Password?</a>
     </div>
     <div class="col-sm-3"></div>
-    <div class="col-sm-6 text-center vertical-top d-grid pt-3">
+    <div class="col-sm-6 text-center d-grid pt-3">
       <button class="btn" id="loginBtn" @click.prevent="login()">Login</button>
     </div>
-    <div class="col-sm-3"></div>
+    <div class="col-sm-3" ></div>
+  </form>
 
+<!-- --------------------------------------------------------------------------------------------------- -->
+<!--                                            Forget Password                                          -->
+<!-- --------------------------------------------------------------------------------------------------- -->
 
+<!-- getOTPForm -->
+<form
+    action=""
+    class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
+    autocomplete="off"
+    id="getOTPForm"
+    novalidate
+    style="display: none;"
+> 
 
-
-    <div class="col-sm-3"></div>
+  <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center vertical-top d-grid pt-1" id = "signin1">
-      <div id = "forgetPasswordEmail">Forget Password</div>
-    </div>
+      <div id = "get_OTP">Get OTP</div>
+  </div>
     <div class="col-sm-3"></div>
-
     <div class="col-12">
-
       <div class="form-floating">
         <input
+          v-model="forgetPasswordEmail"
           type="email"
           class="form-control"
-          id="forgetPasswordLogInEmail"
+          id="forgetPasswordEmail"
           placeholder="name@example.com"
           required
         />
-        <label for="forgetPasswordLogInEmail" id="forgetPasswordLabels">Email address</label>
+        <label for="forgetPasswordEmail" id="loginLabels" @click.prevent="getOTP()">Email address</label>
       </div>
     </div>
-
     <div class="col-sm-3"></div>
-    <div class="col-sm-6 text-center vertical-top d-grid pt-3">
-      <button class="btn" id="forgetPasswordVerifyOTP">Get OTP</button>
+    <div class="col-sm-6 text-center d-grid pt-3">
+      <button class="btn" id="getOTPBtn" @click.prevent="getOTP()">Get OTP</button>
     </div>
     <div class="col-sm-3"></div>
+</form>
 
+<!-- --------------------------------------------------------------------------------------------------- -->
+<!--                                            Verify OTP                                               -->
+<!-- --------------------------------------------------------------------------------------------------- -->
 
-
-    <div class="col-sm-3"></div>
+<!-- verifyOTPForm -->
+<form
+    action=""
+    class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
+    autocomplete="off"
+    id="verifyOTPForm"
+    novalidate
+    style="display: none;"
+>
+  <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center vertical-top d-grid pt-1" id = "signin1">
-      <div id = "verifyOTP">Verify OTP</div>
-    </div>
-    <div class="col-sm-3"></div>
-
-    <div class="col-12">
-
+      <div id = "verify_OTP">Verify OTP</div>
+  </div>  
+  <div class="col-12">
       <div class="form-floating">
         <input
+          v-model="loginVverifyOTP"
           type="text"
           class="form-control"
-          name="verifyOTP"
-          id="verifyOTP"
-          placeholder="otp"
+          id="loginVverifyOTP"
+          placeholder="12345678"
           required
         />
-        <label for="verifyOTP" id="verifyOTPLabels">OTP</label>
+        <label for="loginVverifyOTP"  id="loginLabels">OTP</label>
       </div>
     </div>
-
     <div class="col-sm-3"></div>
-    <div class="col-sm-6 text-center vertical-top d-grid pt-3">
-      <button class="btn" id="resetPassword" >Reset Password</button>
+    <div class="col-sm-6 text-center d-grid pt-3">
+      <button class="btn" id="resetPasswordBtn" @click.prevent="verifyOTP()">Reset Password</button>
     </div>
     <div class="col-sm-3"></div>
+</form>
 
+<!-- --------------------------------------------------------------------------------------------------- -->
+<!--                                            Change Password                                          -->
+<!-- --------------------------------------------------------------------------------------------------- -->
 
-
-
-
-
-    <div class="col-sm-3"></div>
+<!-- changePasswordFrom -->
+<form
+    action=""
+    class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
+    autocomplete="off"
+    id="changePasswordFrom"
+    novalidate
+    style="display: none;"
+  >
+  <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center vertical-top d-grid pt-1" id = "signin1">
-      <div id = "passwordReset">Password Reset</div>
-    </div>
-    <div class="col-sm-3"></div>
+      <div id = "change_password">Change Password</div>
+  </div>  
     <div class="col-12">
       <div class="form-floating">
         <input
+          v-model="password1"
           type="password"
           class="form-control"
-          name="loginPassword"
-          id="loginPassword"
-          placeholder="********"
+          id="password1"
+          placeholder="password"
           required
         />
-        <label for="loginPassword" id="changePasswordLabels">Password</label>
+        <label for="password1"  id="loginLabels">Password</label>
       </div>
     </div>
     <div class="col-12">
       <div class="form-floating">
         <input
+          v-model="password2"
           type="password"
           class="form-control"
-          name="loginPassword"
-          id="loginPassword1"
-          placeholder="********"
+          id="password2"
+          placeholder="password"
           required
         />
-        <label for="loginPassword1" id="changePasswordLabels">Re-password</label>
+        <label for="password2"  id="loginLabels">Re-password</label>
       </div>
     </div>
     <div class="col-sm-3"></div>
-    <div class="col-sm-6 text-center vertical-top d-grid pt-3">
-      <button class="btn" id="changePassword" >Change Password</button>
+    <div class="col-sm-6 text-center d-grid pt-3">
+      <button class="btn" id="changePasswordBtn" @click.prevent="resetPassword()">Change Password</button>
     </div>
     <div class="col-sm-3"></div>
-
-
-
-
-
-  </form>
+</form>
 </template>
 <style scoped>
-#loginForm {
+#loginForm,
+#changePasswordFrom,
+#verifyOTPForm,
+#getOTPForm {
   margin-top: 5%;
   /* box-shadow: rgba(248, 179, 51, 0.1) 0px 20px 30px; */
 }
@@ -245,22 +357,9 @@ async function login() {
   font-weight: bold;
 }
 
-#forgetPasswordVerifyOTP {
-  /* border-radius: 15px;
-  --bs-btn-color: #b47501;
-  --bs-btn-border-color: #b47501;
-  --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #b47501;
-  --bs-btn-hover-border-color: #b47501;
-  --bs-btn-focus-shadow-rgb: 25, 135, 84;
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #b47501;
-  --bs-btn-active-border-color: #b47501;
-  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #b47501;
-  --bs-btn-disabled-bg: transparent;
-  --bs-btn-disabled-border-color: #b47501;
-  --bs-gradient: none; */
+
+/* Email */
+#getOTPBtn {
   font-family: Rockwell;
   display: inline-block;
   padding: 10px 20px;
@@ -272,41 +371,18 @@ async function login() {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-#forgetPasswordLabels {
-  color: #b47501;
-  /* color: #f8b333; */
-}
-
-#forgetPasswordVerifyOTP:hover {
+#getOTPBtn:hover{
   background-color: #f7bb08;
 }
 
-#forgetPasswordEmail{
+#get_OTP{
   font-size: 23px;
   font-weight: bold;
 }
 
-#verifyOTPLabels {
-  color: #b47501;
-  /* color: #f8b333; */
-}
 
-#resetPassword {
-  /* border-radius: 15px;
-  --bs-btn-color: #b47501;
-  --bs-btn-border-color: #b47501;
-  --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #b47501;
-  --bs-btn-hover-border-color: #b47501;
-  --bs-btn-focus-shadow-rgb: 25, 135, 84;
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #b47501;
-  --bs-btn-active-border-color: #b47501;
-  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #b47501;
-  --bs-btn-disabled-bg: transparent;
-  --bs-btn-disabled-border-color: #b47501;
-  --bs-gradient: none; */
+/* Verify OTP*/ 
+#resetPasswordBtn {
   font-family: Rockwell;
   display: inline-block;
   padding: 10px 20px;
@@ -318,36 +394,18 @@ async function login() {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-#resetPassword:hover{
+#resetPasswordBtn:hover{
   background-color: #f7bb08;
 }
 
-#forgetPasswordOTP{
+#verify_OTP{
   font-size: 23px;
   font-weight: bold;
 }
 
-#verifyOTP {
-  font-size: 23px;
-  font-weight: bold;
-}
 
-#changePassword {
-  /* border-radius: 15px;
-  --bs-btn-color: #b47501;
-  --bs-btn-border-color: #b47501;
-  --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #b47501;
-  --bs-btn-hover-border-color: #b47501;
-  --bs-btn-focus-shadow-rgb: 25, 135, 84;
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #b47501;
-  --bs-btn-active-border-color: #b47501;
-  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #b47501;
-  --bs-btn-disabled-bg: transparent;
-  --bs-btn-disabled-border-color: #b47501;
-  --bs-gradient: none; */
+/* Password */
+#changePasswordBtn {
   font-family: Rockwell;
   display: inline-block;
   padding: 10px 20px;
@@ -359,19 +417,13 @@ async function login() {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-#changePasswordLabels {
-  color: #b47501;
-  /* color: #f8b333; */
-}
-
-#changePassword:hover{
+#changePasswordBtn:hover{
   background-color: #f7bb08;
 }
 
-#passwordReset {
+#change_password{
   font-size: 23px;
   font-weight: bold;
 }
-
 
 </style>
