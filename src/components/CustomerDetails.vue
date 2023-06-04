@@ -89,12 +89,28 @@ const timinings = ref([
         <!--        Calender     -->
         <!--                     -->
 
-        <div class="col-12 pt-2" style="background-color: blueviolet">
-          <div class="row" style="background-color: cornsilk">
+        <div class="col-12 pt-2" style="background-color: ">
+          <h3 id="noOfPeople">
+            <div class="col-sm-2"></div>
+
+            <div class="col-sm-8" style="text-align: center">
+              <img
+                src="../assets/people1.png"
+                alt="Icon"
+                width="35"
+                height="35"
+                style="margin-right: 4px"
+              />
+              Calender
+            </div>
+
+            <div class="col-sm-2"></div>
+          </h3>
+          <div class="row" style="background-color: ">
             <div class="col-sm-3"></div>
             <div
               class="col-sm-6"
-              style="background-color: coral; display: flex; justify-content: center"
+              style="background-color: ; display: flex; justify-content: center"
             >
               <input type="date" id="datePicker" @click="test()" />
             </div>
