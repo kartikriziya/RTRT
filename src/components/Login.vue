@@ -35,8 +35,8 @@ async function login() {
 }
 /* ______ forgetPassword ______ */
 function forgetPassword() {
-  document.querySelector('#loginForm').style.display = 'none'
-  document.querySelector('#getOTPForm').style.display = 'flex'
+    document.querySelector('#loginForm').style.display = 'none'
+    document.querySelector('#getOTPForm').style.display = 'flex' 
 }
 
 /* ______ getOTP ______ */
@@ -108,10 +108,12 @@ async function resetPassword() {
     class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
     autocomplete="off"
     id="loginForm"
+    novalidate
   >
     <div class="col-12">
       <div class="form-floating">
         <input
+          v-model="loginEmail"
           type="email"
           class="form-control"
           id="loginEmail"
@@ -124,6 +126,7 @@ async function resetPassword() {
     <div class="col-12">
       <div class="form-floating">
         <input
+          v-model="loginPassword"
           type="Password"
           class="form-control"
           id="loginPassword"
@@ -134,28 +137,28 @@ async function resetPassword() {
       </div>
     </div>
     <div class="col-12 ms-2">
-      <a href="#" id="loginForgot">Forgot Password?</a>
+      <a id="loginForgot" @click.prevent="forgetPassword()">Forgot Password?</a>
     </div>
     <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center d-grid pt-3">
-      <button class="btn" id="loginBtn" @click.prevent="login()">Login</button>
+      <button class="btn" id="loginBtn">Login</button>
     </div>
-    <div class="col-sm-3"></div>
+    <div class="col-sm-3" @click.prevent="login()"></div>
   </form>
 
-  <!-- --------------------------------------------------------------------------------------------------- -->
-  <!--                                            Forget Password                                          -->
-  <!-- --------------------------------------------------------------------------------------------------- -->
+<!-- --------------------------------------------------------------------------------------------------- -->
+<!--                                            Forget Password                                          -->
+<!-- --------------------------------------------------------------------------------------------------- -->
 
-  <!-- getOTPForm -->
-  <form
+<!-- getOTPForm -->
+<form
     action=""
     class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
     autocomplete="off"
     id="getOTPForm"
     novalidate
-    style="display: none"
-  >
+    style="display: none;"
+> 
     <div class="col-12">
       <div class="form-floating">
         <input
@@ -166,9 +169,7 @@ async function resetPassword() {
           placeholder="name@example.com"
           required
         />
-        <label for="forgetPasswordEmail" id="loginLabels" @click.prevent="getOTP()"
-          >Email address</label
-        >
+        <label for="forgetPasswordEmail" id="loginLabels" @click.prevent="getOTP()">Email address</label>
       </div>
     </div>
     <div class="col-sm-3"></div>
@@ -176,22 +177,22 @@ async function resetPassword() {
       <button class="btn" id="getOTPBtn" @click.prevent="getOTP()">Get OTP</button>
     </div>
     <div class="col-sm-3"></div>
-  </form>
+</form>
 
-  <!-- --------------------------------------------------------------------------------------------------- -->
-  <!--                                            Verify OTP                                               -->
-  <!-- --------------------------------------------------------------------------------------------------- -->
+<!-- --------------------------------------------------------------------------------------------------- -->
+<!--                                            Verify OTP                                               -->
+<!-- --------------------------------------------------------------------------------------------------- -->
 
-  <!-- verifyOTPForm -->
-  <form
+<!-- verifyOTPForm -->
+<form
     action=""
     class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
     autocomplete="off"
     id="verifyOTPForm"
     novalidate
-    style="display: none"
-  >
-    <div class="col-12">
+    style="display: none;"
+>  
+  <div class="col-12">
       <div class="form-floating">
         <input
           v-model="loginVverifyOTP"
@@ -201,7 +202,7 @@ async function resetPassword() {
           placeholder="12345678"
           required
         />
-        <label for="loginVverifyOTP" id="loginLabels">OTP</label>
+        <label for="loginVverifyOTP"  id="loginLabels">OTP</label>
       </div>
     </div>
     <div class="col-sm-3"></div>
@@ -209,20 +210,20 @@ async function resetPassword() {
       <button class="btn" id="resetPasswordBtn" @click.prevent="verifyOTP()">Reset Password</button>
     </div>
     <div class="col-sm-3"></div>
-  </form>
+</form>
 
-  <!-- --------------------------------------------------------------------------------------------------- -->
-  <!--                                            Change Password                                          -->
-  <!-- --------------------------------------------------------------------------------------------------- -->
+<!-- --------------------------------------------------------------------------------------------------- -->
+<!--                                            Change Password                                          -->
+<!-- --------------------------------------------------------------------------------------------------- -->
 
-  <!-- changePasswordFrom -->
-  <form
+<!-- changePasswordFrom -->
+<form
     action=""
     class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
     autocomplete="off"
     id="changePasswordFrom"
     novalidate
-    style="display: none"
+    style="display: none;"
   >
     <div class="col-12">
       <div class="form-floating">
@@ -234,7 +235,7 @@ async function resetPassword() {
           placeholder="password"
           required
         />
-        <label for="password1" id="loginLabels">Password</label>
+        <label for="password1"  id="loginLabels">Password</label>
       </div>
     </div>
     <div class="col-12">
@@ -247,17 +248,17 @@ async function resetPassword() {
           placeholder="password"
           required
         />
-        <label for="password2" id="loginLabels">Re-password</label>
+        <label for="password2"  id="loginLabels">Re-password</label>
       </div>
     </div>
     <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center d-grid pt-3">
-      <button class="btn" id="changePasswordBtn" @click.prevent="resetPassword()">
-        Change Password
-      </button>
+      <button class="btn" id="changePasswordBtn" @click.prevent="resetPassword()">Change Password</button>
     </div>
     <div class="col-sm-3"></div>
-  </form>
+</form>
+
+  
 </template>
 
 <style scoped>
