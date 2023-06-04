@@ -1,17 +1,19 @@
 <script setup>
 import { ref } from 'vue'
 
-function myFunction() {
-  var today = new Date()
-  var month = today.getMonth()
-  console.log(daysInMonth(month + 1, today.getFullYear()) + ' ' + month + ' ' + today.getFullYear())
-}
+const count = ref('')
 
-function daysInMonth(month, year) {
-  return new Date(year, month, 0).getDate()
-}
+var today = new Date()
+const date = today.getDate()
+var month = today.getMonth()
+const totalDays = new Date(today.getFullYear(), month + 1, 0).getDate()
 
-myFunction()
+const minDate = ref(today.getFullYear() + ' ' + month + ' ' + date)
+console.log(minDate.value)
+
+function test() {
+  document.querySelector('#datePicker').setAttribute('min', '2023-06-01')
+}
 
 const noOfPeople = ref([
   { id: 'check2', people: '2' },
@@ -83,38 +85,13 @@ const timinings = ref([
             </div>
             <div class="col-sm-3"></div>
           </div>
-          <div class="row">
+          <div class="row" style="background-color: cornsilk">
             <div class="col-sm-3"></div>
             <div
               class="col-sm-6"
-              style="background-color: seagreen; display: flex; flex-direction: row"
+              style="background-color: coral; display: flex; justify-content: center"
             >
-              <div class="row">
-                <div class="col-2"></div>
-                <div class="col-1" style="background-color: cadetblue">
-                  <h5>M</h5>
-                </div>
-                <div class="col-1" style="background-color: cadetblue">
-                  <h5>T</h5>
-                </div>
-                <div class="col-1" style="background-color: cadetblue">
-                  <h5>W</h5>
-                </div>
-                <div class="col-1" style="background-color: cadetblue">
-                  <h5>Th</h5>
-                </div>
-                <div class="col-1" style="background-color: cadetblue">
-                  <h5>F</h5>
-                </div>
-                <div class="col-1" style="background-color: cadetblue">
-                  <h5>S</h5>
-                </div>
-                <div class="col-1" style="background-color: cadetblue">
-                  <h5>Su</h5>
-                </div>
-
-                <div class="col-3"></div>
-              </div>
+              <input type="date" id="datePicker" @click="test()" />
             </div>
             <div class="col-sm-3"></div>
           </div>
