@@ -39,8 +39,7 @@ async function verifyOTP() {
   await axios
     .post(Base_Url + '/account.php', {
       action: 'verify_otp',
-      signUpOTP: signUpOTP.value,
-      Email: signUpEmail.value
+      signUpOTP: signUpOTP.value
     })
     .then((result) => {
       console.log(result.data)
@@ -58,9 +57,6 @@ async function SignUp() {
   await axios
     .post(Base_Url + '/account.php', {
       action: 'signup',
-      firstName: signUpFname.value,
-      lastName: signUpLname.value,
-      Email: signUpEmail.value,
       Password1: signUpPassword1.value,
       Password2: signUpPassword2.value
     })
