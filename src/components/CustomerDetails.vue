@@ -1,20 +1,6 @@
 <script setup>
 import { ref } from 'vue'
 
-const count = ref('')
-
-var today = new Date()
-const date = today.getDate()
-var month = today.getMonth()
-const totalDays = new Date(today.getFullYear(), month + 1, 0).getDate()
-
-const minDate = ref(today.getFullYear() + ' ' + month + ' ' + date)
-console.log(minDate.value)
-
-function test() {
-  document.querySelector('#datePicker').setAttribute('min', '2023-06-01')
-}
-
 const noOfPeople = ref([
   { id: 'check2', people: '2' },
   { id: 'check4', people: '4' },
@@ -47,7 +33,7 @@ const timinings = ref([
 </script>
 <template>
   <div class="row pb-5">
-    <div class="col-sm-12 ps-5 pt-3 pe-5 pb-2" id="details" style="background-color: burlywood">
+    <div class="col-xl-7 ps-5 pt-3 pe-5 pb-2" id="details" style="background-color: burlywood">
       <!--                     -->
       <!--    No of People     -->
       <!--                     -->
@@ -74,34 +60,13 @@ const timinings = ref([
         <!--                     -->
         <!--        Calender     -->
         <!--                     -->
-        <div class="col-12 pt-2" style="background-color: blueviolet">
-          <div class="row" style="background-color: cornsilk">
-            <div class="col-sm-3"></div>
-            <div
-              class="col-sm-6"
-              style="background-color: coral; display: flex; justify-content: center"
-            >
-              <h4>Mai / 2023</h4>
-            </div>
-            <div class="col-sm-3"></div>
-          </div>
-          <div class="row" style="background-color: cornsilk">
-            <div class="col-sm-3"></div>
-            <div
-              class="col-sm-6"
-              style="background-color: coral; display: flex; justify-content: center"
-            >
-              <input type="date" id="datePicker" @click="test()" />
-            </div>
-            <div class="col-sm-3"></div>
-          </div>
-        </div>
+        <div class="col-12 pt-2"></div>
       </div>
     </div>
     <!--                     -->
     <!--      Time Slot's    -->
     <!--                     -->
-    <div class="col-sm-12 pt-3 pb-2" style="background-color: darkgray">
+    <div class="col-xl-5 pt-3 pb-2" style="background-color: darkgray">
       <h2>Time Slot's</h2>
       <div class="row pt-2" id="timinings">
         <div
