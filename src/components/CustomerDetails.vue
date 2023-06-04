@@ -9,10 +9,26 @@ const month = current.getMonth() + 1
 const year = current.getFullYear()
 const totalDays = new Date(year, month, 0).getDate()
 
-const minDate = ref(year + '-0' + month + '-0' + date)
-console.log(minDate.value)
+const minDate = ref('')
+//const minDate = ref(year + '-0' + month + '-0' + date)
 
-function test() {
+if (month <= 9 || date <= 9) {
+  if (month <= 9 && date >= 9) {
+    minDate.value = year + '-0' + month + '-' + date
+    console.log(minDate.value)
+  } else if (date <= 9 && month >= 9) {
+    minDate.value = year + '-' + month + '-0' + date
+    console.log(minDate.value)
+  } else {
+    minDate.value = year + '-0' + month + '-0' + date
+    console.log(minDate.value)
+  }
+} else {
+  minDate = year + '-' + month + '-' + date
+  console.log(minDate.value)
+}
+
+function datePickerRestrictions() {
   document.querySelector('#datePicker').setAttribute('min', minDate.value)
 }
 
@@ -112,7 +128,7 @@ const timinings = ref([
               class="col-sm-6"
               style="background-color: ; display: flex; justify-content: center"
             >
-              <input type="date" id="datePicker" @click="test()" />
+              <input type="date" id="datePicker" @click="datePickerRestrictions()" />
             </div>
             <div class="col-sm-3"></div>
           </div>
