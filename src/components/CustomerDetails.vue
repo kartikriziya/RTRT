@@ -1,6 +1,21 @@
 <script setup>
 import { ref } from 'vue'
 
+const count = ref('')
+
+const current = new Date()
+const date = current.getDate()
+const month = current.getMonth() + 1
+const year = current.getFullYear()
+const totalDays = new Date(year, month, 0).getDate()
+
+const minDate = ref(year + '-0' + month + '-0' + date)
+console.log(minDate.value)
+
+function test() {
+  document.querySelector('#datePicker').setAttribute('min', minDate.value)
+}
+
 const noOfPeople = ref([
   { id: 'check2', people: '2' },
   { id: 'check4', people: '4' },
@@ -33,36 +48,36 @@ const timinings = ref([
 </script>
 <template>
   <div class="row pb-5">
-    <div class="col-sm-12 ps-5 pt-3 pe-5 pb-2" id="details" >
+    <div class="col-sm-12 ps-5 pt-3 pe-5 pb-2" id="details">
       <!-- style="background-color: burlywood" -->
       <!--                     -->
       <!--    No of People     -->
       <!--                     -->
       <div class="row">
-        <div class="col-12 pb-2" >
+        <div class="col-12 pb-2">
           <!-- style="background-color: cadetblue" -->
-          <h3 id = "noOfPeople" >
-            
-            <div class="col-sm-2" ></div>
-            
-            <div class="col-sm-8" style = "text-align: center;">
-              <img src="../assets/people1.png" alt="Icon" width="35" height="35" style="margin-right: 4px;"> No. of People
+          <h3 id="noOfPeople">
+            <div class="col-sm-2"></div>
+
+            <div class="col-sm-8" style="text-align: center">
+              <img
+                src="../assets/people1.png"
+                alt="Icon"
+                width="35"
+                height="35"
+                style="margin-right: 4px"
+              />
+              No. of People
             </div>
 
-            <div class="col-sm-2" ></div>
-
+            <div class="col-sm-2"></div>
           </h3>
           <div
             class="row ps-2 ps-sm-4 ps-md-1 ps-lg-3 ps-xl-5 pt-2 pe-xl-5 pe-lg-3 pe-md-1 pe-sm-4 pe-2"
             id="noOfPeople"
           >
-            <div
-              v-for="People in noOfPeople"
-              class="col-2"
-              id="check"
-              
-            >
-            <!-- style="background-color: darkred" -->
+            <div v-for="People in noOfPeople" class="col-2" id="check">
+              <!-- style="background-color: darkred" -->
               <input type="radio" name="people" :id="People.id" value="2" />
               <label :for="People.id" id="numberLabel"
                 ><span id="number">{{ People.people }}</span></label
@@ -73,36 +88,52 @@ const timinings = ref([
         <!--                     -->
         <!--        Calender     -->
         <!--                     -->
-        <div class="col-12 pt-2"></div>
+
+        <div class="col-12 pt-2" style="background-color: blueviolet">
+          <div class="row" style="background-color: cornsilk">
+            <div class="col-sm-3"></div>
+            <div
+              class="col-sm-6"
+              style="background-color: coral; display: flex; justify-content: center"
+            >
+              <input type="date" id="datePicker" @click="test()" />
+            </div>
+            <div class="col-sm-3"></div>
+          </div>
+        </div>
       </div>
     </div>
     <!--                     -->
     <!--      Time Slot's    -->
     <!--                     -->
-    <div class="col-sm-12 pt-3 pb-2" >
+    <div class="col-sm-12 pt-3 pb-2">
       <!-- style="background-color: darkgray" -->
-      <h2 id = "timeSlot">
-      
-        <div class="col-sm-3" ></div>
-            
-            <div class="col-sm-6" style = "text-align: center;">
-              <img src="../assets/people1.png" alt="Icon" width="35" height="35" style="margin-right: 4px;"> Time Slot's
-            </div>
+      <h2 id="timeSlot">
+        <div class="col-sm-3"></div>
 
-            <div class="col-sm-3" ></div>
-        
-      
+        <div class="col-sm-6" style="text-align: center">
+          <img
+            src="../assets/people1.png"
+            alt="Icon"
+            width="35"
+            height="35"
+            style="margin-right: 4px"
+          />
+          Time Slot's
+        </div>
+
+        <div class="col-sm-3"></div>
       </h2>
       <div class="row pt-2" id="timinings">
         <div
           v-for="Slot in timinings"
           class="col-2 col-md-3 col-lg-2 col-xl-3 col-xxl-2 pt-2 pb-3"
           id="slots"
-          >
+        >
           <!-- style="background-color: darkolivegreen" -->
           <input type="radio" name="slots" :id="Slot.id" :value="Slot.time" />
           <label :for="Slot.id" id="timeLabel"
-            ><span id="time" style = "color: #000;">{{ Slot.time }}</span></label
+            ><span id="time" style="color: #000">{{ Slot.time }}</span></label
           >
         </div>
       </div>
@@ -213,15 +244,13 @@ const timinings = ref([
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-
-
 #timeLabel:hover > #time {
   transition: color 0.2s, trasnform 0.2s;
-  color: #F8B333; 
+  color: #f8b333;
   transform: scale(1.3);
 }
 #timinings input:checked + #timeLabel {
-  background-color: #F8B333;
+  background-color: #f8b333;
   color: #f4ebd9;
 }
 #timinings input:checked + #timeLabel:hover {
@@ -250,8 +279,7 @@ const timinings = ref([
   border-radius: 50px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
-#reserveBtn:hover{
+#reserveBtn:hover {
   background-color: #f7bb08;
 }
-
 </style>
