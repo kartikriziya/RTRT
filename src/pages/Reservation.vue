@@ -5,26 +5,33 @@ import CustomerDetails from '../components/CustomerDetails.vue'
 <template>
   <div class="container-fluid" id="reservation">
     <div class="row pt-5">
-      <div class="col-md-6" style="background-color: aqua">
+      <div class="col-md-6 col-lg-5 col-xl-4 p-5" style="background-color: aqua">
         <div class="row">
           <div
-            class="col-sm-4 col-md-12"
-            style="background-color: aquamarine; display: flex; flex-direction: row"
+            class="col-sm-8 col-md-12"
+            style="
+              background-color: aquamarine;
+              display: flex;
+              flex-direction: row;
+              justify-content: end;
+            "
           >
             <h2>Olivewood restaurent</h2>
           </div>
-          <div class="col-sm-8 col-md-12"></div>
+          <div class="col-sm-4 col-md-12"></div>
           <Rating />
         </div>
-        <div class="row">
-          <div class="col-sm-12" style="background-color: blue">
-            <img src="../assets/golden_spoon.jpg" alt="" id="layoutImg" />
-          </div>
-        </div>
       </div>
-      <div class="col-md-6" id="tableLayout" style="background-color: brown">
+      <div class="col-md-6 col-lg-7 col-xl-8" id="tableLayout" style="background-color: brown">
         <CustomerDetails />
       </div>
+    </div>
+    <div class="row pt-5 pb-5">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-8" style="background-color: blue">
+        <img src="../assets/golden_spoon.jpg" alt="" id="layoutImg" />
+      </div>
+      <div class="col-sm-2"></div>
     </div>
   </div>
 </template>
