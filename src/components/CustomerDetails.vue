@@ -3,16 +3,17 @@ import { ref } from 'vue'
 
 const count = ref('')
 
-var today = new Date()
-const date = today.getDate()
-var month = today.getMonth()
-const totalDays = new Date(today.getFullYear(), month + 1, 0).getDate()
+const current = new Date()
+const date = current.getDate()
+const month = current.getMonth() + 1
+const year = current.getFullYear()
+const totalDays = new Date(year, month, 0).getDate()
 
-const minDate = ref(today.getFullYear() + ' ' + month + ' ' + date)
+const minDate = ref(year + '-0' + month + '-0' + date)
 console.log(minDate.value)
 
 function test() {
-  document.querySelector('#datePicker').setAttribute('min', '2023-06-01')
+  document.querySelector('#datePicker').setAttribute('min', minDate.value)
 }
 
 const noOfPeople = ref([
