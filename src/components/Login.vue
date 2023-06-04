@@ -70,8 +70,14 @@ async function verifyOTP() {
     .then((result) => {
       console.log(result.data)
       console.log(forgetPasswordEmail.value + ',' + loginVverifyOTP.value)
-      document.querySelector('#verifyOTPForm').style.display = 'none'
-      document.querySelector('#changePasswordFrom').style.display = 'flex'
+      if(result.data != "Incorrect_OTP")
+      {
+        document.querySelector('#verifyOTPForm').style.display = 'none'
+        document.querySelector('#changePasswordFrom').style.display = 'flex'
+      }
+      else{
+        alert(result.data)
+      }     
     })
     .catch(function (error) {
       console.log(error)
@@ -91,8 +97,14 @@ async function resetPassword() {
     .then((result) => {
       console.log(result.data)
       console.log(password1.value + ',' + password2.value)
-      document.querySelector('#changePasswordFrom').style.display = 'none'
-      document.querySelector('#loginForm').style.display = 'flex'
+      if(password1.value == password2.value){
+        document.querySelector('#changePasswordFrom').style.display = 'none'
+        document.querySelector('#loginForm').style.display = 'flex'
+      }
+      else {
+        alert(result.data)
+      }
+  
     })
     .catch(function (error) {
       console.log(error)
@@ -108,7 +120,6 @@ async function resetPassword() {
     class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
     autocomplete="off"
     id="loginForm"
-    novalidate
   >
     <div class="col-12">
       <div class="form-floating">
@@ -141,9 +152,9 @@ async function resetPassword() {
     </div>
     <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center d-grid pt-3">
-      <button class="btn" id="loginBtn">Login</button>
+      <button class="btn" id="loginBtn" @click.prevent="login()">Login</button>
     </div>
-    <div class="col-sm-3" @click.prevent="login()"></div>
+    <div class="col-sm-3" ></div>
   </form>
 
 <!-- --------------------------------------------------------------------------------------------------- -->
