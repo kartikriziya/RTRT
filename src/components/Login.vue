@@ -33,12 +33,17 @@ async function login() {
       console.log(error)
     })
 }
+/* ______ forgetPassword ______ */
+function forgetPassword() {
+    document.querySelector('#loginForm').style.display = 'none'
+    document.querySelector('#getOTPForm').style.display = 'flex' 
+}
 
 /* ______ getOTP ______ */
 async function getOTP() {
   console.log('getOTP')
   await axios
-    .post(Base_Url + '/account.php', {
+    .post(Base_Url + '/forgetPassword.php', {
       action: 'get_OTP',
       forgetPasswordEmail: forgetPasswordEmail.value
     })
@@ -46,7 +51,7 @@ async function getOTP() {
       console.log(result.data)
       console.log(forgetPasswordEmail.value)
       document.querySelector('#getOTPForm').style.display = 'none'
-      document.querySelector('#getOTPForm').style.display = 'flex'
+      document.querySelector('#verifyOTPForm').style.display = 'flex'
     })
     .catch(function (error) {
       console.log(error)
@@ -57,7 +62,7 @@ async function getOTP() {
 async function verifyOTP() {
   console.log('verifyOTP')
   await axios
-    .post(Base_Url + '/account.php', {
+    .post(Base_Url + '/forgetPassword.php', {
       action: 'verify_OTP',
       forgetPasswordEmail: forgetPasswordEmail.value,
       loginVverifyOTP: loginVverifyOTP.value
@@ -66,7 +71,7 @@ async function verifyOTP() {
       console.log(result.data)
       console.log(forgetPasswordEmail.value + ',' + loginVverifyOTP.value)
       document.querySelector('#verifyOTPForm').style.display = 'none'
-      document.querySelector('#verifyOTPForm').style.display = 'flex'
+      document.querySelector('#changePasswordFrom').style.display = 'flex'
     })
     .catch(function (error) {
       console.log(error)
@@ -77,7 +82,7 @@ async function verifyOTP() {
 async function resetPassword() {
   console.log('resetPassword')
   await axios
-    .post(Base_Url + '/account.php', {
+    .post(Base_Url + '/forgetPassword.php', {
       action: 'reset_Password',
       forgetPasswordEmail: forgetPasswordEmail.value,
       password1: password1.value,
@@ -87,7 +92,7 @@ async function resetPassword() {
       console.log(result.data)
       console.log(password1.value + ',' + password2.value)
       document.querySelector('#changePasswordFrom').style.display = 'none'
-      document.querySelector('#changePasswordFrom').style.display = 'flex'
+      document.querySelector('#loginForm').style.display = 'flex'
     })
     .catch(function (error) {
       console.log(error)
@@ -132,24 +137,27 @@ async function resetPassword() {
       </div>
     </div>
     <div class="col-12 ms-2">
-      <a href="#" id="loginForgot">Forgot Password?</a>
+      <a id="loginForgot" @click.prevent="forgetPassword()">Forgot Password?</a>
     </div>
     <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center d-grid pt-3">
-      <button class="btn" id="loginBtn" @click.prevent="login()">Login</button>
+      <button class="btn" id="loginBtn">Login</button>
     </div>
-    <div class="col-sm-3"></div>
+    <div class="col-sm-3" @click.prevent="login()"></div>
   </form>
 
 <!-- --------------------------------------------------------------------------------------------------- -->
-<!--                                            Forget Password Enter Email                              -->
+<!--                                            Forget Password                                          -->
 <!-- --------------------------------------------------------------------------------------------------- -->
+
+<!-- getOTPForm -->
 <form
     action=""
     class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
     autocomplete="off"
     id="getOTPForm"
     novalidate
+    style="display: none;"
 > 
     <div class="col-12">
       <div class="form-floating">
@@ -174,12 +182,15 @@ async function resetPassword() {
 <!-- --------------------------------------------------------------------------------------------------- -->
 <!--                                            Verify OTP                                               -->
 <!-- --------------------------------------------------------------------------------------------------- -->
+
+<!-- verifyOTPForm -->
 <form
     action=""
     class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
     autocomplete="off"
     id="verifyOTPForm"
     novalidate
+    style="display: none;"
 >  
   <div class="col-12">
       <div class="form-floating">
@@ -204,16 +215,20 @@ async function resetPassword() {
 <!-- --------------------------------------------------------------------------------------------------- -->
 <!--                                            Change Password                                          -->
 <!-- --------------------------------------------------------------------------------------------------- -->
+
+<!-- changePasswordFrom -->
 <form
     action=""
     class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
     autocomplete="off"
     id="changePasswordFrom"
     novalidate
+    style="display: none;"
   >
     <div class="col-12">
       <div class="form-floating">
         <input
+          v-model="password1"
           type="password"
           class="form-control"
           id="password1"
@@ -226,6 +241,7 @@ async function resetPassword() {
     <div class="col-12">
       <div class="form-floating">
         <input
+          v-model="password2"
           type="password"
           class="form-control"
           id="password2"
@@ -298,9 +314,6 @@ async function resetPassword() {
   --bs-gradient: none;
 }
 /* Email */
-#forgetPasswordEmail {
-  color: #b47501;
-}
 #getOTPBtn:hover {
   color: #f8b333;
 }
@@ -346,12 +359,6 @@ async function resetPassword() {
 }
 
 /* Password */
-#password1 {
-  color: #b47501;
-}
-#password2 {
-  color: #b47501;
-}
 #changePasswordBtn:hover {
   color: #f8b333;
 }
