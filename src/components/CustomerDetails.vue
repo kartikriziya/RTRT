@@ -1,8 +1,6 @@
 <script setup>
 import { ref } from 'vue'
 
-//hi
-
 const count = ref('')
 
 const current = new Date()
