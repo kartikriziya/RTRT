@@ -50,8 +50,14 @@ async function getOTP() {
     .then((result) => {
       console.log(result.data)
       console.log(forgetPasswordEmail.value)
-      document.querySelector('#getOTPForm').style.display = 'none'
-      document.querySelector('#verifyOTPForm').style.display = 'flex'
+      if(result.data != "No_Email_Found!") {
+        document.querySelector('#getOTPForm').style.display = 'none'
+        document.querySelector('#verifyOTPForm').style.display = 'flex'
+      }
+      else{
+        alert(result.data)
+      }
+
     })
     .catch(function (error) {
       console.log(error)
