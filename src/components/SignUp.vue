@@ -15,79 +15,94 @@ const signUpPassword2 = ref('')
 
 /* ______ verifyEmail ______ */
 async function verifyEmail() {
+  const SignUp_Error = document.querySelector('.SignUp_Error')
   console.log('verifyEmail')
-  await axios
-    .post(Base_Url + '/account.php', {
-      action: 'verify_email',
-      firstName: signUpFname.value,
-      lastName: signUpLname.value,
-      Email: signUpEmail.value
-    })
-    .then((result) => {
-      console.log(result.data)
-      console.log(signUpFname.value + ', ' + signUpLname.value + ', ' + signUpEmail.value)
-      document.querySelector('#signUpForm').style.display = 'none'
-      document.querySelector('#signUpOTPForm').style.display = 'flex'
-    })
-    .catch(function (error) {
-      console.log(error)
-    })
+  if (signUpFname.value == '' && signUpLname.value == '' && signUpEmail.value == '') {
+    SignUp_Error.style.display = 'block'
+  } else {
+    await axios
+      .post(Base_Url + '/account.php', {
+        action: 'verify_email',
+        firstName: signUpFname.value,
+        lastName: signUpLname.value,
+        Email: signUpEmail.value
+      })
+      .then((result) => {
+        console.log(result.data)
+        console.log(signUpFname.value + ', ' + signUpLname.value + ', ' + signUpEmail.value)
+        document.querySelector('#signUpForm').style.display = 'none'
+        document.querySelector('#signUpOTPForm').style.display = 'flex'
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  }
 }
 /* ______ verifyOTP ______ */
 async function verifyOTP() {
+  const SignUp_verifyOTPError = document.querySelector('.SignUp_verifyOTPError')
   console.log('verifyOTP')
-  await axios
-    .post(Base_Url + '/account.php', {
-      action: 'verify_otp',
-      signUpOTP: signUpOTP.value,
-      Email: signUpEmail.value
-    })
-    .then((result) => {
-      console.log(result.data)
-      console.log(signUpOTP.value)
-      document.querySelector('#signUpOTPForm').style.display = 'none'
-      document.querySelector('#signUpPasswordForm').style.display = 'flex'
-    })
-    .catch(function (error) {
-      console.log(error)
-    })
+  if (loginVverifyOTP.value == '') {
+    SignUp_verifyOTPError.style.display = 'block'
+  } else {
+    await axios
+      .post(Base_Url + '/account.php', {
+        action: 'verify_otp',
+        signUpOTP: signUpOTP.value,
+        Email: signUpEmail.value
+      })
+      .then((result) => {
+        console.log(result.data)
+        console.log(signUpOTP.value)
+        document.querySelector('#signUpOTPForm').style.display = 'none'
+        document.querySelector('#signUpPasswordForm').style.display = 'flex'
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  }
 }
 /* ________ SignUp _______ */
 async function SignUp() {
   console.log('SignUp')
-  await axios
-    .post(Base_Url + '/account.php', {
-      action: 'signup',
-      firstName: signUpFname.value,
-      lastName: signUpLname.value,
-      Email: signUpEmail.value,
-      Password1: signUpPassword1.value,
-      Password2: signUpPassword2.value
-    })
-    .then((result) => {
-      console.log(result.data)
-      console.log(signUpPassword1.value + ', ' + signUpPassword2.value)
-      document.querySelector('#signUpPasswordForm').style.display = 'none'
-      document.querySelector('#signUpForm').style.display = 'flex'
+  const SignUp_createPasswordError = document.querySelector('.SignUp_createPasswordError')
+  if (password1.value == '' || password2.value == '') {
+    SignUp_createPasswordError.style.display = 'block'
+  } else {
+    await axios
+      .post(Base_Url + '/account.php', {
+        action: 'signup',
+        firstName: signUpFname.value,
+        lastName: signUpLname.value,
+        Email: signUpEmail.value,
+        Password1: signUpPassword1.value,
+        Password2: signUpPassword2.value
+      })
+      .then((result) => {
+        console.log(result.data)
+        console.log(signUpPassword1.value + ', ' + signUpPassword2.value)
+        document.querySelector('#signUpPasswordForm').style.display = 'none'
+        document.querySelector('#signUpForm').style.display = 'flex'
 
-      if (result.data === 'successfully signup') {
-        const slider = document.querySelector('#slider')
-        slider.classList.remove('showSignUp')
-        slider.classList.add('showLogin') /* -------> */
-        document.querySelector('#loginLink').style.display = 'none'
-        document.querySelector('#signUpLink').style.display = 'block'
+        if (result.data === 'successfully signup') {
+          const slider = document.querySelector('#slider')
+          slider.classList.remove('showSignUp')
+          slider.classList.add('showLogin') /* -------> */
+          document.querySelector('#loginLink').style.display = 'none'
+          document.querySelector('#signUpLink').style.display = 'block'
 
-        const loginForm = document.querySelector('#loginForm')
-        loginForm.classList.add('loginForm_animation')
-        const signUpForm = document.querySelector('#signUpForm')
-        signUpForm.classList.remove('signUpForm_animation')
-      } else {
-        alert(result.data)
-      }
-    })
-    .catch(function (error) {
-      console.log(error)
-    })
+          const loginForm = document.querySelector('#loginForm')
+          loginForm.classList.add('loginForm_animation')
+          const signUpForm = document.querySelector('#signUpForm')
+          signUpForm.classList.remove('signUpForm_animation')
+        } else {
+          alert(result.data)
+        }
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  }
 }
 </script>
 <template>
@@ -145,6 +160,11 @@ async function SignUp() {
         <div class="invalid-feedback">Please enter valid Email</div>
       </div>
     </div>
+    <div class="col-12">
+      <div class="form-floating">
+        <div class="R_Error SignUp_Error">Please enter valid Credentials</div>
+      </div>
+    </div>
     <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center d-grid pt-4">
       <button class="btn" id="signUpBtn" @click.prevent="verifyEmail()">Verify Email</button>
@@ -181,6 +201,11 @@ async function SignUp() {
           <a href="#" id="signUpResendOTP">Resend OTP?</a>
         </div>
         <div class="col-12" id="signUpOTPexpire">OTP expire in : <span>123</span></div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="form-floating">
+        <div class="R_Error SignUp_verifyOTPError">Please enter valid Credentials</div>
       </div>
     </div>
     <div class="col-sm-3"></div>
@@ -226,6 +251,11 @@ async function SignUp() {
           required
         />
         <label for="signUpPassword2" id="signUpLabels">Re-password</label>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="form-floating">
+        <div class="R_Error SignUp_createPasswordError">Please enter valid Credentials</div>
       </div>
     </div>
     <div class="col-sm-3"></div>
@@ -276,6 +306,20 @@ async function SignUp() {
 }
 #signUpOTPexpire {
   color: burlywood;
+}
+
+.R_Error {
+  display: none;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 0.875em;
+  color: #dc3545;
+  animation: erroBlinker 1.5s linear infinite;
+}
+@keyframes erroBlinker {
+  50% {
+    opacity: 0;
+  }
 }
 #signUpBtn {
   --bs-btn-color: #b47501;
