@@ -1,21 +1,3 @@
-<script setup>
-import Login from '../components/Login.vue'
-import SignUp from '../components/SignUp.vue'
-function showLogin() {
-  const slider = document.querySelector('#slider')
-  slider.classList.remove('showSignUp')
-  slider.classList.add('showLogin') /* -------> */
-  document.querySelector('#loginLink').style.display = 'none'
-  document.querySelector('#signUpLink').style.display = 'block'
-}
-function showSignUp() {
-  const slider = document.querySelector('#slider')
-  slider.classList.remove('showLogin')
-  slider.classList.add('showSignUp') /* <------- */
-  document.querySelector('#signUpLink').style.display = 'none'
-  document.querySelector('#loginLink').style.display = 'block'
-}
-</script>
 <template>
   <div class="container-fluid pt-5" id="">
     <div class="row pt-2">
@@ -62,6 +44,26 @@ function showSignUp() {
     </div>
   </div>
 </template>
+
+<script setup>
+import Login from '../components/Login.vue'
+import SignUp from '../components/SignUp.vue'
+function showLogin() {
+  const slider = document.querySelector('#slider')
+  slider.classList.remove('showSignUp')
+  slider.classList.add('showLogin') /* -------> */
+  document.querySelector('#loginLink').style.display = 'none'
+  document.querySelector('#signUpLink').style.display = 'block'
+}
+function showSignUp() {
+  const slider = document.querySelector('#slider')
+  slider.classList.remove('showLogin')
+  slider.classList.add('showSignUp') /* <------- */
+  document.querySelector('#signUpLink').style.display = 'none'
+  document.querySelector('#loginLink').style.display = 'block'
+}
+</script>
+
 <style scoped>
 #Account {
   position: relative;
