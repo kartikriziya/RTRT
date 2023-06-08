@@ -1,4 +1,3 @@
-<script setup></script>
 <template>
   <nav class="navbar sticky-top navbar-expand-md navbar-light">
     <div class="container">
@@ -36,6 +35,7 @@
     </div>
   </nav>
 </template>
+<script setup></script>
 <style scoped>
 #links {
   color: #f4ebd9;

@@ -1,4 +1,3 @@
-<script setup></script>
 <template>
   <div class="d-flex flex-column text-center justify-content-between" id="videoContent">
     <div id="wrapper">
@@ -18,6 +17,7 @@
     </div>
   </div>
 </template>
+<script setup></script>
 <style scoped>
 #videoContent {
   min-height: calc(100vh - 150px);

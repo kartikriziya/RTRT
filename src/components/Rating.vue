@@ -1,7 +1,6 @@
-<script></script>
 <template>
   <div class="col-sm-8 col-md-12 pe-4 gap-2" id="wrapperRating">
-    <input type="radio" id="star5" name="rate" value="5" />
+    <input v-model="test" type="radio" id="star5" name="rate" value="5" />
     <label id="stars" for="star5"><i class="fa fa-star"></i></label>
 
     <input type="radio" id="star4" name="rate" value="4" />
@@ -18,6 +17,10 @@
   </div>
   <div class="col-sm-4 col-md-12"></div>
 </template>
+<script>
+import { ref } from 'vue'
+import axios from 'axios'
+</script>
 <style scoped>
 /**************************************/
 /************ Star Rating *************/
