@@ -35,7 +35,7 @@
       </div>
     </div>
     <div class="col-12">
-      <div class="R_Error Login_Error">Please enter valid Credentials</div>
+      <div class="R_Error Login_Error">{{LogIn_Error_Message}}</div>  
     </div>
     <div class="col-12 ms-2">
       <a id="loginForgot" @click.prevent="forgetPassword()">Forgot Password?</a>
@@ -71,15 +71,16 @@
           required
         />
         <label for="forgetPasswordEmail" id="loginLabels" @click.prevent="getOTP()"
-          >Email address</label
+          >Email address *</label
         >
       </div>
     </div>
     <div class="col-12">
       <div class="form-floating">
-        <div class="R_Error Login_getOTPError">Please enter valid Credentials</div>
+        <div class="R_Error Login_getOTPError">{{ LogIn_Error_Message }}</div>
       </div>
     </div>
+  
     <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center d-grid pt-3">
       <button class="btn" id="getOTPBtn" @click.prevent="getOTP()">Get OTP</button>
@@ -110,12 +111,12 @@
           placeholder="12345678"
           required
         />
-        <label for="loginVverifyOTP" id="loginLabels">OTP</label>
+        <label for="loginVverifyOTP" id="loginLabels">OTP *</label>
       </div>
     </div>
     <div class="col-12">
       <div class="form-floating">
-        <div class="R_Error Login_verifyOTPError">Please enter valid Credentials</div>
+        <div class="R_Error Login_verifyOTPError">{{ LogIn_Error_Message }}</div>
       </div>
     </div>
     <div class="col-sm-3"></div>
@@ -148,7 +149,7 @@
           placeholder="password"
           required
         />
-        <label for="password1" id="loginLabels">Password</label>
+        <label for="password1" id="loginLabels">Password *</label>
       </div>
     </div>
     <div class="col-12">
@@ -161,12 +162,12 @@
           placeholder="password"
           required
         />
-        <label for="password2" id="loginLabels">Re-password</label>
+        <label for="password2" id="loginLabels">Re-password *</label>
       </div>
     </div>
     <div class="col-12">
       <div class="form-floating">
-        <div class="R_Error Login_createPasswordError">Please enter valid Credentials</div>
+        <div class="R_Error Login_createPasswordError">{{ LogIn_Error_Message }}</div>
       </div>
     </div>
     <div class="col-sm-3"></div>
@@ -192,12 +193,15 @@ const loginVverifyOTP = ref('')
 const password1 = ref('')
 const password2 = ref('')
 
+const LogIn_Error_Message = ref('')
+
 /* ______ login ______ */
 async function login() {
   const Login_Error = document.querySelector('.Login_Error')
   console.log('login')
   if (loginEmail.value == '' || loginPassword.value == '') {
     Login_Error.style.display = 'block'
+    LogIn_Error_Message.value = 'Please enter valid Credentials!'
   } else {
     await axios
       .post(Base_Url + '/account.php', {
@@ -208,8 +212,25 @@ async function login() {
       .then((result) => {
         console.log(result.data)
         console.log(loginEmail.value + ', ' + loginPassword.value)
-        document.querySelector('#loginForm').style.display = 'none'
-        document.querySelector('#loginForm').style.display = 'flex'
+        if(result.data == 'No_Email_Found') {
+          document.querySelector('#loginForm').style.display = 'none'
+          document.querySelector('#loginForm').style.display = 'flex'  
+            Login_Error.style.display = 'block'
+            LogIn_Error_Message.value = 'Email not found. Please check your email address or sign up for a new account!'
+        }
+        else if (result.data == 'LOGIN_SUCCESSFULL')  {
+          document.querySelector('#loginForm').style.display = 'none'
+          document.querySelector('#loginForm').style.display = 'flex'  
+            Login_Error.style.display = 'block'
+            LogIn_Error_Message.value = 'LOGIN_SUCCESSFULL'        
+        }
+        else {
+          document.querySelector('#loginForm').style.display = 'none'
+          document.querySelector('#loginForm').style.display = 'flex'  
+            Login_Error.style.display = 'block'
+            LogIn_Error_Message.value = 'Invalid email or password. Please check your credentials and try again!'       
+        }
+        
       })
       .catch(function (error) {
         console.log(error)
@@ -228,6 +249,7 @@ async function getOTP() {
   console.log('getOTP')
   if (forgetPasswordEmail.value == '') {
     Login_getOTPError.style.display = 'block'
+    LogIn_Error_Message.value = 'Please enter your email address!'
   } else {
     await axios
       .post(Base_Url + '/forgetPassword.php', {
@@ -241,7 +263,9 @@ async function getOTP() {
           document.querySelector('#getOTPForm').style.display = 'none'
           document.querySelector('#verifyOTPForm').style.display = 'flex'
         } else {
-          alert(result.data)
+          //alert(result.data)
+          Login_getOTPError.style.display = 'block'
+          LogIn_Error_Message.value = 'Email not found. Please check your email address or sign up for a new account!'
         }
       })
       .catch(function (error) {
@@ -256,6 +280,7 @@ async function verifyOTP() {
   console.log('verifyOTP')
   if (loginVverifyOTP.value == '') {
     Login_verifyOTPError.style.display = 'block'
+    LogIn_Error_Message.value = 'Please enter the One-Time Password (OTP)!'
   } else {
     await axios
       .post(Base_Url + '/forgetPassword.php', {
@@ -270,7 +295,9 @@ async function verifyOTP() {
           document.querySelector('#verifyOTPForm').style.display = 'none'
           document.querySelector('#changePasswordFrom').style.display = 'flex'
         } else {
-          alert(result.data)
+          //alert(result.data)
+          Login_verifyOTPError.style.display = 'block'
+          LogIn_Error_Message.value = 'Incorrect OTP. Please check your One-Time Password and try again!'
         }
       })
       .catch(function (error) {
@@ -285,6 +312,7 @@ async function resetPassword() {
   console.log('resetPassword')
   if (password1.value == '' || password2.value == '') {
     Login_createPasswordError.style.display = 'block'
+    LogIn_Error_Message.value = 'Please enter your new password!'
   } else {
     await axios
       .post(Base_Url + '/forgetPassword.php', {
@@ -300,7 +328,10 @@ async function resetPassword() {
           document.querySelector('#changePasswordFrom').style.display = 'none'
           document.querySelector('#loginForm').style.display = 'flex'
         } else {
-          alert(result.data)
+          //alert(result.data)
+          Login_createPasswordError.style.display = 'block'
+          LogIn_Error_Message.value = 'Please make sure your passwords match!'
+
         }
       })
       .catch(function (error) {
