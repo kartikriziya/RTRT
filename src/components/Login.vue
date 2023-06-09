@@ -114,6 +114,12 @@
         <label for="loginVverifyOTP" id="loginLabels">OTP *</label>
       </div>
     </div>
+
+        <div class="col-12 ms-2">
+          <a id="logInResendOTP" @click.prevent = "LogIn_resendOTP()">Resend OTP?</a>
+        </div>
+        <div class="col-12 ms-2" id="logInOTPexpire">OTP expire in : <span>123</span></div>
+ 
     <div class="col-12">
       <div class="form-floating">
         <div class="R_Error Login_verifyOTPError">{{ LogIn_Error_Message }}</div>
@@ -121,7 +127,7 @@
     </div>
     <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center d-grid pt-3">
-      <button class="btn" id="resetPasswordBtn" @click.prevent="verifyOTP()">Reset Password</button>
+      <button class="btn LogIn_VerifyOTP_btn" id="resetPasswordBtn" @click.prevent="verifyOTP()">Reset Password</button>
     </div>
     <div class="col-sm-3"></div>
   </form>
@@ -272,6 +278,24 @@ async function getOTP() {
         console.log(error)
       })
   }
+}
+
+/* ______ ResendOTP ______ */
+async function LogIn_resendOTP() {
+  console.log('LogIn_resendOTP')
+    await axios
+      .post(Base_Url + '/forgetPassword.php', {
+        action: 'LogIn_resendOTP',
+        forgetPasswordEmail: forgetPasswordEmail.value
+      })
+      .then((result) => {
+        console.log(result.data)
+        console.log(forgetPasswordEmail.value)
+        document.querySelector('.LogIn_VerifyOTP_btn').disabled = true
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
 }
 
 /* ______ verifyOTP ______ */
@@ -431,6 +455,15 @@ async function resetPassword() {
 }
 #resetPasswordBtn:hover {
   color: #f8b333;
+}
+#logInResendOTP {
+  color: #b47501;
+}
+#logInResendOTP:hover {
+  color: #f8b333;
+}
+#logInOTPexpire {
+  color: burlywood;
 }
 #resetPasswordBtn {
   --bs-btn-color: #b47501;

@@ -91,7 +91,7 @@
     <div class="col-sm-6 pb-5">
       <div class="row">
         <div class="col-12">
-          <a href="#" id="signUpResendOTP">Resend OTP?</a>
+          <a id="signUpResendOTP" @click.prevent = "SignUp_resendOTP()">Resend OTP?</a>
         </div>
         <div class="col-12" id="signUpOTPexpire">OTP expire in : <span>123</span></div>
       </div>
@@ -103,7 +103,7 @@
     </div>
     <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center d-grid">
-      <button class="btn" id="signUpBtn" @click.prevent="verifyOTP()">Verify OTP</button>
+      <button class="btn signUp_VerifyOTP_btn" id="signUpBtn" @click.prevent="verifyOTP()">Verify OTP</button>
     </div>
     <div class="col-sm-3"></div>
   </form>
@@ -182,13 +182,13 @@ async function verifyEmail() {
   console.log('verifyEmail')
   if (signUpFname.value == '' || signUpLname.value == '' || signUpEmail.value == '') {
     SignUp_Error.style.display = 'block'
-    signUp_Error_Message.value = 'Please fill in all the required fields!'
+      signUp_Error_Message.value = 'Please fill in all the required fields!'
   } else {
     await axios
       .post(Base_Url + '/account.php', {
         action: 'verify_email',
         firstName: signUpFname.value,
-        lastName: signUpLname.value,
+          lastName: signUpLname.value,
         Email: signUpEmail.value
       })
       .then((result) => {
@@ -202,6 +202,25 @@ async function verifyEmail() {
       })
   }
 }
+
+/* ______ ResendOTP ______ */
+async function SignUp_resendOTP() {
+  //const SignUp_Error = document.querySelector('.SignUp_Error')
+  console.log('SignUp_resendOTP')
+    await axios
+      .post(Base_Url + '/account.php', {
+        action: 'SignUp_resendOTP',
+        Email: signUpEmail.value
+      })
+      .then((result) => {
+        console.log(result.data)
+        document.querySelector('.signUp_VerifyOTP_btn').disabled = true
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+}
+
 /* ______ verifyOTP ______ */
 async function verifyOTP() {
   const SignUp_verifyOTPError = document.querySelector('.SignUp_verifyOTPError')
@@ -239,11 +258,12 @@ async function SignUp() {
   console.log('SignUp')
   console.log(signUpFname.value + ', ' + signUpLname.value + ', ' + signUpPassword1.value + ', ' + signUpPassword2.value)
   const SignUp_createPasswordError = document.querySelector('.SignUp_createPasswordError')
-  if (password1.value == '' || password2.value == '') {
+  if (signUpPassword1.value == '' || signUpPassword2.value == '') {
     SignUp_createPasswordError.style.display = 'block'
     signUp_Error_Message.value = 'Please enter password in both fields!'
-
+    console.log("aa")
   } else {
+    console.log("kk")
     await axios
       .post(Base_Url + '/account.php', {
         action: 'signup',
@@ -256,8 +276,6 @@ async function SignUp() {
       .then((result) => {
         console.log(result.data)
         console.log(signUpPassword1.value + ', ' + signUpPassword2.value)
-        document.querySelector('#signUpPasswordForm').style.display = 'none'
-        document.querySelector('#signUpForm').style.display = 'flex'
 
         if (result.data === 'successfully signup') {
           const slider = document.querySelector('#slider')
@@ -271,7 +289,6 @@ async function SignUp() {
           const signUpForm = document.querySelector('#signUpForm')
           signUpForm.classList.remove('signUpForm_animation')
         } else {
-          alert(result.data)
           SignUp_createPasswordError.style.display = 'block'
           signUp_Error_Message.value = 'Please make sure your passwords match!'
         }
