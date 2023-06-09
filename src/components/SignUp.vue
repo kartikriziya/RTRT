@@ -58,6 +58,11 @@
         <div class="R_Error SignUp_Error">{{signUp_Error_Message }}</div>
       </div>
     </div>
+    <div class="col-12">
+      <div class="form-floating">
+        <div class="R_Error SignUp_verifyOTPError">{{ signUp_Error_Message}}</div>
+      </div>
+    </div>
     <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center d-grid pt-4">
       <button class="btn" id="signUpBtn" @click.prevent="verifyEmail()">Verify Email</button>
@@ -182,7 +187,7 @@ async function verifyEmail() {
   console.log('verifyEmail')
   if (signUpFname.value == '' || signUpLname.value == '' || signUpEmail.value == '') {
     SignUp_Error.style.display = 'block'
-      signUp_Error_Message.value = 'Please fill in all the required fields!'
+    signUp_Error_Message.value = 'Please fill in all the required fields!'
   } else {
     await axios
       .post(Base_Url + '/account.php', {
@@ -194,8 +199,13 @@ async function verifyEmail() {
       .then((result) => {
         console.log(result.data)
         console.log(signUpFname.value + ', ' + signUpLname.value + ', ' + signUpEmail.value)
+        if (result.data != 'Account with this Email already exists!') {
         document.querySelector('#signUpForm').style.display = 'none'
         document.querySelector('#signUpOTPForm').style.display = 'flex'
+        } else {
+          SignUp_Error.style.display = 'block'
+          signUp_Error_Message.value = 'Account with this Email already exists. Try another Email!'
+        }
       })
       .catch(function (error) {
         console.log(error)
