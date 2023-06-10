@@ -20,7 +20,7 @@
           placeholder="first name"
           required
         />
-        <label for="signUpFname" id="signUpLabels">First name</label>
+        <label for="signUpFname" id="signUpLabels">First name *</label>
       </div>
     </div>
     <div class="col-sm-6">
@@ -34,7 +34,7 @@
           placeholder="last name"
           required
         />
-        <label for="signUpLname" id="signUpLabels">Last name</label>
+        <label for="signUpLname" id="signUpLabels">Last name *</label>
       </div>
     </div>
     <div class="col-sm-12">
@@ -48,14 +48,19 @@
           placeholder="name@example.com"
           required
         />
-        <label for="signUpEmail" id="signUpLabels">Email address</label>
+        <label for="signUpEmail" id="signUpLabels">Email address *</label>
         <div class="valid-feedback">Looks good!</div>
         <div class="invalid-feedback">Please enter valid Email</div>
       </div>
     </div>
     <div class="col-12">
       <div class="form-floating">
-        <div class="R_Error SignUp_Error">Please enter valid Credentials</div>
+        <div class="R_Error SignUp_Error">{{signUp_Error_Message }}</div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="form-floating">
+        <div class="R_Error SignUp_verifyOTPError">{{ signUp_Error_Message}}</div>
       </div>
     </div>
     <div class="col-sm-3"></div>
@@ -85,25 +90,25 @@
           placeholder="otp"
           required
         />
-        <label for="signUpOTP" id="signUpLabels">OTP</label>
+        <label for="signUpOTP" id="signUpLabels">OTP *</label>
       </div>
     </div>
     <div class="col-sm-6 pb-5">
       <div class="row">
         <div class="col-12">
-          <a href="#" id="signUpResendOTP">Resend OTP?</a>
+          <a id="signUpResendOTP" @click.prevent = "SignUp_resendOTP()">Resend OTP?</a>
         </div>
         <div class="col-12" id="signUpOTPexpire">OTP expire in : <span>123</span></div>
       </div>
     </div>
     <div class="col-12">
       <div class="form-floating">
-        <div class="R_Error SignUp_verifyOTPError">Please enter valid Credentials</div>
+        <div class="R_Error SignUp_verifyOTPError">{{ signUp_Error_Message}}</div>
       </div>
     </div>
     <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center d-grid">
-      <button class="btn" id="signUpBtn" @click.prevent="verifyOTP()">Verify OTP</button>
+      <button class="btn signUp_VerifyOTP_btn" id="signUpBtn" @click.prevent="verifyOTP()">Verify OTP</button>
     </div>
     <div class="col-sm-3"></div>
   </form>
@@ -129,7 +134,7 @@
           placeholder="********"
           required
         />
-        <label for="signUpPassword1" id="signUpLabels">Password</label>
+        <label for="signUpPassword1" id="signUpLabels">Password *</label>
       </div>
     </div>
     <div class="col-sm-12">
@@ -143,12 +148,12 @@
           placeholder="********"
           required
         />
-        <label for="signUpPassword2" id="signUpLabels">Re-password</label>
+        <label for="signUpPassword2" id="signUpLabels">Re-password *</label>
       </div>
     </div>
     <div class="col-12">
       <div class="form-floating">
-        <div class="R_Error SignUp_createPasswordError">Please enter valid Credentials</div>
+        <div class="R_Error SignUp_createPasswordError">{{signUp_Error_Message}}</div>
       </div>
     </div>
     <div class="col-sm-3"></div>
@@ -174,38 +179,67 @@ const signUpOTP = ref('')
 const signUpPassword1 = ref('')
 const signUpPassword2 = ref('')
 
+const signUp_Error_Message = ref('')
+
 /* ______ verifyEmail ______ */
 async function verifyEmail() {
   const SignUp_Error = document.querySelector('.SignUp_Error')
   console.log('verifyEmail')
-  if (signUpFname.value == '' && signUpLname.value == '' && signUpEmail.value == '') {
+  if (signUpFname.value == '' || signUpLname.value == '' || signUpEmail.value == '') {
     SignUp_Error.style.display = 'block'
+    signUp_Error_Message.value = 'Please fill in all the required fields!'
   } else {
     await axios
       .post(Base_Url + '/account.php', {
         action: 'verify_email',
         firstName: signUpFname.value,
-        lastName: signUpLname.value,
+          lastName: signUpLname.value,
         Email: signUpEmail.value
       })
       .then((result) => {
         console.log(result.data)
         console.log(signUpFname.value + ', ' + signUpLname.value + ', ' + signUpEmail.value)
+        if (result.data != 'Account with this Email already exists!') {
         document.querySelector('#signUpForm').style.display = 'none'
         document.querySelector('#signUpOTPForm').style.display = 'flex'
+        } else {
+          SignUp_Error.style.display = 'block'
+          signUp_Error_Message.value = 'Account with this Email already exists. Try another Email!'
+        }
       })
       .catch(function (error) {
         console.log(error)
       })
   }
 }
+
+/* ______ ResendOTP ______ */
+async function SignUp_resendOTP() {
+  //const SignUp_Error = document.querySelector('.SignUp_Error')
+  console.log('SignUp_resendOTP')
+    await axios
+      .post(Base_Url + '/account.php', {
+        action: 'SignUp_resendOTP',
+        Email: signUpEmail.value
+      })
+      .then((result) => {
+        console.log(result.data)
+        document.querySelector('.signUp_VerifyOTP_btn').disabled = true
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+}
+
 /* ______ verifyOTP ______ */
 async function verifyOTP() {
   const SignUp_verifyOTPError = document.querySelector('.SignUp_verifyOTPError')
   console.log('verifyOTP')
-  if (loginVverifyOTP.value == '') {
+  if (signUpOTP.value == '') {
     SignUp_verifyOTPError.style.display = 'block'
-  } else {
+    signUp_Error_Message.value = 'Please enter the One-Time Password (OTP)!'
+  } 
+  else {
     await axios
       .post(Base_Url + '/account.php', {
         action: 'verify_otp',
@@ -214,9 +248,15 @@ async function verifyOTP() {
       })
       .then((result) => {
         console.log(result.data)
-        console.log(signUpOTP.value)
-        document.querySelector('#signUpOTPForm').style.display = 'none'
-        document.querySelector('#signUpPasswordForm').style.display = 'flex'
+        console.log(signUpEmail.value + ',' + signUpOTP.value)
+        if(result.data != 'Incorrect_OTP') {
+          document.querySelector('#signUpOTPForm').style.display = 'none'
+          document.querySelector('#signUpPasswordForm').style.display = 'flex'
+        }
+        else {
+          SignUp_verifyOTPError.style.display = 'block'
+          signUp_Error_Message.value = 'OTP Incorrect.Try Again!'
+        }
       })
       .catch(function (error) {
         console.log(error)
@@ -226,10 +266,14 @@ async function verifyOTP() {
 /* ________ SignUp _______ */
 async function SignUp() {
   console.log('SignUp')
+  console.log(signUpFname.value + ', ' + signUpLname.value + ', ' + signUpPassword1.value + ', ' + signUpPassword2.value)
   const SignUp_createPasswordError = document.querySelector('.SignUp_createPasswordError')
-  if (password1.value == '' || password2.value == '') {
+  if (signUpPassword1.value == '' || signUpPassword2.value == '') {
     SignUp_createPasswordError.style.display = 'block'
+    signUp_Error_Message.value = 'Please enter password in both fields!'
+    console.log("aa")
   } else {
+    console.log("kk")
     await axios
       .post(Base_Url + '/account.php', {
         action: 'signup',
@@ -242,8 +286,6 @@ async function SignUp() {
       .then((result) => {
         console.log(result.data)
         console.log(signUpPassword1.value + ', ' + signUpPassword2.value)
-        document.querySelector('#signUpPasswordForm').style.display = 'none'
-        document.querySelector('#signUpForm').style.display = 'flex'
 
         if (result.data === 'successfully signup') {
           const slider = document.querySelector('#slider')
@@ -257,7 +299,8 @@ async function SignUp() {
           const signUpForm = document.querySelector('#signUpForm')
           signUpForm.classList.remove('signUpForm_animation')
         } else {
-          alert(result.data)
+          SignUp_createPasswordError.style.display = 'block'
+          signUp_Error_Message.value = 'Please make sure your passwords match!'
         }
       })
       .catch(function (error) {
