@@ -1,14 +1,6 @@
-<script></script>
 <template>
   <div class="col-sm-8 col-md-12 pe-4 gap-2" id="wrapperRating">
-<<<<<<< HEAD
-    <input v-model="test" type="radio" id="star5" name="rate" value="5" />
-
     <input v-model="collectStars" type="radio" id="star5" value="5" @change="sendRatings()" />
-    >>>>>>> main
-=======
-    <input type="radio" id="star5" name="rate" value="5" />
->>>>>>> parent of 1a89d9c (Squashed commit of the following:)
     <label id="stars" for="star5"><i class="fa fa-star"></i></label>
 
     <input v-model="collectStars" type="radio" id="star4" value="4" @change="sendRatings()" />
@@ -25,7 +17,6 @@
   </div>
   <div class="col-sm-4 col-md-12"></div>
 </template>
-<<<<<<< HEAD
 
 <script setup>
 import { ref } from 'vue'
@@ -58,8 +49,6 @@ function sendRatings() {
 /******************************* End Learning *************************************/
 </script>
 
-=======
->>>>>>> parent of 1a89d9c (Squashed commit of the following:)
 <style scoped>
 #wrapperRating {
   background-color: darkolivegreen;

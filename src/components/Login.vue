@@ -1,116 +1,3 @@
-<script setup>
-import { ref } from 'vue'
-import axios from 'axios'
-
-const Base_Url = 'https://olivewood.elementfx.com'
-
-const loginEmail = ref('')
-const loginPassword = ref('')
-
-const forgetPasswordEmail = ref('')
-
-const loginVverifyOTP = ref('')
-
-const password1 = ref('')
-const password2 = ref('')
-
-/* ______ login ______ */
-async function login() {
-  console.log('login')
-  await axios
-    .post(Base_Url + '/account.php', {
-      action: 'login_login',
-      logEmail: loginEmail.value,
-      logPassword: loginPassword.value
-    })
-    .then((result) => {
-      console.log(result.data)
-      console.log(loginEmail.value + ', ' + loginPassword.value)
-      document.querySelector('#loginForm').style.display = 'none'
-      document.querySelector('#loginForm').style.display = 'flex'
-    })
-    .catch(function (error) {
-      console.log(error)
-    })
-}
-/* ______ forgetPassword ______ */
-function forgetPassword() {
-    document.querySelector('#loginForm').style.display = 'none'
-    document.querySelector('#getOTPForm').style.display = 'flex' 
-}
-
-/* ______ getOTP ______ */
-async function getOTP() {
-  console.log('getOTP')
-  await axios
-    .post(Base_Url + '/forgetPassword.php', {
-      action: 'get_OTP',
-      forgetPasswordEmail: forgetPasswordEmail.value
-    })
-    .then((result) => {
-      console.log(result.data)
-      console.log(forgetPasswordEmail.value)
-      document.querySelector('#getOTPForm').style.display = 'none'
-      document.querySelector('#verifyOTPForm').style.display = 'flex'
-    })
-    .catch(function (error) {
-      console.log(error)
-    })
-}
-
-/* ______ verifyOTP ______ */
-async function verifyOTP() {
-  console.log('verifyOTP')
-  await axios
-    .post(Base_Url + '/forgetPassword.php', {
-      action: 'verify_OTP',
-      forgetPasswordEmail: forgetPasswordEmail.value,
-      loginVverifyOTP: loginVverifyOTP.value
-    })
-    .then((result) => {
-      console.log(result.data)
-      console.log(forgetPasswordEmail.value + ',' + loginVverifyOTP.value)
-      if(result.data != "Incorrect_OTP")
-      {
-        document.querySelector('#verifyOTPForm').style.display = 'none'
-        document.querySelector('#changePasswordFrom').style.display = 'flex'
-      }
-      else{
-        alert(result.data)
-      }     
-    })
-    .catch(function (error) {
-      console.log(error)
-    })
-}
-
-/* ______ Reset Password ______ */
-async function resetPassword() {
-  console.log('resetPassword')
-  await axios
-    .post(Base_Url + '/forgetPassword.php', {
-      action: 'reset_Password',
-      forgetPasswordEmail: forgetPasswordEmail.value,
-      password1: password1.value,
-      password2: password2.value
-    })
-    .then((result) => {
-      console.log(result.data)
-      console.log(password1.value + ',' + password2.value)
-      if(password1.value == password2.value){
-        document.querySelector('#changePasswordFrom').style.display = 'none'
-        document.querySelector('#loginForm').style.display = 'flex'
-      }
-      else {
-        alert(result.data)
-      }
-  
-    })
-    .catch(function (error) {
-      console.log(error)
-    })
-}
-</script>
 <template>
   <!-- --------------------------------------------------------------------------------------------------- -->
   <!--                                            LogIn Form                                               -->
@@ -131,7 +18,7 @@ async function resetPassword() {
           placeholder="name@example.com"
           required
         />
-        <label for="loginEmail" id="loginLabels">Email address</label>
+        <label for="loginEmail" id="loginLabels">Email address *</label>
       </div>
     </div>
     <div class="col-12">
@@ -144,8 +31,11 @@ async function resetPassword() {
           placeholder="********"
           required
         />
-        <label for="loginPassword" id="loginLabels">Password</label>
+        <label for="loginPassword" id="loginLabels">Password *</label>
       </div>
+    </div>
+    <div class="col-12">
+      <div class="R_Error Login_Error">Please enter valid Credentials</div>
     </div>
     <div class="col-12 ms-2">
       <a id="loginForgot" @click.prevent="forgetPassword()">Forgot Password?</a>
@@ -154,22 +44,22 @@ async function resetPassword() {
     <div class="col-sm-6 text-center d-grid pt-3">
       <button class="btn" id="loginBtn" @click.prevent="login()">Login</button>
     </div>
-    <div class="col-sm-3" ></div>
+    <div class="col-sm-3"></div>
   </form>
 
-<!-- --------------------------------------------------------------------------------------------------- -->
-<!--                                            Forget Password                                          -->
-<!-- --------------------------------------------------------------------------------------------------- -->
+  <!-- --------------------------------------------------------------------------------------------------- -->
+  <!--                                            Forget Password                                          -->
+  <!-- --------------------------------------------------------------------------------------------------- -->
 
-<!-- getOTPForm -->
-<form
+  <!-- getOTPForm -->
+  <form
     action=""
     class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
     autocomplete="off"
     id="getOTPForm"
     novalidate
-    style="display: none;"
-> 
+    style="display: none"
+  >
     <div class="col-12">
       <div class="form-floating">
         <input
@@ -180,7 +70,14 @@ async function resetPassword() {
           placeholder="name@example.com"
           required
         />
-        <label for="forgetPasswordEmail" id="loginLabels" @click.prevent="getOTP()">Email address</label>
+        <label for="forgetPasswordEmail" id="loginLabels" @click.prevent="getOTP()"
+          >Email address</label
+        >
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="form-floating">
+        <div class="R_Error Login_getOTPError">Please enter valid Credentials</div>
       </div>
     </div>
     <div class="col-sm-3"></div>
@@ -188,22 +85,22 @@ async function resetPassword() {
       <button class="btn" id="getOTPBtn" @click.prevent="getOTP()">Get OTP</button>
     </div>
     <div class="col-sm-3"></div>
-</form>
+  </form>
 
-<!-- --------------------------------------------------------------------------------------------------- -->
-<!--                                            Verify OTP                                               -->
-<!-- --------------------------------------------------------------------------------------------------- -->
+  <!-- --------------------------------------------------------------------------------------------------- -->
+  <!--                                            Verify OTP                                               -->
+  <!-- --------------------------------------------------------------------------------------------------- -->
 
-<!-- verifyOTPForm -->
-<form
+  <!-- verifyOTPForm -->
+  <form
     action=""
     class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
     autocomplete="off"
     id="verifyOTPForm"
     novalidate
-    style="display: none;"
->  
-  <div class="col-12">
+    style="display: none"
+  >
+    <div class="col-12">
       <div class="form-floating">
         <input
           v-model="loginVverifyOTP"
@@ -213,7 +110,12 @@ async function resetPassword() {
           placeholder="12345678"
           required
         />
-        <label for="loginVverifyOTP"  id="loginLabels">OTP</label>
+        <label for="loginVverifyOTP" id="loginLabels">OTP</label>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="form-floating">
+        <div class="R_Error Login_verifyOTPError">Please enter valid Credentials</div>
       </div>
     </div>
     <div class="col-sm-3"></div>
@@ -221,20 +123,20 @@ async function resetPassword() {
       <button class="btn" id="resetPasswordBtn" @click.prevent="verifyOTP()">Reset Password</button>
     </div>
     <div class="col-sm-3"></div>
-</form>
+  </form>
 
-<!-- --------------------------------------------------------------------------------------------------- -->
-<!--                                            Change Password                                          -->
-<!-- --------------------------------------------------------------------------------------------------- -->
+  <!-- --------------------------------------------------------------------------------------------------- -->
+  <!--                                            Change Password                                          -->
+  <!-- --------------------------------------------------------------------------------------------------- -->
 
-<!-- changePasswordFrom -->
-<form
+  <!-- changePasswordFrom -->
+  <form
     action=""
-    class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
+    class="row gy-3 pt-5 ps-3 pe-3 pb-5"
     autocomplete="off"
     id="changePasswordFrom"
     novalidate
-    style="display: none;"
+    style="display: none"
   >
     <div class="col-12">
       <div class="form-floating">
@@ -246,7 +148,7 @@ async function resetPassword() {
           placeholder="password"
           required
         />
-        <label for="password1"  id="loginLabels">Password</label>
+        <label for="password1" id="loginLabels">Password</label>
       </div>
     </div>
     <div class="col-12">
@@ -259,18 +161,155 @@ async function resetPassword() {
           placeholder="password"
           required
         />
-        <label for="password2"  id="loginLabels">Re-password</label>
+        <label for="password2" id="loginLabels">Re-password</label>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="form-floating">
+        <div class="R_Error Login_createPasswordError">Please enter valid Credentials</div>
       </div>
     </div>
     <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center d-grid pt-3">
-      <button class="btn" id="changePasswordBtn" @click.prevent="resetPassword()">Change Password</button>
+      <button class="btn" id="changePasswordBtn" @click.prevent="resetPassword()">
+        Change Password
+      </button>
     </div>
     <div class="col-sm-3"></div>
-</form>
-
-  
+  </form>
 </template>
+
+<script setup>
+import { ref } from 'vue'
+import axios from 'axios'
+
+const test = 'kartik'
+const Base_Url = 'https://olivewood.elementfx.com'
+
+const loginEmail = ref('')
+const loginPassword = ref('')
+const forgetPasswordEmail = ref('')
+const loginVverifyOTP = ref('')
+const password1 = ref('')
+const password2 = ref('')
+
+/* ______ login ______ */
+async function login() {
+  const Login_Error = document.querySelector('.Login_Error')
+  console.log('login')
+  if (loginEmail.value == '' || loginPassword.value == '') {
+    Login_Error.style.display = 'block'
+  } else {
+    await axios
+      .post(Base_Url + '/account.php', {
+        action: 'login_login',
+        logEmail: loginEmail.value,
+        logPassword: loginPassword.value
+      })
+      .then((result) => {
+        console.log(result.data)
+        console.log(loginEmail.value + ', ' + loginPassword.value)
+        document.querySelector('#loginForm').style.display = 'none'
+        document.querySelector('#loginForm').style.display = 'flex'
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  }
+}
+/* ______ forgetPassword ______ */
+function forgetPassword() {
+  document.querySelector('#loginForm').style.display = 'none'
+  document.querySelector('#getOTPForm').style.display = 'flex'
+}
+
+/* ______ getOTP ______ */
+async function getOTP() {
+  const Login_getOTPError = document.querySelector('.Login_getOTPError')
+  console.log('getOTP')
+  if (forgetPasswordEmail.value == '') {
+    Login_getOTPError.style.display = 'block'
+  } else {
+    await axios
+      .post(Base_Url + '/forgetPassword.php', {
+        action: 'get_OTP',
+        forgetPasswordEmail: forgetPasswordEmail.value
+      })
+      .then((result) => {
+        console.log(result.data)
+        console.log(forgetPasswordEmail.value)
+        if (result.data != 'No_Email_Found!') {
+          document.querySelector('#getOTPForm').style.display = 'none'
+          document.querySelector('#verifyOTPForm').style.display = 'flex'
+        } else {
+          alert(result.data)
+        }
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  }
+}
+
+/* ______ verifyOTP ______ */
+async function verifyOTP() {
+  const Login_verifyOTPError = document.querySelector('.Login_verifyOTPError')
+  console.log('verifyOTP')
+  if (loginVverifyOTP.value == '') {
+    Login_verifyOTPError.style.display = 'block'
+  } else {
+    await axios
+      .post(Base_Url + '/forgetPassword.php', {
+        action: 'verify_OTP',
+        forgetPasswordEmail: forgetPasswordEmail.value,
+        loginVverifyOTP: loginVverifyOTP.value
+      })
+      .then((result) => {
+        console.log(result.data)
+        console.log(forgetPasswordEmail.value + ',' + loginVverifyOTP.value)
+        if (result.data != 'Incorrect_OTP') {
+          document.querySelector('#verifyOTPForm').style.display = 'none'
+          document.querySelector('#changePasswordFrom').style.display = 'flex'
+        } else {
+          alert(result.data)
+        }
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  }
+}
+
+/* ______ Reset Password ______ */
+async function resetPassword() {
+  const Login_createPasswordError = document.querySelector('.Login_createPasswordError')
+  console.log('resetPassword')
+  if (password1.value == '' || password2.value == '') {
+    Login_createPasswordError.style.display = 'block'
+  } else {
+    await axios
+      .post(Base_Url + '/forgetPassword.php', {
+        action: 'reset_Password',
+        forgetPasswordEmail: forgetPasswordEmail.value,
+        password1: password1.value,
+        password2: password2.value
+      })
+      .then((result) => {
+        console.log(result.data)
+        console.log(password1.value + ',' + password2.value)
+        if (password1.value == password2.value) {
+          document.querySelector('#changePasswordFrom').style.display = 'none'
+          document.querySelector('#loginForm').style.display = 'flex'
+        } else {
+          alert(result.data)
+        }
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  }
+}
+</script>
 
 <style scoped>
 #loginForm,
@@ -299,14 +338,25 @@ async function resetPassword() {
     transform: translateX(0);
   }
 }
-#loginLabels {
-  color: #b47501;
-}
+#loginLabels,
 #loginForgot {
   color: #b47501;
 }
 #loginForgot:hover {
   color: #f8b333;
+}
+.R_Error {
+  display: none;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 0.875em;
+  color: #dc3545;
+  animation: erroBlinker 1.5s linear infinite;
+}
+@keyframes erroBlinker {
+  50% {
+    opacity: 0;
+  }
 }
 #loginBtn {
   --bs-btn-color: #b47501;

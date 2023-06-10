@@ -1,7 +1,3 @@
-<script setup>
-import Rating from '../components/Rating.vue'
-import CustomerDetails from '../components/CustomerDetails.vue'
-</script>
 <template>
   <div class="container-fluid" id="reservation">
     <div class="row pt-5">
@@ -39,6 +35,27 @@ import CustomerDetails from '../components/CustomerDetails.vue'
     </div>
   </div>
 </template>
+
+<script setup>
+import { ref } from 'vue'
+import axios from 'axios'
+import Rating from '../components/Rating.vue'
+import CustomerDetails from '../components/CustomerDetails.vue'
+
+const sendStars = ref('') // stars will be updated after getting 'getStars()' called in 'sendStars' variable as const
+
+/*********************************************************************************************************/
+/* Start of getStars(event) 
+/* -> getting Stars in a form of 'event' parameter from Rating.vue(Child) => as function name 'getStars()'
+/* -> will be saved in 'sendStars' variable as const
+/* -> will be passed as a Props to CustomerDetails.vue(Child) => as Prop name 'sendStars'
+/*********************************************************************************************************/
+function getStars(event) {
+  sendStars.value = event
+}
+/* End of getStars(event) */
+</script>
+
 <style scoped>
 #reservation {
   background-color: #f4ebd9;
