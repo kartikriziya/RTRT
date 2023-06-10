@@ -1,51 +1,92 @@
-<template>
-  <div class="container-fluid" id="reservation">
-    <div class="row pt-5">
-      <div class="col-md-6 col-lg-5 col-xl-4 p-5" style="background-color: aqua">
-        <div class="row">
-          <div
-            class="col-sm-8 col-md-12"
-            style="
-              background-color: aquamarine;
-              display: flex;
-              flex-direction: row;
-              justify-content: end;
-            "
-          >
-            <h2>Olivewood restaurent</h2>
-          </div>
-          <div class="col-sm-4 col-md-12"></div>
-          <Rating />
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-7 col-xl-8" id="tableLayout" style="background-color: brown">
-        <CustomerDetails />
-      </div>
-    </div>
-    <div class="row pt-5 pb-5">
-      <div class="col-sm-2"></div>
-      <div class="col-sm-8" style="background-color: blue">
-        <img src="../assets/golden_spoon.jpg" alt="" id="layoutImg" />
-      </div>
-      <div class="col-sm-2"></div>
-    </div>
-  </div>
-</template>
-
 <script setup>
 import { ref } from 'vue'
 import axios from 'axios'
-import Rating from '../components/Rating.vue'
-import CustomerDetails from '../components/CustomerDetails.vue'
-</script>
 
-<style scoped>
-#reservation {
-  background-color: #f4ebd9;
-  min-height: calc(100vh - 151px);
+const Base_Url = 'https://olivewood.elementfx.com'
+
+const signUpFname = ref('')
+const signUpLname = ref('')
+const signUpEmail = ref('')
+
+const signUpOTP = ref('')
+
+const signUpPassword1 = ref('')
+const signUpPassword2 = ref('')
+
+/* ______ verifyEmail ______ */
+async function verifyEmail() {
+  console.log('verifyEmail')
+  await axios
+    .post(Base_Url + '/account.php', {
+      action: 'verify_email',
+      firstName: signUpFname.value,
+      lastName: signUpLname.value,
+      Email: signUpEmail.value
+    })
+    .then((result) => {
+      console.log(result.data)
+      console.log(signUpFname.value + ', ' + signUpLname.value + ', ' + signUpEmail.value)
+      document.querySelector('#signUpForm').style.display = 'none'
+      document.querySelector('#signUpOTPForm').style.display = 'flex'
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
 }
-#layoutImg {
-  height: 100%;
-  width: 100%;
+/* ______ verifyOTP ______ */
+async function verifyOTP() {
+  console.log('verifyOTP')
+  await axios
+    .post(Base_Url + '/account.php', {
+      action: 'verify_otp',
+      signUpOTP: signUpOTP.value,
+      Email: signUpEmail.value
+    })
+    .then((result) => {
+      console.log(result.data)
+      console.log(signUpOTP.value)
+      document.querySelector('#signUpOTPForm').style.display = 'none'
+      document.querySelector('#signUpPasswordForm').style.display = 'flex'
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
 }
-</style>
+/* ________ SignUp _______ */
+async function SignUp() {
+  console.log('SignUp')
+  await axios
+    .post(Base_Url + '/account.php', {
+      action: 'signup',
+      firstName: signUpFname.value,
+      lastName: signUpLname.value,
+      Email: signUpEmail.value,
+      Password1: signUpPassword1.value,
+      Password2: signUpPassword2.value
+    })
+    .then((result) => {
+      console.log(result.data)
+      console.log(signUpPassword1.value + ', ' + signUpPassword2.value)
+      document.querySelector('#signUpPasswordForm').style.display = 'none'
+      document.querySelector('#signUpForm').style.display = 'flex'
+
+      if (result.data === 'successfully signup') {
+        const slider = document.querySelector('#slider')
+        slider.classList.remove('showSignUp')
+        slider.classList.add('showLogin') /* -------> */
+        document.querySelector('#loginLink').style.display = 'none'
+        document.querySelector('#signUpLink').style.display = 'block'
+
+        const loginForm = document.querySelector('#loginForm')
+        loginForm.classList.add('loginForm_animation')
+        const signUpForm = document.querySelector('#signUpForm')
+        signUpForm.classList.remove('signUpForm_animation')
+      } else {
+        alert(result.data)
+      }
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+}
+</script>
