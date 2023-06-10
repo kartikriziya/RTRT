@@ -4,7 +4,7 @@ import CustomerDetails from '../components/CustomerDetails.vue'
 </script>
 <template>
   <div class="container-fluid" id="reservation">
-<<<<<<< HEAD
+    <<<<<<< HEAD
     <div class="row pt-5" style="margin-left: 7%; margin-right: 7%">
       <!-- <div class="container"> -->
       <div class="col-md-6">
@@ -37,7 +37,7 @@ import CustomerDetails from '../components/CustomerDetails.vue'
         <CustomerDetails />
       </div>
     </div>
-=======
+    =======
     <div class="row pt-5">
       <div class="col-md-6 col-lg-5 col-xl-4 p-5" style="background-color: aqua">
         <div class="row">
@@ -53,11 +53,15 @@ import CustomerDetails from '../components/CustomerDetails.vue'
             <h2>Olivewood restaurent</h2>
           </div>
           <div class="col-sm-4 col-md-12"></div>
-          <Rating />
+          <!-- Emit named '@getStars' called hier from 'Rating.vue' and
+             received Stars passes to a function name 'getStars'
+              as a Parameter in this same page Reservation.vue -->
+          <Rating @getStars="getStars" />
         </div>
       </div>
       <div class="col-md-6 col-lg-7 col-xl-8" id="tableLayout" style="background-color: brown">
-        <CustomerDetails />
+        <!-- passing 'sendStars' as a Prop name ':sendStars' to CustomerDetails.vue -->
+        <CustomerDetails :sendStars="sendStars" />
       </div>
     </div>
     <div class="row pt-5 pb-5">
@@ -67,9 +71,17 @@ import CustomerDetails from '../components/CustomerDetails.vue'
       </div>
       <div class="col-sm-2"></div>
     </div>
->>>>>>> parent of fb07804 (script tag position changed)
+    >>>>>>> parent of fb07804 (script tag position changed)
   </div>
 </template>
+
+<script setup>
+import { ref } from 'vue'
+import axios from 'axios'
+import Rating from '../components/Rating.vue'
+import CustomerDetails from '../components/CustomerDetails.vue'
+</script>
+
 <style scoped>
 #reservation {
   /* background-color: #f4ebd9; */
