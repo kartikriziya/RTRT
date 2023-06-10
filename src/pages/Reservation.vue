@@ -1,3 +1,7 @@
+<script setup>
+import Rating from '../components/Rating.vue'
+import CustomerDetails from '../components/CustomerDetails.vue'
+</script>
 <template>
   <div class="container-fluid" id="reservation">
     <div class="row pt-5">
@@ -35,14 +39,6 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { ref } from 'vue'
-import axios from 'axios'
-import Rating from '../components/Rating.vue'
-import CustomerDetails from '../components/CustomerDetails.vue'
-</script>
-
 <style scoped>
 #reservation {
   background-color: #f4ebd9;

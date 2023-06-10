@@ -1,3 +1,4 @@
+<script setup></script>
 <template>
   <div class="container" id="signUp">
     <div class="row">
@@ -146,9 +147,6 @@
     </div>
   </div>
 </template>
-
-<script setup></script>
-
 <style scoped>
 #signUp {
   margin-top: 5%;
