@@ -1,9 +1,6 @@
-<<<<<<< HEAD =======
-<script></script>
 <template>
   <div class="col-sm-8 col-md-12 pe-4 gap-2" id="wrapperRating">
     <input v-model="collectStars" type="radio" id="star5" value="5" @change="sendRatings()" />
-    <input type="radio" id="star5" name="rate" value="5" />
     <label id="stars" for="star5"><i class="fa fa-star"></i></label>
 
     <input v-model="collectStars" type="radio" id="star4" value="4" @change="sendRatings()" />
@@ -20,10 +17,38 @@
   </div>
   <div class="col-sm-4 col-md-12"></div>
 </template>
-<script>
+
+<script setup>
 import { ref } from 'vue'
 import axios from 'axios'
+
+const collectStars = ref('') // stars will be updated in collectStars variable as const
+const emitRatings = defineEmits(['getStars']) // emits defined in emitRatings variable as const
+
+/*******************************************************************************************************************/
+/* Start of sendRatings() 
+/* -> collected Stars will be emited to Reservation.vue(Parent) => as function name 'sendRatings()'
+/* -> emitRatings variable emits the collected Stars to Reservation.vue(Parent) => as emit name 'getStars'
+/* -> emit name 'getStars' will be used in Reservation.vue(Parent) where Rating.vue(Child) is called => as @getStars="..."
+/******************************************************************************************************************/
+function sendRatings() {
+  emitRatings('getStars', collectStars.value) // emits the collected stars to Reservation.vue(Parent)
+}
+/* End of sendRatings() */
+
+/**********************************************************************************/
+/*                              Start Learning                                    */
+/**********************************************************************************/
+/* To update accurate Value of const name = ref('') **
+/* -> in HTML use @change="" insted of @click=""
+/*
+/* To get accurate Value of const name = ref('')  in Console.log **
+/* -> in HTML @change="FunctionName()"
+/* -> in Script function FuncitonName($event){ console.log(event.target.value) }
+
+/******************************* End Learning *************************************/
 </script>
+
 <style scoped>
 #wrapperRating {
   background-color: darkolivegreen;
@@ -65,4 +90,3 @@ import axios from 'axios'
   color: #c59b08;
 }
 </style>
->>>>>>> parent of fb07804 (script tag position changed)
