@@ -4,13 +4,19 @@
     <div class="container-fluid pt-5" id="footer">
       <div class="row">
         <div class="col-sm-4 p-3" id="footer_start">
-          <router-link class="nav-link mb-2" id="links" :to="{ name: 'home' }">HOME</router-link>
-          <router-link class="nav-link mb-2" id="links" :to="{ name: 'ueber-uns' }"
-            >ÜBER UNS</router-link
-          >
-          <router-link class="nav-link mb-2" id="links" :to="{ name: 'kontakt' }"
-            >KONTAKT</router-link
-          >
+          
+          <router-link class="nav-link mb-2" id="links" :to="{ name: 'home' }">
+            Home
+          </router-link>
+          
+          <router-link class="nav-link mb-2" id="links" :to="{ name: 'ueber-uns' }">
+            About Us
+          </router-link>
+
+          <router-link class="nav-link mb-2" id="links" :to="{ name: 'imprint' }">
+            Contact
+          </router-link>
+
         </div>
         <div class="col-sm-4 p-3" id="footer_center">
           <router-link class="nav-link mb-2" id="links" :to="{ name: 'account' }"
@@ -21,14 +27,14 @@
           >
         </div>
         <div class="col-sm-4 p-3" id="footer_end">
-          <router-link class="nav-link mb-2" id="links" :to="{ name: 'home' }"
-            >Impressum</router-link
+          <router-link class="nav-link mb-2" id="links" :to="{ name: 'imprint' }">
+            Imprint</router-link
           >
-          <router-link class="nav-link mb-2" id="links" :to="{ name: 'ueber-uns' }"
-            >Datenschutz</router-link
+          <router-link class="nav-link mb-2" id="links" :to="{ name: 'termsConditions' }"
+            >Terms & Conditions</router-link
           >
-          <router-link class="nav-link mb-2" id="links" :to="{ name: 'kontakt' }"
-            >Kontaktdatenerhebung Covid-19</router-link
+          <!-- <router-link class="nav-link mb-2" id="links" :to="{ name: 'kontakt' }"
+            >Kontaktdatenerhebung Covid-19</router-link -->
           >
         </div>
       </div>
@@ -64,6 +70,7 @@
 }
 #links {
   color: #f8b333;
+  font-family: Rockwell;
   font-size: 15px;
   font-weight: 500;
 }
@@ -115,7 +122,7 @@
   background-size: contain;
 }
 #copyright {
-  color: #b47501;
+  color: #f8b333;
   width: 100%;
 }
 
