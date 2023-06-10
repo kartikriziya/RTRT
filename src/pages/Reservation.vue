@@ -15,11 +15,15 @@
             <h2>Olivewood restaurent</h2>
           </div>
           <div class="col-sm-4 col-md-12"></div>
-          <Rating />
+          <!-- Emit named '@getStars' called hier from 'Rating.vue' and
+             received Stars passes to a function name 'getStars'
+              as a Parameter in this same page Reservation.vue -->
+          <Rating @getStars="getStars" />
         </div>
       </div>
       <div class="col-md-6 col-lg-7 col-xl-8" id="tableLayout" style="background-color: brown">
-        <CustomerDetails />
+        <!-- passing 'sendStars' as a Prop name ':sendStars' to CustomerDetails.vue -->
+        <CustomerDetails :sendStars="sendStars" />
       </div>
     </div>
     <div class="row pt-5 pb-5">

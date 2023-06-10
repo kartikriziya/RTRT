@@ -81,75 +81,11 @@
   <div class="row pb-2">
     <div class="col-lg-4"></div>
     <div class="col-lg-4 text-center d-grid">
-      <button class="btn" id="reserveBtn">Reserve Now</button>
+      <button class="btn" id="reserveBtn" @click="reserveTable()">Reserve Now</button>
     </div>
     <div class="col-lg-4"></div>
   </div>
 </template>
-<script setup>
-import { ref } from 'vue'
-
-const count = ref('')
-
-const current = new Date()
-const date = current.getDate()
-const month = current.getMonth() + 1
-const year = current.getFullYear()
-const totalDays = new Date(year, month, 0).getDate()
-
-const minDate = ref('')
-//const minDate = ref(year + '-0' + month + '-0' + date)
-
-if (month <= 9 || date <= 9) {
-  if (month <= 9 && date >= 9) {
-    minDate.value = year + '-0' + month + '-' + date
-    console.log(minDate.value)
-  } else if (date <= 9 && month >= 9) {
-    minDate.value = year + '-' + month + '-0' + date
-    console.log(minDate.value)
-  } else {
-    minDate.value = year + '-0' + month + '-0' + date
-    console.log(minDate.value)
-  }
-} else {
-  minDate = year + '-' + month + '-' + date
-  console.log(minDate.value)
-}
-
-function datePickerRestrictions() {
-  document.querySelector('#datePicker').setAttribute('min', minDate.value)
-}
-
-const noOfPeople = ref([
-  { id: 'check2', people: '2' },
-  { id: 'check4', people: '4' },
-  { id: 'check6', people: '6' },
-  { id: 'check8', people: '8' },
-  { id: 'check10', people: '10' },
-  { id: 'check10+', people: '10+' }
-])
-
-const timinings = ref([
-  { id: 'eleven', time: '11:00' },
-  { id: 'eleventhirty', time: '11:30' },
-  { id: 'twelve', time: '12:00' },
-  { id: 'twelvethirty', time: '12:30' },
-  { id: 'thirteen', time: '13:00' },
-  { id: 'thirteenthirty', time: '13:30' },
-  { id: 'fourteen', time: '14:00' },
-  { id: 'fourteenthirty', time: '14:30' },
-  { id: 'fifteen', time: '15:00' },
-  { id: 'fifteenthirty', time: '15:30' },
-  { id: 'sixteen', time: '16:00' },
-  { id: 'sixteenthirty', time: '16:30' },
-  { id: 'seventeen', time: '17:00' },
-  { id: 'seventeenthirty', time: '17:30' },
-  { id: 'eightteen', time: '18:00' },
-  { id: 'eightteenthirty', time: '18:30' },
-  { id: 'nineteen', time: '19:00' },
-  { id: 'nineteenteenthirty', time: '19:30' }
-])
-</script>
 <style scoped>
 /* ********************************** */
 /*            No of People            */
