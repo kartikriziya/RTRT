@@ -1,3 +1,4 @@
+<script setup></script>
 <template>
   <footer>
     <div class="container-fluid pt-5" id="footer">
@@ -50,7 +51,6 @@
     </div>
   </footer>
 </template>
-<script setup></script>
 <style scoped>
 #footer {
   min-height: 25vh;
@@ -63,7 +63,7 @@
   margin-bottom: 20px;
 }
 #links {
-  color: #f4ebd9;
+  color: #f8b333;
   font-size: 15px;
   font-weight: 500;
 }

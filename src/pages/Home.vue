@@ -1,3 +1,13 @@
+<script setup>
+import { ref } from 'vue'
+import HomeVideo from '../components/HomeVideo.vue'
+import HomeContent from '../components/HomeContent.vue'
+import Menu from '../components/Menu.vue'
+/*import { useRoute } from 'vue-router'
+const pageName = useRoute()
+console.log(pageName.fullPath)
+*/
+</script>
 <template>
   <div class="sections" id="homeSection1">
     <div id="videoContainer">
@@ -14,18 +24,6 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { ref } from 'vue'
-import HomeVideo from '../components/HomeVideo.vue'
-import HomeContent from '../components/HomeContent.vue'
-import Menu from '../components/Menu.vue'
-/*import { useRoute } from 'vue-router'
-const pageName = useRoute()
-console.log(pageName.fullPath)
-*/
-</script>
-
 <style scoped>
 #homeSection1 {
   height: calc(100vh - 151px);
@@ -37,7 +35,7 @@ console.log(pageName.fullPath)
   left: 0;
 }
 #homeSection2 {
-  background-color: #f4ebd9;
+  /* background-color: #f4ebd9; */
   min-height: 100vh;
 }
 </style>

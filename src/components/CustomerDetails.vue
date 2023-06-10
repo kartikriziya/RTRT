@@ -81,7 +81,7 @@
   <div class="row pb-2">
     <div class="col-lg-4"></div>
     <div class="col-lg-4 text-center d-grid">
-      <button class="btn" id="reserveBtn">Reserve Now</button>
+      <button class="btn" id="reserveBtn" @click="reserveTable()">Reserve Now</button>
     </div>
     <div class="col-lg-4"></div>
   </div>
@@ -89,7 +89,16 @@
 <script setup>
 import { ref } from 'vue'
 
-const count = ref('')
+const props = defineProps({ sendStars: String }) // props defined in props variable as const
+
+/********************************************************************************/
+/* Start of reserveTable() */
+/* -> Rating Stars received => as a Prop name 'sendStars'
+/********************************************************************************/
+function reserveTable() {
+  console.log('Reserve Now clicked' + 'Stars = ' + props.sendStars)
+}
+/* End of reserveTable()  */
 
 const current = new Date()
 const date = current.getDate()
@@ -103,17 +112,17 @@ const minDate = ref('')
 if (month <= 9 || date <= 9) {
   if (month <= 9 && date >= 9) {
     minDate.value = year + '-0' + month + '-' + date
-    console.log(minDate.value)
+    //console.log(minDate.value)
   } else if (date <= 9 && month >= 9) {
     minDate.value = year + '-' + month + '-0' + date
-    console.log(minDate.value)
+    //console.log(minDate.value)
   } else {
     minDate.value = year + '-0' + month + '-0' + date
-    console.log(minDate.value)
+    //console.log(minDate.value)
   }
 } else {
   minDate = year + '-' + month + '-' + date
-  console.log(minDate.value)
+  //console.log(minDate.value)
 }
 
 function datePickerRestrictions() {
