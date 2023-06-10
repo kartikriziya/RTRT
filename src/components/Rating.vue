@@ -1,8 +1,7 @@
 <template>
   <div class="col-sm-8 col-md-12 pe-4 gap-2" id="wrapperRating">
-    <<<<<<< HEAD
     <input v-model="test" type="radio" id="star5" name="rate" value="5" />
-    =======
+
     <input v-model="collectStars" type="radio" id="star5" value="5" @change="sendRatings()" />
     >>>>>>> main
     <label id="stars" for="star5"><i class="fa fa-star"></i></label>
