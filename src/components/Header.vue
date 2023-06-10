@@ -9,7 +9,7 @@ import Navbar from './Navbar.vue'
 </script>
 
 <style scoped>
-#header {
+/* #header {
   background-color: black;
-}
+} */
 </style>

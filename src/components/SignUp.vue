@@ -4,11 +4,18 @@
   <!-- --------------------------------------------------------------------------------------------------- -->
   <form
     action=""
-    class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
+    class="row gy-3 needs-validation pt-2 ps-3 pe-3 pb-2"
     autocomplete="off"
     id="signUpForm"
     novalidate
   >
+
+  <div class="col-sm-3"></div>
+    <div class="col-sm-6 text-center vertical-up d-grid pt-1">
+      <div id="signup">Create Account</div>
+    </div>
+
+
     <div class="col-sm-6">
       <div class="form-floating">
         <input
@@ -59,8 +66,8 @@
       </div>
     </div>
     <div class="col-sm-3"></div>
-    <div class="col-sm-6 text-center d-grid pt-4">
-      <button class="btn" id="signUpBtn" @click.prevent="verifyEmail()">Verify Email</button>
+    <div class="col-sm-6 text-center d-grid pt-3">
+      <button class="btn" id="signUpBtn">Verify Email</button>
     </div>
   </form>
   <!-- --------------------------------------------------------------------------------------------------- -->
@@ -272,7 +279,7 @@ async function SignUp() {
 #signUpOTPForm,
 #signUpPasswordForm {
   margin-top: 5%;
-  /*box-shadow: rgba(248, 179, 51, 0.1) 0px 20px 30px;*/
+  box-shadow: rgba(248, 179, 51, 0.1) 0px 20px 30px;
 }
 #signUpFname,
 #signUpLname,
@@ -324,6 +331,7 @@ async function SignUp() {
   }
 }
 #signUpBtn {
+  /* border-radius: 15px;
   --bs-btn-color: #b47501;
   --bs-btn-border-color: #b47501;
   --bs-btn-hover-color: #fff;
@@ -337,6 +345,26 @@ async function SignUp() {
   --bs-btn-disabled-color: #b47501;
   --bs-btn-disabled-bg: transparent;
   --bs-btn-disabled-border-color: #b47501;
-  --bs-gradient: none;
+  --bs-gradient: none; */
+  font-family: Rockwell;
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f8b333;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 50px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+
+}
+
+#signUpBtn:hover{
+  background-color: #f7bb08;
+
+}
+
+#signup{
+  font-size: 23px;
+  font-weight: bold;
 }
 </style>

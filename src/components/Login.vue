@@ -1,3 +1,113 @@
+<script setup>
+import { ref } from 'vue'
+import axios from 'axios'
+
+const Base_Url = 'https://olivewood.elementfx.com'
+
+const loginEmail = ref('')
+const loginPassword = ref('')
+
+const forgetPasswordEmail = ref('')
+
+const loginVverifyOTP = ref('')
+
+const password1 = ref('')
+const password2 = ref('')
+
+/* ______ login ______ */
+async function login() {
+  console.log('login')
+  await axios
+    .post(Base_Url + '/account.php', {
+      action: 'login_login',
+      logEmail: loginEmail.value,
+      logPassword: loginPassword.value
+    })
+    .then((result) => {
+      console.log(result.data)
+      console.log(loginEmail.value + ', ' + loginPassword.value)
+      document.querySelector('#loginForm').style.display = 'none'
+      document.querySelector('#loginForm').style.display = 'flex'
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+}
+
+/* ______ forgetPassword ______ */
+function forgetPassword() {
+  document.querySelector('#loginForm').style.display = 'none'
+  document.querySelector('#getOTPForm').style.display = 'flex'
+}
+
+/* ______ getOTP ______ */
+async function getOTP() {
+  console.log('getOTP')
+  await axios
+    .post(Base_Url + '/forgetPassword.php', {
+      action: 'get_OTP',
+      forgetPasswordEmail: forgetPasswordEmail.value
+    })
+    .then((result) => {
+      console.log(result.data)
+      console.log(forgetPasswordEmail.value)
+      document.querySelector('#getOTPForm').style.display = 'none'
+      document.querySelector('#verifyOTPForm').style.display = 'flex'
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+}
+
+/* ______ verifyOTP ______ */
+async function verifyOTP() {
+  console.log('verifyOTP')
+  await axios
+    .post(Base_Url + '/forgetPassword.php', {
+      action: 'verify_OTP',
+      forgetPasswordEmail: forgetPasswordEmail.value,
+      loginVverifyOTP: loginVverifyOTP.value
+    })
+    .then((result) => {
+      console.log(result.data)
+      console.log(forgetPasswordEmail.value + ',' + loginVverifyOTP.value)
+      if (result.data != 'Incorrect_OTP') {
+        document.querySelector('#verifyOTPForm').style.display = 'none'
+        document.querySelector('#changePasswordFrom').style.display = 'flex'
+      } else {
+        alert(result.data)
+      }
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+}
+
+/* ______ Reset Password ______ */
+async function resetPassword() {
+  console.log('resetPassword')
+  await axios
+    .post(Base_Url + '/forgetPassword.php', {
+      action: 'reset_Password',
+      forgetPasswordEmail: forgetPasswordEmail.value,
+      password1: password1.value,
+      password2: password2.value
+    })
+    .then((result) => {
+      console.log(result.data)
+      console.log(password1.value + ',' + password2.value)
+      if (password1.value == password2.value) {
+        document.querySelector('#changePasswordFrom').style.display = 'none'
+        document.querySelector('#loginForm').style.display = 'flex'
+      } else {
+        alert(result.data)
+      }
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+}
+</script>
 <template>
   <!-- --------------------------------------------------------------------------------------------------- -->
   <!--                                            LogIn Form                                               -->
@@ -8,6 +118,12 @@
     autocomplete="off"
     id="loginForm"
   >
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 text-center vertical-top d-grid pt-1" id="signin1">
+      <div id="signin">Sign in</div>
+    </div>
+    <div class="col-sm-3"></div>
+
     <div class="col-12">
       <div class="form-floating">
         <input
@@ -60,6 +176,11 @@
     novalidate
     style="display: none"
   >
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 text-center vertical-top d-grid pt-1" id="signin1">
+      <div id="get_OTP">Get OTP</div>
+    </div>
+    <div class="col-sm-3"></div>
     <div class="col-12">
       <div class="form-floating">
         <input
@@ -73,11 +194,6 @@
         <label for="forgetPasswordEmail" id="loginLabels" @click.prevent="getOTP()"
           >Email address</label
         >
-      </div>
-    </div>
-    <div class="col-12">
-      <div class="form-floating">
-        <div class="R_Error Login_getOTPError">Please enter valid Credentials</div>
       </div>
     </div>
     <div class="col-sm-3"></div>
@@ -100,6 +216,10 @@
     novalidate
     style="display: none"
   >
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 text-center vertical-top d-grid pt-1" id="signin1">
+      <div id="verify_OTP">Verify OTP</div>
+    </div>
     <div class="col-12">
       <div class="form-floating">
         <input
@@ -111,11 +231,6 @@
           required
         />
         <label for="loginVverifyOTP" id="loginLabels">OTP</label>
-      </div>
-    </div>
-    <div class="col-12">
-      <div class="form-floating">
-        <div class="R_Error Login_verifyOTPError">Please enter valid Credentials</div>
       </div>
     </div>
     <div class="col-sm-3"></div>
@@ -132,12 +247,16 @@
   <!-- changePasswordFrom -->
   <form
     action=""
-    class="row gy-3 pt-5 ps-3 pe-3 pb-5"
+    class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
     autocomplete="off"
     id="changePasswordFrom"
     novalidate
     style="display: none"
   >
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 text-center vertical-top d-grid pt-1" id="signin1">
+      <div id="change_password">Change Password</div>
+    </div>
     <div class="col-12">
       <div class="form-floating">
         <input
@@ -162,11 +281,6 @@
           required
         />
         <label for="password2" id="loginLabels">Re-password</label>
-      </div>
-    </div>
-    <div class="col-12">
-      <div class="form-floating">
-        <div class="R_Error Login_createPasswordError">Please enter valid Credentials</div>
       </div>
     </div>
     <div class="col-sm-3"></div>
@@ -318,14 +432,6 @@ async function resetPassword() {
   margin-top: 5%;
   /* box-shadow: rgba(248, 179, 51, 0.1) 0px 20px 30px; */
 }
-#loginEmail,
-#loginPassword,
-#forgetPasswordEmail,
-#loginVverifyOTP,
-#password1,
-#password2 {
-  background-color: #f4ebd9;
-}
 .loginForm_animation {
   animation: 0.7s ease-out 0s 1 slideFromLeft;
 }
@@ -337,12 +443,16 @@ async function resetPassword() {
     transform: translateX(0);
   }
 }
-#loginLabels,
+#loginLabels {
+  color: #b47501;
+  /* color: #f8b333; */
+}
 #loginForgot {
   color: #b47501;
+  /* color: #f8b333; */
 }
 #loginForgot:hover {
-  color: #f8b333;
+  color: #f7bb08;
 }
 .R_Error {
   display: none;
@@ -358,6 +468,7 @@ async function resetPassword() {
   }
 }
 #loginBtn {
+  /* border-radius: 15px;
   --bs-btn-color: #b47501;
   --bs-btn-border-color: #b47501;
   --bs-btn-hover-color: #fff;
@@ -371,71 +482,90 @@ async function resetPassword() {
   --bs-btn-disabled-color: #b47501;
   --bs-btn-disabled-bg: transparent;
   --bs-btn-disabled-border-color: #b47501;
-  --bs-gradient: none;
-}
-/* Email */
-#getOTPBtn:hover {
-  color: #f8b333;
-}
-#getOTPBtn {
-  --bs-btn-color: #b47501;
-  --bs-btn-border-color: #b47501;
-  --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #b47501;
-  --bs-btn-hover-border-color: #b47501;
-  --bs-btn-focus-shadow-rgb: 25, 135, 84;
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #b47501;
-  --bs-btn-active-border-color: #b47501;
-  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #b47501;
-  --bs-btn-disabled-bg: transparent;
-  --bs-btn-disabled-border-color: #b47501;
-  --bs-gradient: none;
+  --bs-gradient: none; */
+  font-family: Rockwell;
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f8b333;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 50px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Verify OTP */
-#verifyOTP {
-  color: #b47501;
+#loginBtn:hover {
+  background-color: #f7bb08;
 }
-#resetPasswordBtn:hover {
-  color: #f8b333;
+
+#signin {
+  font-size: 23px;
+  font-weight: bold;
 }
+
+/* Email */
+#getOTPBtn {
+  font-family: Rockwell;
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f8b333;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 50px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#getOTPBtn:hover {
+  background-color: #f7bb08;
+}
+
+#get_OTP {
+  font-size: 23px;
+  font-weight: bold;
+}
+
+/* Verify OTP*/
 #resetPasswordBtn {
-  --bs-btn-color: #b47501;
-  --bs-btn-border-color: #b47501;
-  --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #b47501;
-  --bs-btn-hover-border-color: #b47501;
-  --bs-btn-focus-shadow-rgb: 25, 135, 84;
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #b47501;
-  --bs-btn-active-border-color: #b47501;
-  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #b47501;
-  --bs-btn-disabled-bg: transparent;
-  --bs-btn-disabled-border-color: #b47501;
-  --bs-gradient: none;
+  font-family: Rockwell;
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f8b333;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 50px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#resetPasswordBtn:hover {
+  background-color: #f7bb08;
+}
+
+#verify_OTP {
+  font-size: 23px;
+  font-weight: bold;
 }
 
 /* Password */
-#changePasswordBtn:hover {
-  color: #f8b333;
-}
 #changePasswordBtn {
-  --bs-btn-color: #b47501;
-  --bs-btn-border-color: #b47501;
-  --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #b47501;
-  --bs-btn-hover-border-color: #b47501;
-  --bs-btn-focus-shadow-rgb: 25, 135, 84;
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #b47501;
-  --bs-btn-active-border-color: #b47501;
-  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #b47501;
-  --bs-btn-disabled-bg: transparent;
-  --bs-btn-disabled-border-color: #b47501;
-  --bs-gradient: none;
+  font-family: Rockwell;
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f8b333;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 50px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#changePasswordBtn:hover {
+  background-color: #f7bb08;
+}
+
+#change_password {
+  font-size: 23px;
+  font-weight: bold;
 }
 </style>

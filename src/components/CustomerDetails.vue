@@ -1,91 +1,3 @@
-<template>
-  <div class="row pb-5">
-    <div class="col-sm-12 ps-5 pt-3 pe-5 pb-2" id="details" style="background-color: burlywood">
-      <!--                     -->
-      <!--    No of People     -->
-      <!--                     -->
-      <div class="row">
-        <div class="col-12 pb-2" style="background-color: cadetblue">
-          <h3>No of People</h3>
-          <div
-            class="row ps-2 ps-sm-4 ps-md-1 ps-lg-3 ps-xl-5 pt-2 pe-xl-5 pe-lg-3 pe-md-1 pe-sm-4 pe-2"
-            id="noOfPeople"
-          >
-            <div
-              v-for="People in noOfPeople"
-              class="col-2"
-              id="check"
-              style="background-color: darkred"
-            >
-              <input type="radio" name="people" :id="People.id" value="2" />
-              <label :for="People.id" id="numberLabel"
-                ><span id="number">{{ People.people }}</span></label
-              >
-            </div>
-          </div>
-        </div>
-        <!--                     -->
-        <!--        Calender     -->
-        <!--                     -->
-        <div class="col-12 pt-2" style="background-color: ">
-          <h3 id="noOfPeople">
-            <div class="col-sm-2"></div>
-
-            <div class="col-sm-8" style="text-align: center">
-              <img
-                src="../assets/people1.png"
-                alt="Icon"
-                width="35"
-                height="35"
-                style="margin-right: 4px"
-              />
-              Calender
-            </div>
-
-            <div class="col-sm-2"></div>
-          </h3>
-          <div class="row" style="background-color: ">
-            <div class="col-sm-3"></div>
-            <div
-              class="col-sm-6"
-              style="background-color: ; display: flex; justify-content: center"
-            >
-              <input type="date" id="datePicker" @click="test()" />
-            </div>
-            <div class="col-sm-3"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--                     -->
-    <!--      Time Slot's    -->
-    <!--                     -->
-    <div class="col-sm-12 pt-3 pb-2" style="background-color: darkgray">
-      <h2>Time Slot's</h2>
-      <div class="row pt-2" id="timinings">
-        <div
-          v-for="Slot in timinings"
-          class="col-2 col-md-3 col-lg-2 col-xl-3 col-xxl-2 pt-2 pb-3"
-          id="slots"
-          style="background-color: darkolivegreen"
-        >
-          <input type="radio" name="slots" :id="Slot.id" :value="Slot.time" />
-          <label :for="Slot.id" id="timeLabel"
-            ><span id="time">{{ Slot.time }}</span></label
-          >
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Reservation Button -->
-  <div class="row pb-2">
-    <div class="col-lg-4"></div>
-    <div class="col-lg-4 text-center d-grid">
-      <button class="btn" id="reserveBtn">Reserve Now</button>
-    </div>
-    <div class="col-lg-4"></div>
-  </div>
-</template>
 <script setup>
 import { ref } from 'vue'
 
@@ -150,11 +62,131 @@ const timinings = ref([
   { id: 'nineteenteenthirty', time: '19:30' }
 ])
 </script>
+<template>
+  <div class="row pb-5">
+    <div class="col-sm-12 ps-5 pt-3 pe-5 pb-2" id="details">
+      <!-- style="background-color: burlywood" -->
+      <!--                     -->
+      <!--    No of People     -->
+      <!--                     -->
+      <div class="row">
+        <div class="col-12 pb-2">
+          <!-- style="background-color: cadetblue" -->
+          <h3 id="noOfPeople">
+            <div class="col-sm-2"></div>
+
+            <div class="col-sm-8" style="text-align: center">
+              <img
+                src="../assets/people1.png"
+                alt="Icon"
+                width="35"
+                height="35"
+                style="margin-right: 4px"
+              />
+              No. of People
+            </div>
+
+            <div class="col-sm-2"></div>
+          </h3>
+          <div
+            class="row ps-2 ps-sm-4 ps-md-1 ps-lg-3 ps-xl-5 pt-2 pe-xl-5 pe-lg-3 pe-md-1 pe-sm-4 pe-2"
+            id="noOfPeople"
+          >
+            <div v-for="People in noOfPeople" class="col-2" id="check">
+              <!-- style="background-color: darkred" -->
+              <input type="radio" name="people" :id="People.id" value="2" />
+              <label :for="People.id" id="numberLabel"
+                ><span id="number">{{ People.people }}</span></label
+              >
+            </div>
+          </div>
+        </div>
+        <!--                     -->
+        <!--        Calender     -->
+        <!--                     -->
+
+        <div class="col-12 pt-2" style="background-color: ">
+          <h3 id="noOfPeople">
+            <div class="col-sm-2"></div>
+
+            <div class="col-sm-8" style="text-align: center">
+              <img
+                src="../assets/people1.png"
+                alt="Icon"
+                width="35"
+                height="35"
+                style="margin-right: 4px"
+              />
+              Calender
+            </div>
+
+            <div class="col-sm-2"></div>
+          </h3>
+          <div class="row" style="background-color: ">
+            <div class="col-sm-3"></div>
+            <div
+              class="col-sm-6"
+              style="background-color: ; display: flex; justify-content: center"
+            >
+              <input type="date" id="datePicker" @click="datePickerRestrictions()" />
+            </div>
+            <div class="col-sm-3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--                     -->
+    <!--      Time Slot's    -->
+    <!--                     -->
+    <div class="col-sm-12 pt-3 pb-2">
+      <!-- style="background-color: darkgray" -->
+      <h2 id="timeSlot">
+        <div class="col-sm-3"></div>
+
+        <div class="col-sm-6" style="text-align: center">
+          <img
+            src="../assets/people1.png"
+            alt="Icon"
+            width="35"
+            height="35"
+            style="margin-right: 4px"
+          />
+          Time Slot's
+        </div>
+
+        <div class="col-sm-3"></div>
+      </h2>
+      <div class="row pt-2" id="timinings">
+        <div
+          v-for="Slot in timinings"
+          class="col-2 col-md-3 col-lg-2 col-xl-3 col-xxl-2 pt-2 pb-3"
+          id="slots"
+        >
+          <!-- style="background-color: darkolivegreen" -->
+          <input type="radio" name="slots" :id="Slot.id" :value="Slot.time" />
+          <label :for="Slot.id" id="timeLabel"
+            ><span id="time" style="color: #000">{{ Slot.time }}</span></label
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Reservation Button -->
+  <div class="row pb-2">
+    <div class="col-lg-4"></div>
+    <div class="col-lg-4 text-center d-grid">
+      <button class="btn" id="reserveBtn">Reserve Now</button>
+    </div>
+    <div class="col-lg-4"></div>
+  </div>
+</template>
 <style scoped>
 /* ********************************** */
 /*            No of People            */
 /* ********************************** */
 #noOfPeople {
+  font-family: Rockwell;
+  font-size: 28px;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -167,8 +199,8 @@ const timinings = ref([
   display: none;
 }
 #numberLabel {
-  background-color: #f4ebd9;
-  color: #b47501;
+  /* background-color: #f4ebd9; */
+  color: #000;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -176,16 +208,17 @@ const timinings = ref([
   width: 45px;
   font-size: 18px;
   font-weight: 700;
-  border: 1px solid #b47501;
+  /* border: 1px solid #b47501; */
   border-radius: 50%;
   cursor: pointer;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 #numberLabel:hover > #number {
   transition: 0.4s ease-out;
   transform: rotateY(360deg);
 }
 #noOfPeople input:checked + #numberLabel {
-  background-color: #b47501;
+  background-color: #f8b333;
   color: #f4ebd9;
 }
 #noOfPeople input:checked + #numberLabel:hover {
@@ -193,16 +226,25 @@ const timinings = ref([
 }
 #noOfPeople input:not(:checked) + #numberLabel:hover {
   font-size: 20px;
-  background-color: #b47501;
-  color: #f4ebd9;
+  background-color: #f8b333;
+  /* color: #f4ebd9; */
 }
 
 /* ********************************** */
 /*             Time Slot's            */
 /* ********************************** */
+#timeSlot {
+  font-family: Rockwell;
+  font-size: 28px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
 #timinings {
   display: flex;
   flex-direction: row;
+  /* justify-content: space-around; */
 }
 #slots {
   display: flex;
@@ -212,8 +254,15 @@ const timinings = ref([
   display: none;
 }
 #timeLabel {
-  background-color: #f4ebd9;
-  color: #b47501;
+  display: inline-block;
+  padding: 10px 20px;
+  /* background-color: #4CAF50; */
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 50px;
+  /* background-color: #f4ebd9;
+  color: #b47501; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -221,16 +270,19 @@ const timinings = ref([
   width: 100px;
   font-size: 15px;
   font-weight: 700;
-  border: 1px solid #b47501;
-  border-radius: 10%;
+  /* border: 1px solid #b47501; */
+  /* border-radius: 10%; */
   cursor: pointer;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
+
 #timeLabel:hover > #time {
   transition: color 0.2s, trasnform 0.2s;
+  color: #f8b333;
   transform: scale(1.3);
 }
 #timinings input:checked + #timeLabel {
-  background-color: #b47501;
+  background-color: #f8b333;
   color: #f4ebd9;
 }
 #timinings input:checked + #timeLabel:hover {
@@ -241,7 +293,7 @@ const timinings = ref([
   transform: scale(1.3);
 }
 #timinings input:not(:checked) + #timeLabel:hover {
-  background-color: #b47501;
+  background-color: #f8b333;
   color: #f4ebd9;
 }
 
@@ -249,19 +301,17 @@ const timinings = ref([
 /*          Reservation Button        */
 /* ********************************** */
 #reserveBtn {
-  --bs-btn-color: #b47501;
-  --bs-btn-border-color: #b47501;
-  --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #b47501;
-  --bs-btn-hover-border-color: #b47501;
-  --bs-btn-focus-shadow-rgb: 25, 135, 84;
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #b47501;
-  --bs-btn-active-border-color: #b47501;
-  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #b47501;
-  --bs-btn-disabled-bg: transparent;
-  --bs-btn-disabled-border-color: #b47501;
-  --bs-gradient: none;
+  font-family: Rockwell;
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f8b333;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 50px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+#reserveBtn:hover {
+  background-color: #f7bb08;
 }
 </style>
