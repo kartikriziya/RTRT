@@ -6,6 +6,8 @@ import Contact from '../pages/Contact.vue'
 import Reservation from '../pages/Reservation.vue'
 import Account from '../pages/Account.vue'
 import test from '../pages/test.vue'
+import Imprint from '../pages/Imprint.vue'
+import TermsConditions from '../pages/TermsConditions.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -39,7 +41,17 @@ const router = createRouter({
       path: '/test',
       name: 'test',
       component: test
-    }
+    },
+    {
+      path: '/imprint',
+      name: 'imprint',
+      component: Imprint
+    },
+    {
+      path: '/termsConditions',
+      name: 'termsConditions',
+      component: TermsConditions
+    },
   ]
 })
 
