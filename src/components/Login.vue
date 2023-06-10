@@ -35,7 +35,7 @@
       </div>
     </div>
     <div class="col-12">
-      <div class="R_Error Login_Error">{{LogIn_Error_Message}}</div>  
+      <div class="R_Error Login_Error">{{ LogIn_Error_Message }}</div>
     </div>
     <div class="col-12 ms-2">
       <a id="loginForgot" @click.prevent="forgetPassword()">Forgot Password?</a>
@@ -80,7 +80,7 @@
         <div class="R_Error Login_getOTPError">{{ LogIn_Error_Message }}</div>
       </div>
     </div>
-  
+
     <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center d-grid pt-3">
       <button class="btn" id="getOTPBtn" @click.prevent="getOTP()">Get OTP</button>
@@ -115,11 +115,11 @@
       </div>
     </div>
 
-        <div class="col-12 ms-2">
-          <a id="logInResendOTP" @click.prevent = "LogIn_resendOTP()">Resend OTP?</a>
-        </div>
-        <div class="col-12 ms-2" id="logInOTPexpire">OTP expire in : <span>123</span></div>
- 
+    <div class="col-12 ms-2">
+      <a id="logInResendOTP" @click.prevent="LogIn_resendOTP()">Resend OTP?</a>
+    </div>
+    <div class="col-12 ms-2" id="logInOTPexpire">OTP expire in : <span>123</span></div>
+
     <div class="col-12">
       <div class="form-floating">
         <div class="R_Error Login_verifyOTPError">{{ LogIn_Error_Message }}</div>
@@ -127,7 +127,9 @@
     </div>
     <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center d-grid pt-3">
-      <button class="btn LogIn_VerifyOTP_btn" id="resetPasswordBtn" @click.prevent="verifyOTP()">Reset Password</button>
+      <button class="btn LogIn_VerifyOTP_btn" id="resetPasswordBtn" @click.prevent="verifyOTP()">
+        Reset Password
+      </button>
     </div>
     <div class="col-sm-3"></div>
   </form>
@@ -218,25 +220,24 @@ async function login() {
       .then((result) => {
         console.log(result.data)
         console.log(loginEmail.value + ', ' + loginPassword.value)
-        if(result.data == 'No_Email_Found') {
+        if (result.data == 'No_Email_Found') {
           document.querySelector('#loginForm').style.display = 'none'
-          document.querySelector('#loginForm').style.display = 'flex'  
-            Login_Error.style.display = 'block'
-            LogIn_Error_Message.value = 'Email not found. Please check your email address or sign up for a new account!'
-        }
-        else if (result.data == 'LOGIN_SUCCESSFULL')  {
+          document.querySelector('#loginForm').style.display = 'flex'
+          Login_Error.style.display = 'block'
+          LogIn_Error_Message.value =
+            'Email not found. Please check your email address or sign up for a new account!'
+        } else if (result.data == 'LOGIN_SUCCESSFULL') {
           document.querySelector('#loginForm').style.display = 'none'
-          document.querySelector('#loginForm').style.display = 'flex'  
-            Login_Error.style.display = 'block'
-            LogIn_Error_Message.value = 'LOGIN_SUCCESSFULL'        
-        }
-        else {
+          document.querySelector('#loginForm').style.display = 'flex'
+          Login_Error.style.display = 'block'
+          LogIn_Error_Message.value = 'LOGIN_SUCCESSFULL'
+        } else {
           document.querySelector('#loginForm').style.display = 'none'
-          document.querySelector('#loginForm').style.display = 'flex'  
-            Login_Error.style.display = 'block'
-            LogIn_Error_Message.value = 'Invalid email or password. Please check your credentials and try again!'       
+          document.querySelector('#loginForm').style.display = 'flex'
+          Login_Error.style.display = 'block'
+          LogIn_Error_Message.value =
+            'Invalid email or password. Please check your credentials and try again!'
         }
-        
       })
       .catch(function (error) {
         console.log(error)
@@ -271,7 +272,8 @@ async function getOTP() {
         } else {
           //alert(result.data)
           Login_getOTPError.style.display = 'block'
-          LogIn_Error_Message.value = 'Email not found. Please check your email address or sign up for a new account!'
+          LogIn_Error_Message.value =
+            'Email not found. Please check your email address or sign up for a new account!'
         }
       })
       .catch(function (error) {
@@ -283,19 +285,19 @@ async function getOTP() {
 /* ______ ResendOTP ______ */
 async function LogIn_resendOTP() {
   console.log('LogIn_resendOTP')
-    await axios
-      .post(Base_Url + '/forgetPassword.php', {
-        action: 'LogIn_resendOTP',
-        forgetPasswordEmail: forgetPasswordEmail.value
-      })
-      .then((result) => {
-        console.log(result.data)
-        console.log(forgetPasswordEmail.value)
-        document.querySelector('.LogIn_VerifyOTP_btn').disabled = true
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
+  await axios
+    .post(Base_Url + '/forgetPassword.php', {
+      action: 'LogIn_resendOTP',
+      forgetPasswordEmail: forgetPasswordEmail.value
+    })
+    .then((result) => {
+      console.log(result.data)
+      console.log(forgetPasswordEmail.value)
+      document.querySelector('.LogIn_VerifyOTP_btn').disabled = true
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
 }
 
 /* ______ verifyOTP ______ */
@@ -321,7 +323,8 @@ async function verifyOTP() {
         } else {
           //alert(result.data)
           Login_verifyOTPError.style.display = 'block'
-          LogIn_Error_Message.value = 'Incorrect OTP. Please check your One-Time Password and try again!'
+          LogIn_Error_Message.value =
+            'Incorrect OTP. Please check your One-Time Password and try again!'
         }
       })
       .catch(function (error) {
@@ -355,7 +358,6 @@ async function resetPassword() {
           //alert(result.data)
           Login_createPasswordError.style.display = 'block'
           LogIn_Error_Message.value = 'Please make sure your passwords match!'
-
         }
       })
       .catch(function (error) {

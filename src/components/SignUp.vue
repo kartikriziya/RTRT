@@ -360,6 +360,20 @@ async function SignUp() {
 #signUpOTPexpire {
   color: burlywood;
 }
+
+.R_Error {
+  display: none;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 0.875em;
+  color: #dc3545;
+  animation: erroBlinker 1.5s linear infinite;
+}
+@keyframes erroBlinker {
+  50% {
+    opacity: 0;
+  }
+}
 #signUpBtn {
   --bs-btn-color: #b47501;
   --bs-btn-border-color: #b47501;
