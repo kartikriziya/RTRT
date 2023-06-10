@@ -1,3 +1,164 @@
+<template>
+  <!-- --------------------------------------------------------------------------------------------------- -->
+  <!--                                            signUpForm                                               -->
+  <!-- --------------------------------------------------------------------------------------------------- -->
+  <form
+    action=""
+    class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
+    autocomplete="off"
+    id="signUpForm"
+    novalidate
+  >
+    <div class="col-sm-6">
+      <div class="form-floating">
+        <input
+          v-model="signUpFname"
+          type="text"
+          class="form-control"
+          name="signUpFname"
+          id="signUpFname"
+          placeholder="first name"
+          required
+        />
+        <label for="signUpFname" id="signUpLabels">First name</label>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-floating">
+        <input
+          v-model="signUpLname"
+          type="text"
+          class="form-control"
+          name="signUpLname"
+          id="signUpLname"
+          placeholder="last name"
+          required
+        />
+        <label for="signUpLname" id="signUpLabels">Last name</label>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <div class="form-floating">
+        <input
+          v-model="signUpEmail"
+          type="email"
+          class="form-control"
+          name="signUpEmail"
+          id="signUpEmail"
+          placeholder="name@example.com"
+          required
+        />
+        <label for="signUpEmail" id="signUpLabels">Email address</label>
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">Please enter valid Email</div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="form-floating">
+        <div class="R_Error SignUp_Error">Please enter valid Credentials</div>
+      </div>
+    </div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 text-center d-grid pt-4">
+      <button class="btn" id="signUpBtn" @click.prevent="verifyEmail()">Verify Email</button>
+    </div>
+  </form>
+  <!-- --------------------------------------------------------------------------------------------------- -->
+  <!--                                          signUpOTPForm                                              -->
+  <!-- --------------------------------------------------------------------------------------------------- -->
+  <form
+    action=""
+    class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
+    autocomplete="off"
+    id="signUpOTPForm"
+    novalidate
+    style="display: none"
+  >
+    <div class="col-sm-6 pb-5">
+      <div class="form-floating">
+        <input
+          v-model="signUpOTP"
+          type="text"
+          class="form-control"
+          name="signUpOTP"
+          id="signUpOTP"
+          placeholder="otp"
+          required
+        />
+        <label for="signUpOTP" id="signUpLabels">OTP</label>
+      </div>
+    </div>
+    <div class="col-sm-6 pb-5">
+      <div class="row">
+        <div class="col-12">
+          <a href="#" id="signUpResendOTP">Resend OTP?</a>
+        </div>
+        <div class="col-12" id="signUpOTPexpire">OTP expire in : <span>123</span></div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="form-floating">
+        <div class="R_Error SignUp_verifyOTPError">Please enter valid Credentials</div>
+      </div>
+    </div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 text-center d-grid">
+      <button class="btn" id="signUpBtn" @click.prevent="verifyOTP()">Verify OTP</button>
+    </div>
+    <div class="col-sm-3"></div>
+  </form>
+  <!-- --------------------------------------------------------------------------------------------------- -->
+  <!--                                         signUpPasswordForm                                          -->
+  <!-- --------------------------------------------------------------------------------------------------- -->
+  <form
+    action=""
+    class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
+    autocomplete="off"
+    id="signUpPasswordForm"
+    novalidate
+    style="display: none"
+  >
+    <div class="col-sm-12">
+      <div class="form-floating">
+        <input
+          v-model="signUpPassword1"
+          type="password"
+          class="form-control"
+          name="signUpPassword"
+          id="signUpPassword1"
+          placeholder="********"
+          required
+        />
+        <label for="signUpPassword1" id="signUpLabels">Password</label>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <div class="form-floating">
+        <input
+          v-model="signUpPassword2"
+          type="password"
+          class="form-control"
+          name="signUpPassword"
+          id="signUpPassword2"
+          placeholder="********"
+          required
+        />
+        <label for="signUpPassword2" id="signUpLabels">Re-password</label>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="form-floating">
+        <div class="R_Error SignUp_createPasswordError">Please enter valid Credentials</div>
+      </div>
+    </div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 text-center d-grid pt-3">
+      <button class="btn" id="signUpBtn" @click.prevent="SignUp()">Signup</button>
+    </div>
+    <div class="col-sm-3"></div>
+  </form>
+</template>
+
 <script setup>
 import { ref } from 'vue'
 import axios from 'axios'
@@ -105,179 +266,13 @@ async function SignUp() {
   }
 }
 </script>
-<template>
-  <!-- --------------------------------------------------------------------------------------------------- -->
-  <!--                                            signUpForm                                               -->
-  <!-- --------------------------------------------------------------------------------------------------- -->
-  <form
-    action=""
-    class="row gy-3 needs-validation pt-2 ps-3 pe-3 pb-2"
-    autocomplete="off"
-    id="signUpForm"
-    novalidate
-  >
 
-  <div class="col-sm-3"></div>
-    <div class="col-sm-6 text-center vertical-up d-grid pt-1">
-      <div id="signup">Create Account</div>
-    </div>
-
-
-    <div class="col-sm-6">
-      <div class="form-floating">
-        <input
-          v-model="signUpFname"
-          type="text"
-          class="form-control"
-          name="signUpFname"
-          id="signUpFname"
-          placeholder="first name"
-          required
-        />
-        <label for="signUpFname" id="signUpLabels">First name</label>
-      </div>
-    </div>
-    <div class="col-sm-6">
-      <div class="form-floating">
-        <input
-          v-model="signUpLname"
-          type="text"
-          class="form-control"
-          name="signUpLname"
-          id="signUpLname"
-          placeholder="last name"
-          required
-        />
-        <label for="signUpLname" id="signUpLabels">Last name</label>
-      </div>
-    </div>
-    <div class="col-sm-12">
-      <div class="form-floating">
-        <input
-          v-model="signUpEmail"
-          type="email"
-          class="form-control"
-          name="signUpEmail"
-          id="signUpEmail"
-          placeholder="name@example.com"
-          required
-        />
-        <label for="signUpEmail" id="signUpLabels">Email address</label>
-        <div class="valid-feedback">Looks good!</div>
-        <div class="invalid-feedback">Please enter valid Email</div>
-      </div>
-    </div>
-    <div class="col-12">
-      <div class="form-floating">
-        <div class="R_Error SignUp_Error">Please enter valid Credentials</div>
-      </div>
-    </div>
-    <div class="col-sm-3"></div>
-    <div class="col-sm-6 text-center d-grid pt-3">
-      <button class="btn" id="signUpBtn">Verify Email</button>
-    </div>
-  </form>
-  <!-- --------------------------------------------------------------------------------------------------- -->
-  <!--                                          signUpOTPForm                                              -->
-  <!-- --------------------------------------------------------------------------------------------------- -->
-  <form
-    action=""
-    class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
-    autocomplete="off"
-    id="signUpOTPForm"
-    novalidate
-    style="display: none"
-  >
-    <div class="col-sm-6 pb-5">
-      <div class="form-floating">
-        <input
-          v-model="signUpOTP"
-          type="text"
-          class="form-control"
-          name="signUpOTP"
-          id="signUpOTP"
-          placeholder="otp"
-          required
-        />
-        <label for="signUpOTP" id="signUpLabels">OTP</label>
-      </div>
-    </div>
-    <div class="col-sm-6 pb-5">
-      <div class="row">
-        <div class="col-12">
-          <a href="#" id="signUpResendOTP">Resend OTP?</a>
-        </div>
-        <div class="col-12" id="signUpOTPexpire">OTP expire in : <span>123</span></div>
-      </div>
-    </div>
-    <div class="col-12">
-      <div class="form-floating">
-        <div class="R_Error SignUp_verifyOTPError">Please enter valid Credentials</div>
-      </div>
-    </div>
-    <div class="col-sm-3"></div>
-    <div class="col-sm-6 text-center d-grid">
-      <button class="btn" id="signUpBtn" @click.prevent="verifyOTP()">Verify OTP</button>
-    </div>
-    <div class="col-sm-3"></div>
-  </form>
-  <!-- --------------------------------------------------------------------------------------------------- -->
-  <!--                                         signUpPasswordForm                                          -->
-  <!-- --------------------------------------------------------------------------------------------------- -->
-  <form
-    action=""
-    class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
-    autocomplete="off"
-    id="signUpPasswordForm"
-    novalidate
-    style="display: none"
-  >
-    <div class="col-sm-12">
-      <div class="form-floating">
-        <input
-          v-model="signUpPassword1"
-          type="password"
-          class="form-control"
-          name="signUpPassword"
-          id="signUpPassword1"
-          placeholder="********"
-          required
-        />
-        <label for="signUpPassword1" id="signUpLabels">Password</label>
-      </div>
-    </div>
-    <div class="col-sm-12">
-      <div class="form-floating">
-        <input
-          v-model="signUpPassword2"
-          type="password"
-          class="form-control"
-          name="signUpPassword"
-          id="signUpPassword2"
-          placeholder="********"
-          required
-        />
-        <label for="signUpPassword2" id="signUpLabels">Re-password</label>
-      </div>
-    </div>
-    <div class="col-12">
-      <div class="form-floating">
-        <div class="R_Error SignUp_createPasswordError">Please enter valid Credentials</div>
-      </div>
-    </div>
-    <div class="col-sm-3"></div>
-    <div class="col-sm-6 text-center d-grid pt-3">
-      <button class="btn" id="signUpBtn" @click.prevent="SignUp()">Signup</button>
-    </div>
-    <div class="col-sm-3"></div>
-  </form>
-</template>
 <style scoped>
 #signUpForm,
 #signUpOTPForm,
 #signUpPasswordForm {
   margin-top: 5%;
-  box-shadow: rgba(248, 179, 51, 0.1) 0px 20px 30px;
+  /*box-shadow: rgba(248, 179, 51, 0.1) 0px 20px 30px;*/
 }
 #signUpFname,
 #signUpLname,
@@ -329,7 +324,6 @@ async function SignUp() {
   }
 }
 #signUpBtn {
-  /* border-radius: 15px;
   --bs-btn-color: #b47501;
   --bs-btn-border-color: #b47501;
   --bs-btn-hover-color: #fff;
@@ -343,26 +337,6 @@ async function SignUp() {
   --bs-btn-disabled-color: #b47501;
   --bs-btn-disabled-bg: transparent;
   --bs-btn-disabled-border-color: #b47501;
-  --bs-gradient: none; */
-  font-family: Rockwell;
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #f8b333;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  border-radius: 50px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-
-}
-
-#signUpBtn:hover{
-  background-color: #f7bb08;
-
-}
-
-#signup{
-  font-size: 23px;
-  font-weight: bold;
+  --bs-gradient: none;
 }
 </style>
