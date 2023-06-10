@@ -6,16 +6,22 @@ const Base_Url = 'https://olivewood.elementfx.com'
 
 const loginEmail = ref('')
 const loginPassword = ref('')
+<<<<<<< HEAD
 
 const forgetPasswordEmail = ref('')
 
 const loginVverifyOTP = ref('')
 
+=======
+const forgetPasswordEmail = ref('')
+const loginVverifyOTP = ref('')
+>>>>>>> parent of fb07804 (script tag position changed)
 const password1 = ref('')
 const password2 = ref('')
 
 /* ______ login ______ */
 async function login() {
+<<<<<<< HEAD
   console.log('login')
   await axios
     .post(Base_Url + '/account.php', {
@@ -34,6 +40,30 @@ async function login() {
     })
 }
 
+=======
+  const Login_Error = document.querySelector('.Login_Error')
+  console.log('login')
+  if (loginEmail.value == '' || loginPassword.value == '') {
+    Login_Error.style.display = 'block'
+  } else {
+    await axios
+      .post(Base_Url + '/account.php', {
+        action: 'login_login',
+        logEmail: loginEmail.value,
+        logPassword: loginPassword.value
+      })
+      .then((result) => {
+        console.log(result.data)
+        console.log(loginEmail.value + ', ' + loginPassword.value)
+        document.querySelector('#loginForm').style.display = 'none'
+        document.querySelector('#loginForm').style.display = 'flex'
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  }
+}
+>>>>>>> parent of fb07804 (script tag position changed)
 /* ______ forgetPassword ______ */
 function forgetPassword() {
   document.querySelector('#loginForm').style.display = 'none'
@@ -42,6 +72,7 @@ function forgetPassword() {
 
 /* ______ getOTP ______ */
 async function getOTP() {
+<<<<<<< HEAD
   console.log('getOTP')
   await axios
     .post(Base_Url + '/forgetPassword.php', {
@@ -57,10 +88,37 @@ async function getOTP() {
     .catch(function (error) {
       console.log(error)
     })
+=======
+  const Login_getOTPError = document.querySelector('.Login_getOTPError')
+  console.log('getOTP')
+  if (forgetPasswordEmail.value == '') {
+    Login_getOTPError.style.display = 'block'
+  } else {
+    await axios
+      .post(Base_Url + '/forgetPassword.php', {
+        action: 'get_OTP',
+        forgetPasswordEmail: forgetPasswordEmail.value
+      })
+      .then((result) => {
+        console.log(result.data)
+        console.log(forgetPasswordEmail.value)
+        if (result.data != 'No_Email_Found!') {
+          document.querySelector('#getOTPForm').style.display = 'none'
+          document.querySelector('#verifyOTPForm').style.display = 'flex'
+        } else {
+          alert(result.data)
+        }
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  }
+>>>>>>> parent of fb07804 (script tag position changed)
 }
 
 /* ______ verifyOTP ______ */
 async function verifyOTP() {
+<<<<<<< HEAD
   console.log('verifyOTP')
   await axios
     .post(Base_Url + '/forgetPassword.php', {
@@ -81,10 +139,38 @@ async function verifyOTP() {
     .catch(function (error) {
       console.log(error)
     })
+=======
+  const Login_verifyOTPError = document.querySelector('.Login_verifyOTPError')
+  console.log('verifyOTP')
+  if (loginVverifyOTP.value == '') {
+    Login_verifyOTPError.style.display = 'block'
+  } else {
+    await axios
+      .post(Base_Url + '/forgetPassword.php', {
+        action: 'verify_OTP',
+        forgetPasswordEmail: forgetPasswordEmail.value,
+        loginVverifyOTP: loginVverifyOTP.value
+      })
+      .then((result) => {
+        console.log(result.data)
+        console.log(forgetPasswordEmail.value + ',' + loginVverifyOTP.value)
+        if (result.data != 'Incorrect_OTP') {
+          document.querySelector('#verifyOTPForm').style.display = 'none'
+          document.querySelector('#changePasswordFrom').style.display = 'flex'
+        } else {
+          alert(result.data)
+        }
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  }
+>>>>>>> parent of fb07804 (script tag position changed)
 }
 
 /* ______ Reset Password ______ */
 async function resetPassword() {
+<<<<<<< HEAD
   console.log('resetPassword')
   await axios
     .post(Base_Url + '/forgetPassword.php', {
@@ -106,6 +192,34 @@ async function resetPassword() {
     .catch(function (error) {
       console.log(error)
     })
+=======
+  const Login_createPasswordError = document.querySelector('.Login_createPasswordError')
+  console.log('resetPassword')
+  if (password1.value == '' || password2.value == '') {
+    Login_createPasswordError.style.display = 'block'
+  } else {
+    await axios
+      .post(Base_Url + '/forgetPassword.php', {
+        action: 'reset_Password',
+        forgetPasswordEmail: forgetPasswordEmail.value,
+        password1: password1.value,
+        password2: password2.value
+      })
+      .then((result) => {
+        console.log(result.data)
+        console.log(password1.value + ',' + password2.value)
+        if (password1.value == password2.value) {
+          document.querySelector('#changePasswordFrom').style.display = 'none'
+          document.querySelector('#loginForm').style.display = 'flex'
+        } else {
+          alert(result.data)
+        }
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  }
+>>>>>>> parent of fb07804 (script tag position changed)
 }
 </script>
 <template>
@@ -292,137 +406,6 @@ async function resetPassword() {
     <div class="col-sm-3"></div>
   </form>
 </template>
-
-<script setup>
-import { ref } from 'vue'
-import axios from 'axios'
-
-const Base_Url = 'https://olivewood.elementfx.com'
-
-const loginEmail = ref('')
-const loginPassword = ref('')
-const forgetPasswordEmail = ref('')
-const loginVverifyOTP = ref('')
-const password1 = ref('')
-const password2 = ref('')
-
-/* ______ login ______ */
-async function login() {
-  const Login_Error = document.querySelector('.Login_Error')
-  console.log('login')
-  if (loginEmail.value == '' || loginPassword.value == '') {
-    Login_Error.style.display = 'block'
-  } else {
-    await axios
-      .post(Base_Url + '/account.php', {
-        action: 'login_login',
-        logEmail: loginEmail.value,
-        logPassword: loginPassword.value
-      })
-      .then((result) => {
-        console.log(result.data)
-        console.log(loginEmail.value + ', ' + loginPassword.value)
-        document.querySelector('#loginForm').style.display = 'none'
-        document.querySelector('#loginForm').style.display = 'flex'
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
-  }
-}
-/* ______ forgetPassword ______ */
-function forgetPassword() {
-  document.querySelector('#loginForm').style.display = 'none'
-  document.querySelector('#getOTPForm').style.display = 'flex'
-}
-
-/* ______ getOTP ______ */
-async function getOTP() {
-  const Login_getOTPError = document.querySelector('.Login_getOTPError')
-  console.log('getOTP')
-  if (forgetPasswordEmail.value == '') {
-    Login_getOTPError.style.display = 'block'
-  } else {
-    await axios
-      .post(Base_Url + '/forgetPassword.php', {
-        action: 'get_OTP',
-        forgetPasswordEmail: forgetPasswordEmail.value
-      })
-      .then((result) => {
-        console.log(result.data)
-        console.log(forgetPasswordEmail.value)
-        if (result.data != 'No_Email_Found!') {
-          document.querySelector('#getOTPForm').style.display = 'none'
-          document.querySelector('#verifyOTPForm').style.display = 'flex'
-        } else {
-          alert(result.data)
-        }
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
-  }
-}
-
-/* ______ verifyOTP ______ */
-async function verifyOTP() {
-  const Login_verifyOTPError = document.querySelector('.Login_verifyOTPError')
-  console.log('verifyOTP')
-  if (loginVverifyOTP.value == '') {
-    Login_verifyOTPError.style.display = 'block'
-  } else {
-    await axios
-      .post(Base_Url + '/forgetPassword.php', {
-        action: 'verify_OTP',
-        forgetPasswordEmail: forgetPasswordEmail.value,
-        loginVverifyOTP: loginVverifyOTP.value
-      })
-      .then((result) => {
-        console.log(result.data)
-        console.log(forgetPasswordEmail.value + ',' + loginVverifyOTP.value)
-        if (result.data != 'Incorrect_OTP') {
-          document.querySelector('#verifyOTPForm').style.display = 'none'
-          document.querySelector('#changePasswordFrom').style.display = 'flex'
-        } else {
-          alert(result.data)
-        }
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
-  }
-}
-
-/* ______ Reset Password ______ */
-async function resetPassword() {
-  const Login_createPasswordError = document.querySelector('.Login_createPasswordError')
-  console.log('resetPassword')
-  if (password1.value == '' || password2.value == '') {
-    Login_createPasswordError.style.display = 'block'
-  } else {
-    await axios
-      .post(Base_Url + '/forgetPassword.php', {
-        action: 'reset_Password',
-        forgetPasswordEmail: forgetPasswordEmail.value,
-        password1: password1.value,
-        password2: password2.value
-      })
-      .then((result) => {
-        console.log(result.data)
-        console.log(password1.value + ',' + password2.value)
-        if (password1.value == password2.value) {
-          document.querySelector('#changePasswordFrom').style.display = 'none'
-          document.querySelector('#loginForm').style.display = 'flex'
-        } else {
-          alert(result.data)
-        }
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
-  }
-}
-</script>
 
 <style scoped>
 #loginForm,

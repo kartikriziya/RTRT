@@ -64,12 +64,17 @@ const timinings = ref([
 </script>
 <template>
   <div class="row pb-5">
+<<<<<<< HEAD
     <div class="col-sm-12 ps-5 pt-3 pe-5 pb-2" id="details">
       <!-- style="background-color: burlywood" -->
+=======
+    <div class="col-sm-12 ps-5 pt-3 pe-5 pb-2" id="details" style="background-color: burlywood">
+>>>>>>> parent of fb07804 (script tag position changed)
       <!--                     -->
       <!--    No of People     -->
       <!--                     -->
       <div class="row">
+<<<<<<< HEAD
         <div class="col-12 pb-2">
           <!-- style="background-color: cadetblue" -->
           <h3 id="noOfPeople">
@@ -88,12 +93,25 @@ const timinings = ref([
 
             <div class="col-sm-2"></div>
           </h3>
+=======
+        <div class="col-12 pb-2" style="background-color: cadetblue">
+          <h3>No of People</h3>
+>>>>>>> parent of fb07804 (script tag position changed)
           <div
             class="row ps-2 ps-sm-4 ps-md-1 ps-lg-3 ps-xl-5 pt-2 pe-xl-5 pe-lg-3 pe-md-1 pe-sm-4 pe-2"
             id="noOfPeople"
           >
+<<<<<<< HEAD
             <div v-for="People in noOfPeople" class="col-2" id="check">
               <!-- style="background-color: darkred" -->
+=======
+            <div
+              v-for="People in noOfPeople"
+              class="col-2"
+              id="check"
+              style="background-color: darkred"
+            >
+>>>>>>> parent of fb07804 (script tag position changed)
               <input type="radio" name="people" :id="People.id" value="2" />
               <label :for="People.id" id="numberLabel"
                 ><span id="number">{{ People.people }}</span></label
@@ -104,7 +122,10 @@ const timinings = ref([
         <!--                     -->
         <!--        Calender     -->
         <!--                     -->
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of fb07804 (script tag position changed)
         <div class="col-12 pt-2" style="background-color: ">
           <h3 id="noOfPeople">
             <div class="col-sm-2"></div>
@@ -128,7 +149,11 @@ const timinings = ref([
               class="col-sm-6"
               style="background-color: ; display: flex; justify-content: center"
             >
+<<<<<<< HEAD
               <input type="date" id="datePicker" @click="datePickerRestrictions()" />
+=======
+              <input type="date" id="datePicker" @click="test()" />
+>>>>>>> parent of fb07804 (script tag position changed)
             </div>
             <div class="col-sm-3"></div>
           </div>
@@ -138,6 +163,7 @@ const timinings = ref([
     <!--                     -->
     <!--      Time Slot's    -->
     <!--                     -->
+<<<<<<< HEAD
     <div class="col-sm-12 pt-3 pb-2">
       <!-- style="background-color: darkgray" -->
       <h2 id="timeSlot">
@@ -156,16 +182,28 @@ const timinings = ref([
 
         <div class="col-sm-3"></div>
       </h2>
+=======
+    <div class="col-sm-12 pt-3 pb-2" style="background-color: darkgray">
+      <h2>Time Slot's</h2>
+>>>>>>> parent of fb07804 (script tag position changed)
       <div class="row pt-2" id="timinings">
         <div
           v-for="Slot in timinings"
           class="col-2 col-md-3 col-lg-2 col-xl-3 col-xxl-2 pt-2 pb-3"
           id="slots"
+<<<<<<< HEAD
         >
           <!-- style="background-color: darkolivegreen" -->
           <input type="radio" name="slots" :id="Slot.id" :value="Slot.time" />
           <label :for="Slot.id" id="timeLabel"
             ><span id="time" style="color: #000">{{ Slot.time }}</span></label
+=======
+          style="background-color: darkolivegreen"
+        >
+          <input type="radio" name="slots" :id="Slot.id" :value="Slot.time" />
+          <label :for="Slot.id" id="timeLabel"
+            ><span id="time">{{ Slot.time }}</span></label
+>>>>>>> parent of fb07804 (script tag position changed)
           >
         </div>
       </div>

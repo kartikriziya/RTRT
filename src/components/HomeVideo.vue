@@ -1,3 +1,4 @@
+<script setup></script>
 <template>
   <video autoplay muted loop id="bgVideo">
     <!-- <source src="../assets/test.mp4" type="video/mp4" /> -->
@@ -10,7 +11,6 @@
     Your browser does not support HTML5 video.
   </video>
 </template>
-<script setup></script>
 <style scoped>
 video {
   height: 100vh;

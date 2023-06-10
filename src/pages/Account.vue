@@ -1,3 +1,31 @@
+<script setup>
+import Login from '../components/Login.vue'
+import SignUp from '../components/SignUp.vue'
+function showLogin() {
+  const slider = document.querySelector('#slider')
+  slider.classList.remove('showSignUp')
+  slider.classList.add('showLogin') /* -------> */
+  document.querySelector('#loginLink').style.display = 'none'
+  document.querySelector('#signUpLink').style.display = 'block'
+
+  const loginForm = document.querySelector('#loginForm')
+  loginForm.classList.add('loginForm_animation')
+  const signUpForm = document.querySelector('#signUpForm')
+  signUpForm.classList.remove('signUpForm_animation')
+}
+function showSignUp() {
+  const slider = document.querySelector('#slider')
+  slider.classList.remove('showLogin')
+  slider.classList.add('showSignUp') /* <------- */
+  document.querySelector('#signUpLink').style.display = 'none'
+  document.querySelector('#loginLink').style.display = 'block'
+
+  const signUpForm = document.querySelector('#signUpForm')
+  signUpForm.classList.add('signUpForm_animation')
+  const loginForm = document.querySelector('#loginForm')
+  loginForm.classList.remove('loginForm_animation')
+}
+</script>
 <template>
   <div class="container-fluid pt-5" id="">
     <div class="row pt-2">
@@ -76,36 +104,6 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import Login from '../components/Login.vue'
-import SignUp from '../components/SignUp.vue'
-function showLogin() {
-  const slider = document.querySelector('#slider')
-  slider.classList.remove('showSignUp')
-  slider.classList.add('showLogin') /* -------> */
-  document.querySelector('#loginLink').style.display = 'none'
-  document.querySelector('#signUpLink').style.display = 'block'
-
-  const loginForm = document.querySelector('#loginForm')
-  loginForm.classList.add('loginForm_animation')
-  const signUpForm = document.querySelector('#signUpForm')
-  signUpForm.classList.remove('signUpForm_animation')
-}
-function showSignUp() {
-  const slider = document.querySelector('#slider')
-  slider.classList.remove('showLogin')
-  slider.classList.add('showSignUp') /* <------- */
-  document.querySelector('#signUpLink').style.display = 'none'
-  document.querySelector('#loginLink').style.display = 'block'
-
-  const signUpForm = document.querySelector('#signUpForm')
-  signUpForm.classList.add('signUpForm_animation')
-  const loginForm = document.querySelector('#loginForm')
-  loginForm.classList.remove('loginForm_animation')
-}
-</script>
-
 <style scoped>
 #Account {
   position: relative;

@@ -1,3 +1,4 @@
+<script setup></script>
 <template>
   <div class="row pb-5" style="">
     <div class="col-lg-12 text-center" id="menu">
@@ -335,9 +336,6 @@
 
   <!-- ******************************************************************************************** -->
 </template>
-
-<script setup></script>
-
 <style scoped>
 #names{
   font-family: 'Apple Chancery';
