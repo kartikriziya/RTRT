@@ -88,10 +88,6 @@
     <div class="col-sm-3"></div>
   </form>
 
-  <!-- --------------------------------------------------------------------------------------------------- -->
-  <!--                                            Verify OTP                                               -->
-  <!-- --------------------------------------------------------------------------------------------------- -->
-
   <!-- verifyOTPForm -->
   <form
     action=""
@@ -118,7 +114,9 @@
     <div class="col-12 ms-2">
       <a id="logInResendOTP" @click.prevent="LogIn_resendOTP()">Resend OTP?</a>
     </div>
-    <div class="col-12 ms-2" id="logInOTPexpire">OTP expire in : <span>123</span></div>
+    <div class="col-12 ms-2" id="logInOTPexpire">
+      OTP expire in : <span>{{ login_OTP_Time }}</span>
+    </div>
 
     <div class="col-12">
       <div class="form-floating">
@@ -133,10 +131,6 @@
     </div>
     <div class="col-sm-3"></div>
   </form>
-
-  <!-- --------------------------------------------------------------------------------------------------- -->
-  <!--                                            Change Password                                          -->
-  <!-- --------------------------------------------------------------------------------------------------- -->
 
   <!-- changePasswordFrom -->
   <form
@@ -190,13 +184,16 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import axios from 'axios'
 
+const router = useRouter()
 const Base_Url = 'https://olivewood.elementfx.com'
 
 const loginEmail = ref('')
 const loginPassword = ref('')
 const forgetPasswordEmail = ref('')
+const login_OTP_Time = ref('')
 const loginVverifyOTP = ref('')
 const password1 = ref('')
 const password2 = ref('')
@@ -211,37 +208,36 @@ async function login() {
     Login_Error.style.display = 'block'
     LogIn_Error_Message.value = 'Please enter valid Credentials!'
   } else {
-    await axios
-      .post(Base_Url + '/account.php', {
-        action: 'login_login',
-        logEmail: loginEmail.value,
-        logPassword: loginPassword.value
-      })
-      .then((result) => {
-        console.log(result.data)
-        console.log(loginEmail.value + ', ' + loginPassword.value)
-        if (result.data == 'No_Email_Found') {
-          document.querySelector('#loginForm').style.display = 'none'
-          document.querySelector('#loginForm').style.display = 'flex'
-          Login_Error.style.display = 'block'
-          LogIn_Error_Message.value =
-            'Email not found. Please check your email address or sign up for a new account!'
-        } else if (result.data == 'LOGIN_SUCCESSFULL') {
-          document.querySelector('#loginForm').style.display = 'none'
-          document.querySelector('#loginForm').style.display = 'flex'
-          Login_Error.style.display = 'block'
-          LogIn_Error_Message.value = 'LOGIN_SUCCESSFULL'
-        } else {
-          document.querySelector('#loginForm').style.display = 'none'
-          document.querySelector('#loginForm').style.display = 'flex'
-          Login_Error.style.display = 'block'
-          LogIn_Error_Message.value =
-            'Invalid email or password. Please check your credentials and try again!'
-        }
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
+    let result = await axios.post(Base_Url + '/account.php', {
+      action: 'login_login',
+      logEmail: loginEmail.value,
+      logPassword: loginPassword.value
+    })
+    if (result.status == 200 || result.status == 201) {
+      console.log(result.data)
+      console.log(loginEmail.value + ', ' + loginPassword.value)
+      if (result.data == 'No_Email_Found') {
+        document.querySelector('#loginForm').style.display = 'none'
+        document.querySelector('#loginForm').style.display = 'flex'
+        Login_Error.style.display = 'block'
+        LogIn_Error_Message.value =
+          'Email not found. Please check your email address or sign up for a new account!'
+      } else if (result.data == 'LOGIN_SUCCESSFULL') {
+        document.querySelector('#loginForm').style.display = 'none'
+        document.querySelector('#loginForm').style.display = 'flex'
+        //Login_Error.style.display = 'block'
+        //LogIn_Error_Message.value = 'LOGIN_SUCCESSFULL'
+        router.push({ path: '/reservieren' })
+      } else {
+        document.querySelector('#loginForm').style.display = 'none'
+        document.querySelector('#loginForm').style.display = 'flex'
+        //Login_Error.style.display = 'block'
+        LogIn_Error_Message.value =
+          'Invalid email or password. Please check your credentials and try again!'
+      }
+    } else {
+      console.log(result.data)
+    }
   }
 }
 /* ______ forgetPassword ______ */
@@ -258,46 +254,60 @@ async function getOTP() {
     Login_getOTPError.style.display = 'block'
     LogIn_Error_Message.value = 'Please enter your email address!'
   } else {
-    await axios
-      .post(Base_Url + '/forgetPassword.php', {
-        action: 'get_OTP',
-        forgetPasswordEmail: forgetPasswordEmail.value
-      })
-      .then((result) => {
-        console.log(result.data)
-        console.log(forgetPasswordEmail.value)
-        if (result.data != 'No_Email_Found!') {
-          document.querySelector('#getOTPForm').style.display = 'none'
-          document.querySelector('#verifyOTPForm').style.display = 'flex'
-        } else {
-          //alert(result.data)
-          Login_getOTPError.style.display = 'block'
-          LogIn_Error_Message.value =
-            'Email not found. Please check your email address or sign up for a new account!'
-        }
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
+    let result = await axios.post(Base_Url + '/forgetPassword.php', {
+      action: 'get_OTP',
+      forgetPasswordEmail: forgetPasswordEmail.value
+    })
+    if (result.status == 200 || result.status == 201) {
+      console.log(result.data)
+      console.log(forgetPasswordEmail.value)
+      if (result.data != 'No_Email_Found!') {
+        document.querySelector('#getOTPForm').style.display = 'none'
+        document.querySelector('#verifyOTPForm').style.display = 'flex'
+
+        let timeleft = 10
+        const logInOTPexpire = document.getElementById('logInOTPexpire')
+        const otpTimer = setInterval(function () {
+          if (timeleft <= 0) {
+            clearInterval(otpTimer)
+            login_OTP_Time.value = null
+            logInOTPexpire.innerHTML = 'OTP expired'
+            logInOTPexpire.style.color = '#dc3545'
+            logInOTPexpire.classList.add('R_Error')
+            logInOTPexpire.style.display = 'block'
+
+            document.querySelector('.signUp_VerifyOTP_btn').disabled = true
+          } else {
+            login_OTP_Time.value = timeleft
+          }
+          timeleft -= 1
+        }, 1000)
+      } else {
+        //alert(result.data)
+        Login_getOTPError.style.display = 'block'
+        LogIn_Error_Message.value =
+          'Email not found. Please check your email address or sign up for a new account!'
+      }
+    } else {
+      console.log(result.data)
+    }
   }
 }
 
 /* ______ ResendOTP ______ */
 async function LogIn_resendOTP() {
   console.log('LogIn_resendOTP')
-  await axios
-    .post(Base_Url + '/forgetPassword.php', {
-      action: 'LogIn_resendOTP',
-      forgetPasswordEmail: forgetPasswordEmail.value
-    })
-    .then((result) => {
-      console.log(result.data)
-      console.log(forgetPasswordEmail.value)
-      document.querySelector('.LogIn_VerifyOTP_btn').disabled = true
-    })
-    .catch(function (error) {
-      console.log(error)
-    })
+  let result = await axios.post(Base_Url + '/forgetPassword.php', {
+    action: 'LogIn_resendOTP',
+    forgetPasswordEmail: forgetPasswordEmail.value
+  })
+  if (result.status == 200 || result.status == 201) {
+    console.log(result.data)
+    console.log(forgetPasswordEmail.value)
+    document.querySelector('.LogIn_VerifyOTP_btn').disabled = true
+  } else {
+    console.log(result.data)
+  }
 }
 
 /* ______ verifyOTP ______ */
@@ -308,28 +318,26 @@ async function verifyOTP() {
     Login_verifyOTPError.style.display = 'block'
     LogIn_Error_Message.value = 'Please enter the One-Time Password (OTP)!'
   } else {
-    await axios
-      .post(Base_Url + '/forgetPassword.php', {
-        action: 'verify_OTP',
-        forgetPasswordEmail: forgetPasswordEmail.value,
-        loginVverifyOTP: loginVverifyOTP.value
-      })
-      .then((result) => {
-        console.log(result.data)
-        console.log(forgetPasswordEmail.value + ',' + loginVverifyOTP.value)
-        if (result.data != 'Incorrect_OTP') {
-          document.querySelector('#verifyOTPForm').style.display = 'none'
-          document.querySelector('#changePasswordFrom').style.display = 'flex'
-        } else {
-          //alert(result.data)
-          Login_verifyOTPError.style.display = 'block'
-          LogIn_Error_Message.value =
-            'Incorrect OTP. Please check your One-Time Password and try again!'
-        }
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
+    let result = await axios.post(Base_Url + '/forgetPassword.php', {
+      action: 'verify_OTP',
+      forgetPasswordEmail: forgetPasswordEmail.value,
+      loginVverifyOTP: loginVverifyOTP.value
+    })
+    if (result.status == 200 || result.status == 201) {
+      console.log(result.data)
+      console.log(forgetPasswordEmail.value + ',' + loginVverifyOTP.value)
+      if (result.data != 'Incorrect_OTP') {
+        document.querySelector('#verifyOTPForm').style.display = 'none'
+        document.querySelector('#changePasswordFrom').style.display = 'flex'
+      } else {
+        //alert(result.data)
+        Login_verifyOTPError.style.display = 'block'
+        LogIn_Error_Message.value =
+          'Incorrect OTP. Please check your One-Time Password and try again!'
+      }
+    } else {
+      console.log(result.data)
+    }
   }
 }
 
@@ -341,28 +349,26 @@ async function resetPassword() {
     Login_createPasswordError.style.display = 'block'
     LogIn_Error_Message.value = 'Please enter your new password!'
   } else {
-    await axios
-      .post(Base_Url + '/forgetPassword.php', {
-        action: 'reset_Password',
-        forgetPasswordEmail: forgetPasswordEmail.value,
-        password1: password1.value,
-        password2: password2.value
-      })
-      .then((result) => {
-        console.log(result.data)
-        console.log(password1.value + ',' + password2.value)
-        if (password1.value == password2.value) {
-          document.querySelector('#changePasswordFrom').style.display = 'none'
-          document.querySelector('#loginForm').style.display = 'flex'
-        } else {
-          //alert(result.data)
-          Login_createPasswordError.style.display = 'block'
-          LogIn_Error_Message.value = 'Please make sure your passwords match!'
-        }
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
+    let result = await axios.post(Base_Url + '/forgetPassword.php', {
+      action: 'reset_Password',
+      forgetPasswordEmail: forgetPasswordEmail.value,
+      password1: password1.value,
+      password2: password2.value
+    })
+    if (result.status == 200 || result.status == 201) {
+      console.log(result.data)
+      console.log(password1.value + ',' + password2.value)
+      if (password1.value == password2.value) {
+        document.querySelector('#changePasswordFrom').style.display = 'none'
+        document.querySelector('#loginForm').style.display = 'flex'
+      } else {
+        //alert(result.data)
+        Login_createPasswordError.style.display = 'block'
+        LogIn_Error_Message.value = 'Please make sure your passwords match!'
+      }
+    } else {
+      console.log(result.data)
+    }
   }
 }
 </script>
