@@ -10,7 +10,29 @@
             id="noOfPeople"
           >
             <div
-              v-for="People in noOfPeople"
+              v-for="People in noOfPeople1"
+              class="col-2"
+              id="check"
+              style="background-color: darkred"
+            >
+              <input
+                v-model="collectPeople"
+                type="radio"
+                name="people"
+                :id="People.id"
+                :value="People.people"
+              />
+              <label :for="People.id" id="numberLabel"
+                ><span id="number">{{ People.people }}</span></label
+              >
+            </div>
+          </div>
+          <div
+            class="row ps-2 ps-sm-4 ps-md-1 ps-lg-3 ps-xl-5 pt-2 pe-xl-5 pe-lg-3 pe-md-1 pe-sm-4 pe-2"
+            id="noOfPeople"
+          >
+            <div
+              v-for="People in noOfPeople2"
               class="col-2"
               id="check"
               style="background-color: darkred"
@@ -95,6 +117,8 @@
 import { ref } from 'vue'
 import axios from 'axios'
 
+const Base_Url = 'https://olivewood.elementfx.com'
+
 const props = defineProps({ sendStars: String }) // props defined in props variable as const
 const collectPeople = ref('') // no. of people will be updated in collectPeople variable as const
 const collectDate = ref('') // date will be updated in collectDate variable as const
@@ -104,8 +128,22 @@ const collectTime = ref('') // time will be updated in collectTime variable as c
 /* Start of reserveTable() */
 /* -> Rating Stars received => as a Prop name 'sendStars'
 /********************************************************************************/
-function reserveTable() {
-  console.log(
+async function reserveTable() {
+  console.log('reserveTable')
+  if (collectPeople.value == '' || collectDate.value == '' || collectTime =='') {
+    console.log('Please enter missing value.')
+  } else {
+    let result = await axios
+      .post(Base_Url + '/reservation.php', {
+        action: 'reserve_Table',
+        props : props,
+        noOfPeople : collectPeople.value,
+        reserveDate : collectDate.value,
+        reserveTime : collectTime.value
+      })
+      if(result.status == 200 || result.status == 201) {
+        console.log(result.data)
+        console.log(
     'Reserve Now clicked' +
       'with -> ' +
       'Stars = ' +
@@ -117,6 +155,16 @@ function reserveTable() {
       ', Time = ' +
       collectTime.value
   )
+        if (result.data == 'Reservation added!') {
+          console.log('Data stored.')
+        } else {
+           console.log('NO Data received.')
+        }
+      }
+      else {
+        console.log(result.data)
+      }
+  }
 }
 /* End of reserveTable()  */
 
@@ -149,13 +197,20 @@ function datePickerRestrictions() {
   document.querySelector('#datePicker').setAttribute('min', minDate.value)
 }
 
-const noOfPeople = ref([
+const noOfPeople1 = ref([
+  { id: 'check1', people: '1' },
   { id: 'check2', people: '2' },
+  { id: 'check3', people: '3' },
   { id: 'check4', people: '4' },
+  { id: 'check5', people: '5' }
+])
+
+const noOfPeople2 = ref([
   { id: 'check6', people: '6' },
+  { id: 'check7', people: '7' },
   { id: 'check8', people: '8' },
-  { id: 'check10', people: '10' },
-  { id: 'check10+', people: '10+' }
+  { id: 'check9', people: '9' },
+  { id: 'check10', people: '10' }
 ])
 
 const timinings = ref([
