@@ -4,7 +4,7 @@
   <!-- --------------------------------------------------------------------------------------------------- -->
   <form
     action=""
-    class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
+    class="row gy-3 needs-validation pt-5 ps-3 pe-3"
     autocomplete="off"
     id="signUpForm"
     novalidate
@@ -49,18 +49,11 @@
           required
         />
         <label for="signUpEmail" id="signUpLabels">Email address *</label>
-        <div class="valid-feedback">Looks good!</div>
-        <div class="invalid-feedback">Please enter valid Email</div>
       </div>
     </div>
     <div class="col-12">
       <div class="form-floating">
         <div class="R_Error SignUp_Error">{{ signUp_Error_Message }}</div>
-      </div>
-    </div>
-    <div class="col-12">
-      <div class="form-floating">
-        <div class="R_Error SignUp_verifyOTPError">{{ signUp_Error_Message }}</div>
       </div>
     </div>
     <div class="col-sm-3"></div>
@@ -98,7 +91,9 @@
         <div class="col-12">
           <a id="signUpResendOTP" @click.prevent="SignUp_resendOTP()">Resend OTP?</a>
         </div>
-        <div class="col-12" id="signUpOTPexpire">OTP expire in : <span>123</span></div>
+        <div class="col-12" id="signUpOTPexpire">
+          OTP expire in : <span>{{ signUP_OTP_Time }}</span>
+        </div>
       </div>
     </div>
     <div class="col-12">
@@ -176,6 +171,7 @@ const signUpFname = ref('')
 const signUpLname = ref('')
 const signUpEmail = ref('')
 
+const signUP_OTP_Time = ref('')
 const signUpOTP = ref('')
 
 const signUpPassword1 = ref('')
@@ -191,33 +187,48 @@ async function verifyEmail() {
     SignUp_Error.style.display = 'block'
     signUp_Error_Message.value = 'Please fill in all the required fields!'
   } else {
-    await axios
-      .post(Base_Url + '/account.php', {
-        action: 'verify_email',
-        firstName: signUpFname.value,
-        lastName: signUpLname.value,
-        Email: signUpEmail.value
-      })
-      .then((result) => {
-        console.log(result.data)
-        console.log(signUpFname.value + ', ' + signUpLname.value + ', ' + signUpEmail.value)
-        if (result.data != 'Account with this Email already exists!') {
-          document.querySelector('#signUpForm').style.display = 'none'
-          document.querySelector('#signUpOTPForm').style.display = 'flex'
-        } else {
-          SignUp_Error.style.display = 'block'
-          signUp_Error_Message.value = 'Account with this Email already exists. Try another Email!'
-        }
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
+    let result = await axios.post(Base_Url + '/account.php', {
+      action: 'verify_email',
+      firstName: signUpFname.value,
+      lastName: signUpLname.value,
+      Email: signUpEmail.value
+    })
+    if (result.status == 200 || result.status == 201) {
+      console.log(result.data)
+      console.log(signUpFname.value + ', ' + signUpLname.value + ', ' + signUpEmail.value)
+      if (result.data != 'Account with this Email already exists!') {
+        document.querySelector('#signUpForm').style.display = 'none'
+        document.querySelector('#signUpOTPForm').style.display = 'flex'
+
+        let timeleft = 120
+        const signUpOTPexpire = document.getElementById('signUpOTPexpire')
+        const otpTimer = setInterval(function () {
+          if (timeleft <= 0) {
+            clearInterval(otpTimer)
+            signUP_OTP_Time.value = null
+            signUpOTPexpire.innerHTML = 'OTP expired'
+            signUpOTPexpire.style.color = '#dc3545'
+            signUpOTPexpire.classList.add('R_Error')
+            signUpOTPexpire.style.display = 'block'
+
+            document.querySelector('.signUp_VerifyOTP_btn').disabled = true
+          } else {
+            signUP_OTP_Time.value = timeleft
+          }
+          timeleft -= 1
+        }, 1000)
+      } else {
+        SignUp_Error.style.display = 'block'
+        signUp_Error_Message.value = 'Account with this Email already exists. Try another Email!'
+      }
+    } else {
+      console.log(result.data)
+    }
   }
 }
 
 /* ______ ResendOTP ______ */
 async function SignUp_resendOTP() {
-  //const SignUp_Error = document.querySelector('.SignUp_Error')
   console.log('SignUp_resendOTP')
   await axios
     .post(Base_Url + '/account.php', {
@@ -226,7 +237,7 @@ async function SignUp_resendOTP() {
     })
     .then((result) => {
       console.log(result.data)
-      document.querySelector('.signUp_VerifyOTP_btn').disabled = true
+      //document.querySelector('.signUp_VerifyOTP_btn').disabled = true
     })
     .catch(function (error) {
       console.log(error)
@@ -241,26 +252,24 @@ async function verifyOTP() {
     SignUp_verifyOTPError.style.display = 'block'
     signUp_Error_Message.value = 'Please enter the One-Time Password (OTP)!'
   } else {
-    await axios
-      .post(Base_Url + '/account.php', {
-        action: 'verify_otp',
-        signUpOTP: signUpOTP.value,
-        Email: signUpEmail.value
-      })
-      .then((result) => {
-        console.log(result.data)
-        console.log(signUpEmail.value + ',' + signUpOTP.value)
-        if (result.data != 'Incorrect_OTP') {
-          document.querySelector('#signUpOTPForm').style.display = 'none'
-          document.querySelector('#signUpPasswordForm').style.display = 'flex'
-        } else {
-          SignUp_verifyOTPError.style.display = 'block'
-          signUp_Error_Message.value = 'OTP Incorrect.Try Again!'
-        }
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
+    let result = await axios.post(Base_Url + '/account.php', {
+      action: 'verify_otp',
+      signUpOTP: signUpOTP.value,
+      Email: signUpEmail.value
+    })
+    if (result.status == 200 || result.status == 201) {
+      console.log(result.data)
+      console.log(signUpEmail.value + ',' + signUpOTP.value)
+      if (result.data != 'Incorrect_OTP') {
+        document.querySelector('#signUpOTPForm').style.display = 'none'
+        document.querySelector('#signUpPasswordForm').style.display = 'flex'
+      } else {
+        SignUp_verifyOTPError.style.display = 'block'
+        signUp_Error_Message.value = 'OTP Incorrect.Try Again!'
+      }
+    } else {
+      console.log(result.data)
+    }
   }
 }
 /* ________ SignUp _______ */
@@ -279,41 +288,37 @@ async function SignUp() {
   if (signUpPassword1.value == '' || signUpPassword2.value == '') {
     SignUp_createPasswordError.style.display = 'block'
     signUp_Error_Message.value = 'Please enter password in both fields!'
-    console.log('aa')
   } else {
-    console.log('kk')
-    await axios
-      .post(Base_Url + '/account.php', {
-        action: 'signup',
-        firstName: signUpFname.value,
-        lastName: signUpLname.value,
-        Email: signUpEmail.value,
-        Password1: signUpPassword1.value,
-        Password2: signUpPassword2.value
-      })
-      .then((result) => {
-        console.log(result.data)
-        console.log(signUpPassword1.value + ', ' + signUpPassword2.value)
+    let result = await axios.post(Base_Url + '/account.php', {
+      action: 'signup',
+      firstName: signUpFname.value,
+      lastName: signUpLname.value,
+      Email: signUpEmail.value,
+      Password1: signUpPassword1.value,
+      Password2: signUpPassword2.value
+    })
+    if (result.status == 200 || result.status == 201) {
+      console.log(result.data)
+      console.log(signUpPassword1.value + ', ' + signUpPassword2.value)
 
-        if (result.data === 'successfully signup') {
-          const slider = document.querySelector('#slider')
-          slider.classList.remove('showSignUp')
-          slider.classList.add('showLogin') /* -------> */
-          document.querySelector('#loginLink').style.display = 'none'
-          document.querySelector('#signUpLink').style.display = 'block'
+      if (result.data === 'successfully signup') {
+        const slider = document.querySelector('#slider')
+        slider.classList.remove('showSignUp')
+        slider.classList.add('showLogin') /* -------> */
+        document.querySelector('#loginLink').style.display = 'none'
+        document.querySelector('#signUpLink').style.display = 'block'
 
-          const loginForm = document.querySelector('#loginForm')
-          loginForm.classList.add('loginForm_animation')
-          const signUpForm = document.querySelector('#signUpForm')
-          signUpForm.classList.remove('signUpForm_animation')
-        } else {
-          SignUp_createPasswordError.style.display = 'block'
-          signUp_Error_Message.value = 'Please make sure your passwords match!'
-        }
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
+        const loginForm = document.querySelector('#loginForm')
+        loginForm.classList.add('loginForm_animation')
+        const signUpForm = document.querySelector('#signUpForm')
+        signUpForm.classList.remove('signUpForm_animation')
+      } else {
+        SignUp_createPasswordError.style.display = 'block'
+        signUp_Error_Message.value = 'Please make sure your passwords match!'
+      }
+    } else {
+      console.log(result.data)
+    }
   }
 }
 </script>
