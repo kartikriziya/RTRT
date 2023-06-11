@@ -20,7 +20,6 @@
 
 <script setup>
 import { ref } from 'vue'
-import axios from 'axios'
 
 const collectStars = ref('') // stars will be updated in collectStars variable as const
 const emitRatings = defineEmits(['getStars']) // emits defined in emitRatings variable as const

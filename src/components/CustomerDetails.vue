@@ -1,9 +1,7 @@
 <template>
   <div class="row pb-5">
     <div class="col-sm-12 ps-5 pt-3 pe-5 pb-2" id="details" style="background-color: burlywood">
-      <!--                     -->
-      <!--    No of People     -->
-      <!--                     -->
+      <!-- No of People -->
       <div class="row">
         <div class="col-12 pb-2" style="background-color: cadetblue">
           <h3>No of People</h3>
@@ -17,16 +15,20 @@
               id="check"
               style="background-color: darkred"
             >
-              <input type="radio" name="people" :id="People.id" value="2" />
+              <input
+                v-model="collectPeople"
+                type="radio"
+                name="people"
+                :id="People.id"
+                :value="People.people"
+              />
               <label :for="People.id" id="numberLabel"
                 ><span id="number">{{ People.people }}</span></label
               >
             </div>
           </div>
         </div>
-        <!--                     -->
-        <!--        Calender     -->
-        <!--                     -->
+        <!-- Calender -->
         <div class="col-12 pt-2" style="background-color: ">
           <h3 id="noOfPeople">
             <div class="col-sm-2"></div>
@@ -50,16 +52,19 @@
               class="col-sm-6"
               style="background-color: ; display: flex; justify-content: center"
             >
-              <input type="date" id="datePicker" @click="test()" />
+              <input
+                v-model="collectDate"
+                type="date"
+                id="datePicker"
+                @click="datePickerRestrictions()"
+              />
             </div>
             <div class="col-sm-3"></div>
           </div>
         </div>
       </div>
     </div>
-    <!--                     -->
-    <!--      Time Slot's    -->
-    <!--                     -->
+    <!-- Time Slot's  -->
     <div class="col-sm-12 pt-3 pb-2" style="background-color: darkgray">
       <h2>Time Slot's</h2>
       <div class="row pt-2" id="timinings">
@@ -69,7 +74,7 @@
           id="slots"
           style="background-color: darkolivegreen"
         >
-          <input type="radio" name="slots" :id="Slot.id" :value="Slot.time" />
+          <input v-model="collectTime" type="radio" name="slots" :id="Slot.id" :value="Slot.time" />
           <label :for="Slot.id" id="timeLabel"
             ><span id="time">{{ Slot.time }}</span></label
           >
@@ -88,15 +93,30 @@
 </template>
 <script setup>
 import { ref } from 'vue'
+import axios from 'axios'
 
 const props = defineProps({ sendStars: String }) // props defined in props variable as const
+const collectPeople = ref('') // no. of people will be updated in collectPeople variable as const
+const collectDate = ref('') // date will be updated in collectDate variable as const
+const collectTime = ref('') // time will be updated in collectTime variable as const
 
 /********************************************************************************/
 /* Start of reserveTable() */
 /* -> Rating Stars received => as a Prop name 'sendStars'
 /********************************************************************************/
 function reserveTable() {
-  console.log('Reserve Now clicked' + 'Stars = ' + props.sendStars)
+  console.log(
+    'Reserve Now clicked' +
+      'with -> ' +
+      'Stars = ' +
+      props.sendStars +
+      ', People = ' +
+      collectPeople.value +
+      ', Date = ' +
+      collectDate.value +
+      ', Time = ' +
+      collectTime.value
+  )
 }
 /* End of reserveTable()  */
 
