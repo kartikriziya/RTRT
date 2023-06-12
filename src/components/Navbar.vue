@@ -29,7 +29,7 @@
           </li>
 
           <li class="nav-item me-4">
-            <router-link class="nav-link" id="links" :to="{ name: 'kontakt' }">Contact</router-link>
+            <router-link class="nav-link" id="links" :to="{ name: 'imprint' }">Contact</router-link>
           </li>
         </ul>
       </div>
