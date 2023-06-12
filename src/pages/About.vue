@@ -34,10 +34,10 @@
 
     <header class="outline-header with-fade-in no-move" id="nextToPhotos">
 
-      <h2>Established 1999</h2>
+      <h2>Established 2023</h2>
       
       <div class="subheader">
-          We've put on quite a bit of weight. No wonder: Since 1999, we have focused on food.
+          We've put on quite a bit of weight. No wonder: Since 2023, we have focused on food.
       </div>
     </header>
 
