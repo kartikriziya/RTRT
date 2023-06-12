@@ -225,8 +225,7 @@ async function login() {
       } else if (result.data == 'LOGIN_SUCCESSFULL') {
         document.querySelector('#loginForm').style.display = 'none'
         document.querySelector('#loginForm').style.display = 'flex'
-        //Login_Error.style.display = 'block'
-        //LogIn_Error_Message.value = 'LOGIN_SUCCESSFULL'
+        sessionStorage.setItem('user-email', JSON.stringify(loginEmail.value))
         router.push({ path: '/reservieren' })
       } else {
         document.querySelector('#loginForm').style.display = 'none'

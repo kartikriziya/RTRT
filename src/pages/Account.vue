@@ -45,6 +45,7 @@
 <script setup>
 import Login from '../components/Login.vue'
 import SignUp from '../components/SignUp.vue'
+
 function showLogin() {
   const slider = document.querySelector('#slider')
   slider.classList.remove('showSignUp')

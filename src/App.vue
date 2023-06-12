@@ -1,9 +1,3 @@
-<script setup>
-import Header from './components/Header.vue'
-import Main from './components/Main.vue'
-import Footer from './components/Footer.vue'
-</script>
-
 <template>
   <div id="app">
     <div id="app_header_main">
@@ -16,6 +10,11 @@ import Footer from './components/Footer.vue'
     </div>
   </div>
 </template>
+<script setup>
+import Header from './components/Header.vue'
+import Main from './components/Main.vue'
+import Footer from './components/Footer.vue'
+</script>
 
 <style scoped>
 #app {
