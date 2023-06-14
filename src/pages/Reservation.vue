@@ -1,37 +1,33 @@
 <template>
   <div class="container-fluid" id="reservation">
     <div class="row pt-5">
-      <div class="col-md-6 col-lg-5 col-xl-4 p-5" style="background-color: aqua">
+      <div class="col-md-6 p-5" style="background-color: aqua">
         <div class="row">
+          <div class="col-md-1"></div>
           <div
-            class="col-sm-8 col-md-12"
-            style="
-              background-color: aquamarine;
-              display: flex;
-              flex-direction: row;
-              justify-content: end;
-            "
+            class="col-sm-4 col-md-6"
+            style="background-color: aquamarine; display: flex; flex-direction: row"
           >
             <h2>Olivewood restaurent</h2>
           </div>
-          <div class="col-sm-4 col-md-12"></div>
-          <!-- Emit named '@getStars' called hier from 'Rating.vue' and
+          <div class="col-sm-6 col-md-5" id="rating">
+            <!-- Emit named '@getStars' called hier from 'Rating.vue' and
              received Stars passes to a function name 'getStars'
               as a Parameter in this same page Reservation.vue -->
-          <Rating @getStars="getStars" />
+            <Rating @getStars="getStars" />
+          </div>
+        </div>
+        <div class="row pt-5 pb-5">
+          <div class="col-sm-12">
+            <img src="../assets/golden_spoon.jpg" alt="" id="layoutImg" />
+          </div>
         </div>
       </div>
-      <div class="col-md-6 col-lg-7 col-xl-8" id="tableLayout" style="background-color: brown">
+
+      <div class="col-md-6" id="tableLayout" style="background-color: brown">
         <!-- passing 'sendStars' as a Prop name ':sendStars' to CustomerDetails.vue -->
         <CustomerDetails :sendStars="sendStars" />
       </div>
-    </div>
-    <div class="row pt-5 pb-5">
-      <div class="col-sm-2"></div>
-      <div class="col-sm-8" style="background-color: blue">
-        <img src="../assets/golden_spoon.jpg" alt="" id="layoutImg" />
-      </div>
-      <div class="col-sm-2"></div>
     </div>
   </div>
 </template>
@@ -64,5 +60,16 @@ function getStars(event) {
 #layoutImg {
   height: 100%;
   width: 100%;
+}
+#OliveWoodRestaurant {
+  font-family: Rockwell;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+#rating {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 </style>
