@@ -10,6 +10,6 @@ import Navbar from './Navbar.vue'
 
 <style scoped>
 #header {
-  background-color: black;
+  background-color: #000000;
 }
 </style>
