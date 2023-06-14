@@ -4,7 +4,7 @@
       <!-- No of People -->
       <div class="row">
         <div class="col-12 pb-5">
-          <h3>No of People</h3>
+          <h3 style="cursor: default">No of People</h3>
           <div
             class="row ps-2 ps-sm-4 ps-md-1 ps-lg-3 ps-xl-5 pt-2 pe-xl-5 pe-lg-3 pe-md-1 pe-sm-4 pe-2"
             id="noOfPeople"
@@ -44,10 +44,10 @@
       <!-- Calender -->
       <div class="row">
         <div class="col-12 pt-5 pb-5">
-          <h3>Date</h3>
+          <h3 style="cursor: default">Date</h3>
           <div class="row">
             <div
-              class="col-sm-12 ps-5"
+              class="col-sm-12 ps-5 mt-3"
               style="background-color: ; display: flex; justify-content: start"
             >
               <input
@@ -64,7 +64,7 @@
       <!-- Time Slot's  -->
       <div class="row">
         <div class="col-sm-12 pt-5">
-          <h3>Time</h3>
+          <h3 style="cursor: default">Time</h3>
           <div
             class="row ps-2 ps-sm-4 ps-md-1 ps-lg-3 ps-xl-5 pt-2 pe-xl-5 pe-lg-3 pe-md-1 pe-sm-4 pe-2"
             id="timinings"
@@ -259,6 +259,16 @@ const timinings = ref([
   font-size: 20px;
   background-color: #b47501;
   color: #f4ebd9;
+}
+/* ********************************** */
+/*             Calender           */
+/* ********************************** */
+#datePicker {
+  color: #b47501;
+
+  font-weight: 600;
+  border: 1px solid #b47501;
+  cursor: pointer;
 }
 
 /* ********************************** */
