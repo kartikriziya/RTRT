@@ -4,13 +4,10 @@
       <div class="col-md-6 p-5" style="background-color: aqua">
         <div class="row">
           <div class="col-md-1"></div>
-          <div
-            class="col-sm-4 col-md-6"
-            style="background-color: aquamarine; display: flex; flex-direction: row"
-          >
+          <div class="col-sm-8 col-md-6" style="background-color: aquamarine">
             <h2>Olivewood restaurent</h2>
           </div>
-          <div class="col-sm-6 col-md-5" id="rating">
+          <div class="col-sm-4 col-md-5" id="rating" style="background-color: darkolivegreen">
             <!-- Emit named '@getStars' called hier from 'Rating.vue' and
              received Stars passes to a function name 'getStars'
               as a Parameter in this same page Reservation.vue -->
