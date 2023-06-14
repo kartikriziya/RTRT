@@ -1,6 +1,6 @@
 <script></script>
 <template>
-  <div class="col-sm-4 pe-4 gap-2" id="wrapperRating">
+  <div class="col-sm-5 col-lg-4 col-xl-6 pe-4 gap-2" id="wrapperRating" style="background-color: ">
     <input type="radio" id="star5" name="rate" value="5" />
     <label id="stars" for="star5"><i class="fa fa-star"></i></label>
 
@@ -26,7 +26,7 @@
   /* background-color: darkolivegreen; */
   display: flex;
   flex-direction: row-reverse;
-  justify-content: end;
+  justify-content: start;
   align-items: center;
 }
 #wrapperRating input {
@@ -35,10 +35,9 @@
 
 /* Stars */
 #stars {
-  color: #f4ebd9;
+  color: #a28a5a;
   cursor: pointer;
   transition: color 0.2s, trasnform 0.2s;
-  font-size: 26px;
 }
 #stars:hover {
   color: #f8b333;

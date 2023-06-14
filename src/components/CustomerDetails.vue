@@ -1,20 +1,15 @@
 <template>
-  <div class="row pb-5">
-    <div class="col-sm-12 ps-5 pt-3 pe-5 pb-2" id="details" style="background-color: burlywood">
+  <div class="row pt-5 pb-5">
+    <div class="col-sm-12 ps-5 pt-3 pe-5 pb-2">
       <!-- No of People -->
       <div class="row">
-        <div class="col-12 pb-2" style="background-color: cadetblue">
+        <div class="col-12 pb-5">
           <h3>No of People</h3>
           <div
             class="row ps-2 ps-sm-4 ps-md-1 ps-lg-3 ps-xl-5 pt-2 pe-xl-5 pe-lg-3 pe-md-1 pe-sm-4 pe-2"
             id="noOfPeople"
           >
-            <div
-              v-for="People in noOfPeople1"
-              class="col-2"
-              id="check"
-              style="background-color: darkred"
-            >
+            <div v-for="People in noOfPeople1" class="col-2" id="check">
               <input
                 v-model="collectPeople"
                 type="radio"
@@ -31,12 +26,7 @@
             class="row ps-2 ps-sm-4 ps-md-1 ps-lg-3 ps-xl-5 pt-2 pe-xl-5 pe-lg-3 pe-md-1 pe-sm-4 pe-2"
             id="noOfPeople"
           >
-            <div
-              v-for="People in noOfPeople2"
-              class="col-2"
-              id="check"
-              style="background-color: darkred"
-            >
+            <div v-for="People in noOfPeople2" class="col-2" id="check">
               <input
                 v-model="collectPeople"
                 type="radio"
@@ -53,9 +43,9 @@
       </div>
       <!-- Calender -->
       <div class="row">
-        <div class="col-12 pt-2" style="background-color: orange">
-          <h3>Calender</h3>
-          <div class="row" style="background-color: red">
+        <div class="col-12 pt-5 pb-5">
+          <h3>Date</h3>
+          <div class="row">
             <div
               class="col-sm-12 ps-5"
               style="background-color: ; display: flex; justify-content: start"
@@ -73,18 +63,13 @@
       </div>
       <!-- Time Slot's  -->
       <div class="row">
-        <div class="col-sm-12 pt-2" style="background-color: darkgray">
-          <h3>Time Slot's</h3>
+        <div class="col-sm-12 pt-5">
+          <h3>Time</h3>
           <div
             class="row ps-2 ps-sm-4 ps-md-1 ps-lg-3 ps-xl-5 pt-2 pe-xl-5 pe-lg-3 pe-md-1 pe-sm-4 pe-2"
             id="timinings"
           >
-            <div
-              v-for="Slot in timinings"
-              class="col-2 pb-2"
-              id="slots"
-              style="background-color: darkolivegreen"
-            >
+            <div v-for="Slot in timinings" class="col-2 pb-2" id="slots">
               <input
                 v-model="collectTime"
                 type="radio"

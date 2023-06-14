@@ -1,27 +1,24 @@
 <template>
   <div class="container-fluid" id="reservation">
     <div class="row pt-5">
-      <div class="col-md-6 p-5" style="background-color: aqua">
+      <div class="col-lg-6 p-5">
         <div class="row">
-          <div class="col-md-1"></div>
-          <div class="col-sm-8 col-md-6" style="background-color: aquamarine">
-            <h2>Olivewood restaurent</h2>
+          <div class="col-sm-7 col-lg-8 col-xl-6">
+            <h2><b>Olivewood restaurent</b></h2>
           </div>
-          <div class="col-sm-4 col-md-5" id="rating" style="background-color: darkolivegreen">
-            <!-- Emit named '@getStars' called hier from 'Rating.vue' and
+          <!-- Emit named '@getStars' called hier from 'Rating.vue' and
              received Stars passes to a function name 'getStars'
               as a Parameter in this same page Reservation.vue -->
-            <Rating @getStars="getStars" />
-          </div>
+          <Rating @getStars="getStars" />
         </div>
         <div class="row pt-5 pb-5">
           <div class="col-sm-12">
-            <img src="../assets/golden_spoon.jpg" alt="" id="layoutImg" />
+            <img src="../assets/table.png" alt="" id="layoutImg" />
           </div>
         </div>
       </div>
 
-      <div class="col-md-6" id="tableLayout" style="background-color: brown">
+      <div class="col-lg-6" id="tableLayout">
         <!-- passing 'sendStars' as a Prop name ':sendStars' to CustomerDetails.vue -->
         <CustomerDetails :sendStars="sendStars" />
       </div>
@@ -52,6 +49,7 @@ function getStars(event) {
 <style scoped>
 #reservation {
   background-color: #f4ebd9;
+  color: #b47501;
   min-height: calc(100vh - 151px);
 }
 #layoutImg {
@@ -60,11 +58,6 @@ function getStars(event) {
 }
 #OliveWoodRestaurant {
   font-family: Rockwell;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-}
-#rating {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
