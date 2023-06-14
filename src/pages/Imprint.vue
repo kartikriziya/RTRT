@@ -29,7 +29,7 @@
                 Handelsregistereintrag HRB 145743 B | Amtsgericht Charlottenburg | DE285996756
             </p>
             <p>
-                <strong>Person responsible for the content of Quandoo GmbH</strong>
+                <strong>Person responsible for the content of Olivood GmbH</strong>
                 <br>
                 Ekta Balhotra, OliveWood GmbH, Nibelungenplatz 1, Gebäude 1, 60318 Frankfurt am Main.
             </p>
