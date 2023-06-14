@@ -2,9 +2,9 @@
 <template>
   <nav class="navbar sticky-top navbar-expand-md navbar-light">
     <div class="container">
-      <a class="navbar-brand me-5" href="#"
+      <router-link class="navbar-brand me-5" id="links" :to="{ name: 'home' }"
         ><img alt="Vue logo" class="logo" src="../assets/olivewood.png" width="125" height="125"
-      /></a>
+      /></router-link>
       <button
         class="navbar-toggler"
         type="button"
@@ -23,13 +23,11 @@
             <router-link class="nav-link" id="links" :to="{ name: 'home' }">Home</router-link>
           </li>
           <li class="nav-item me-4">
-            <router-link class="nav-link" id="links" :to="{ name: 'ueber-uns' }"
-              >About Us</router-link
-            >
+            <router-link class="nav-link" id="links" :to="{ name: 'about' }">About Us</router-link>
           </li>
 
           <li class="nav-item me-4">
-            <router-link class="nav-link" id="links" :to="{ name: 'imprint' }">Contact</router-link>
+            <router-link class="nav-link" id="links" :to="{ name: 'contact' }">Contact</router-link>
           </li>
         </ul>
       </div>
