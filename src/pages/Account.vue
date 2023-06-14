@@ -57,6 +57,8 @@ function showLogin() {
   loginForm.classList.add('loginForm_animation')
   const signUpForm = document.querySelector('#signUpForm')
   signUpForm.classList.remove('signUpForm_animation')
+
+  emptySignUp()
 }
 function showSignUp() {
   const slider = document.querySelector('#slider')
@@ -69,6 +71,25 @@ function showSignUp() {
   signUpForm.classList.add('signUpForm_animation')
   const loginForm = document.querySelector('#loginForm')
   loginForm.classList.remove('loginForm_animation')
+
+  emptyLogin()
+}
+
+function emptyLogin() {
+  document.getElementById('loginEmail').value = ''
+  document.getElementById('loginPassword').value = ''
+  document.getElementById('forgetPasswordEmail').value = ''
+  document.getElementById('loginVerifyOTP').value = ''
+  document.getElementById('loginForgotPassword1').value = ''
+  document.getElementById('loginForgotPassword2').value = ''
+}
+function emptySignUp() {
+  document.getElementById('signUpFname').value = ''
+  document.getElementById('signUpLname').value = ''
+  document.getElementById('signUpEmail').value = ''
+  document.getElementById('signUpOTP').value = ''
+  document.getElementById('signUpPassword1').value = ''
+  document.getElementById('signUpPassword2').value = ''
 }
 </script>
 <style scoped>

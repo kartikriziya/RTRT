@@ -100,14 +100,14 @@
     <div class="col-12">
       <div class="form-floating">
         <input
-          v-model="loginVverifyOTP"
+          v-model="loginVerifyOTP"
           type="text"
           class="form-control"
-          id="loginVverifyOTP"
+          id="loginVerifyOTP"
           placeholder="12345678"
           required
         />
-        <label for="loginVverifyOTP" id="loginLabels">OTP *</label>
+        <label for="loginVerifyOTP" id="loginLabels">OTP *</label>
       </div>
     </div>
 
@@ -144,27 +144,27 @@
     <div class="col-12">
       <div class="form-floating">
         <input
-          v-model="password1"
+          v-model="loginForgotPassword1"
           type="password"
           class="form-control"
-          id="password1"
+          id="loginForgotPassword1"
           placeholder="password"
           required
         />
-        <label for="password1" id="loginLabels">Password *</label>
+        <label for="loginForgotPassword1" id="loginLabels">Password *</label>
       </div>
     </div>
     <div class="col-12">
       <div class="form-floating">
         <input
-          v-model="password2"
+          v-model="loginForgotPassword2"
           type="password"
           class="form-control"
-          id="password2"
+          id="loginForgotPassword2"
           placeholder="password"
           required
         />
-        <label for="password2" id="loginLabels">Re-password *</label>
+        <label for="loginForgotPassword2" id="loginLabels">Re-password *</label>
       </div>
     </div>
     <div class="col-12">
@@ -194,9 +194,9 @@ const loginEmail = ref('')
 const loginPassword = ref('')
 const forgetPasswordEmail = ref('')
 const login_OTP_Time = ref('')
-const loginVverifyOTP = ref('')
-const password1 = ref('')
-const password2 = ref('')
+const loginVerifyOTP = ref('')
+const loginForgotPassword1 = ref('')
+const loginForgotPassword2 = ref('')
 
 const LogIn_Error_Message = ref('')
 
@@ -225,12 +225,12 @@ async function login() {
       } else if (result.data == 'LOGIN_SUCCESSFULL') {
         document.querySelector('#loginForm').style.display = 'none'
         document.querySelector('#loginForm').style.display = 'flex'
+        /* Email get saved in sessionStorage as named of 'user-email' */
         sessionStorage.setItem('user-email', JSON.stringify(loginEmail.value))
-        router.push({ path: '/reservieren' })
+        router.push({ path: '/reservation' })
       } else {
         document.querySelector('#loginForm').style.display = 'none'
         document.querySelector('#loginForm').style.display = 'flex'
-        //Login_Error.style.display = 'block'
         LogIn_Error_Message.value =
           'Invalid email or password. Please check your credentials and try again!'
       }
@@ -313,18 +313,18 @@ async function LogIn_resendOTP() {
 async function verifyOTP() {
   const Login_verifyOTPError = document.querySelector('.Login_verifyOTPError')
   console.log('verifyOTP')
-  if (loginVverifyOTP.value == '') {
+  if (loginVerifyOTP.value == '') {
     Login_verifyOTPError.style.display = 'block'
     LogIn_Error_Message.value = 'Please enter the One-Time Password (OTP)!'
   } else {
     let result = await axios.post(Base_Url + '/forgetPassword.php', {
       action: 'verify_OTP',
       forgetPasswordEmail: forgetPasswordEmail.value,
-      loginVverifyOTP: loginVverifyOTP.value
+      loginVerifyOTP: loginVerifyOTP.value
     })
     if (result.status == 200 || result.status == 201) {
       console.log(result.data)
-      console.log(forgetPasswordEmail.value + ',' + loginVverifyOTP.value)
+      console.log(forgetPasswordEmail.value + ',' + loginVerifyOTP.value)
       if (result.data != 'Incorrect_OTP') {
         document.querySelector('#verifyOTPForm').style.display = 'none'
         document.querySelector('#changePasswordFrom').style.display = 'flex'
@@ -344,20 +344,20 @@ async function verifyOTP() {
 async function resetPassword() {
   const Login_createPasswordError = document.querySelector('.Login_createPasswordError')
   console.log('resetPassword')
-  if (password1.value == '' || password2.value == '') {
+  if (loginForgotPassword1.value == '' || loginForgotPassword2.value == '') {
     Login_createPasswordError.style.display = 'block'
     LogIn_Error_Message.value = 'Please enter your new password!'
   } else {
     let result = await axios.post(Base_Url + '/forgetPassword.php', {
       action: 'reset_Password',
       forgetPasswordEmail: forgetPasswordEmail.value,
-      password1: password1.value,
-      password2: password2.value
+      password1: loginForgotPassword1.value,
+      password2: loginForgotPassword1.value
     })
     if (result.status == 200 || result.status == 201) {
       console.log(result.data)
-      console.log(password1.value + ',' + password2.value)
-      if (password1.value == password2.value) {
+      console.log(loginForgotPassword1.value + ',' + loginForgotPassword2.value)
+      if (loginForgotPassword1.value == loginForgotPassword2.value) {
         document.querySelector('#changePasswordFrom').style.display = 'none'
         document.querySelector('#loginForm').style.display = 'flex'
       } else {

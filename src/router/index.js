@@ -14,18 +14,18 @@ const routes = [
     component: Home
   },
   {
-    path: '/ueber-uns',
-    name: 'ueber-uns',
+    path: '/about',
+    name: 'about',
     component: About
   },
   {
-    path: '/kontakt',
-    name: 'kontakt',
+    path: '/contact',
+    name: 'contact',
     component: Contact
   },
   {
-    path: '/reservieren',
-    name: 'reservieren',
+    path: '/reservation',
+    name: 'reservation',
     component: Reservation
   },
   {
@@ -46,9 +46,6 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  //console.log(to)
-  //console.log(from)
-
   let user = sessionStorage.getItem('user-email')
 
   /* Navigation Guard for 'account.vue' page */
@@ -58,7 +55,8 @@ router.beforeEach((to, from, next) => {
     } else {
       next()
     }
-  } else if (to.path === '/reservieren') {
+    /* Navigation Guard for 'reservation.vue' page */
+  } else if (to.path === '/reservation') {
     if (!user) {
       next({ name: 'account' })
     } else {

@@ -5,11 +5,11 @@
       <div class="row">
         <div class="col-sm-4 p-3" id="footer_start">
           <router-link class="nav-link mb-2" id="links" :to="{ name: 'home' }">HOME</router-link>
-          <router-link class="nav-link mb-2" id="links" :to="{ name: 'ueber-uns' }"
-            >ÜBER UNS</router-link
+          <router-link class="nav-link mb-2" id="links" :to="{ name: 'about' }"
+            >About Us</router-link
           >
-          <router-link class="nav-link mb-2" id="links" :to="{ name: 'kontakt' }"
-            >KONTAKT</router-link
+          <router-link class="nav-link mb-2" id="links" :to="{ name: 'contact' }"
+            >Contact</router-link
           >
         </div>
         <div class="col-sm-4 p-3" id="footer_center">
@@ -24,10 +24,10 @@
           <router-link class="nav-link mb-2" id="links" :to="{ name: 'home' }"
             >Impressum</router-link
           >
-          <router-link class="nav-link mb-2" id="links" :to="{ name: 'ueber-uns' }"
+          <router-link class="nav-link mb-2" id="links" :to="{ name: 'about' }"
             >Datenschutz</router-link
           >
-          <router-link class="nav-link mb-2" id="links" :to="{ name: 'kontakt' }"
+          <router-link class="nav-link mb-2" id="links" :to="{ name: 'contact' }"
             >Kontaktdatenerhebung Covid-19</router-link
           >
         </div>
@@ -37,10 +37,18 @@
           class="col-12 text-center p-3"
           style="display: flex; flex-direction: row; justify-content: center"
         >
-          <div class="ms-5" id="instagram"></div>
-          <div class="ms-5" id="snapchat"></div>
-          <div class="ms-5" id="twitter"></div>
-          <div class="ms-5" id="facebook"></div>
+          <div class="ms-5" id="social_icons">
+            <i class="fa-brands fa-instagram fa-2xl"></i>
+          </div>
+          <div class="ms-5" id="social_icons">
+            <i class="fa-brands fa-snapchat fa-2xl"></i>
+          </div>
+          <div class="ms-5" id="social_icons">
+            <i class="fa-brands fa-square-twitter fa-2xl"></i>
+          </div>
+          <div class="ms-5" id="social_icons">
+            <i class="fa-brands fa-square-facebook fa-2xl"></i>
+          </div>
         </div>
       </div>
       <div class="row">
@@ -70,49 +78,12 @@
 #links:hover {
   color: #b47501;
 }
-#instagram {
-  height: 30px;
-  width: 30px;
+#social_icons {
+  color: #f4ebd9;
   cursor: pointer;
-  background: url('../assets/instagram.png') no-repeat;
-  background-size: contain;
 }
-#instagram:hover {
-  background: url('../assets/snapchat.png') no-repeat;
-  background-size: contain;
-}
-#snapchat {
-  height: 30px;
-  width: 30px;
-  cursor: pointer;
-  background: url('../assets/snapchat.png') no-repeat;
-  background-size: contain;
-}
-#snapchat:hover {
-  background: url('../assets/snapchat.png') no-repeat;
-  background-size: contain;
-}
-#twitter {
-  height: 30px;
-  width: 30px;
-  cursor: pointer;
-  background: url('../assets/twitter.png') no-repeat;
-  background-size: contain;
-}
-#twitter:hover {
-  background: url('../assets/snapchat.png') no-repeat;
-  background-size: contain;
-}
-#facebook {
-  height: 30px;
-  width: 30px;
-  cursor: pointer;
-  background: url('../assets/facebook.png') no-repeat;
-  background-size: contain;
-}
-#facebook:hover {
-  background: url('../assets/snapchat.png') no-repeat;
-  background-size: contain;
+#social_icons:hover {
+  color: #b47501;
 }
 #copyright {
   color: #b47501;
