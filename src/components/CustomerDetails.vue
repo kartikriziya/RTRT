@@ -89,12 +89,33 @@ const timinings = ref([
         <!--        Calender     -->
         <!--                     -->
 
-        <div class="col-12 pt-2" style="background-color: blueviolet">
-          <div class="row" style="background-color: cornsilk">
+
+        
+
+        <div class="col-12 pt-4" style="background-color: #fff">
+          <h3 id="noOfPeople">
+            <div class="col-sm-2"></div>
+
+            <div class="col-sm-8" style="text-align: center">
+              <img
+                src="../assets/calendar.png"
+                alt="Icon"
+                width="35"
+                height="35"
+                style="margin-right: 4px"
+              />
+              Date
+            </div>
+            
+            <div class="col-sm-2"></div>
+          </h3>
+
+          
+          <div class="row" style="background-color:#fff" id="clock">
             <div class="col-sm-3"></div>
             <div
               class="col-sm-6"
-              style="background-color: coral; display: flex; justify-content: center"
+              style="background-color: #fff; display: flex; justify-content: center"
             >
               <input type="date" id="datePicker" @click="test()" />
             </div>
@@ -106,14 +127,14 @@ const timinings = ref([
     <!--                     -->
     <!--      Time Slot's    -->
     <!--                     -->
-    <div class="col-sm-12 pt-3 pb-2">
+    <div class="col-sm-12 pt-4 pb-2">
       <!-- style="background-color: darkgray" -->
       <h2 id="timeSlot">
         <div class="col-sm-3"></div>
 
         <div class="col-sm-6" style="text-align: center">
           <img
-            src="../assets/people1.png"
+            src="../assets/time.png"
             alt="Icon"
             width="35"
             height="35"
@@ -282,4 +303,25 @@ const timinings = ref([
 #reserveBtn:hover {
   background-color: #f7bb08;
 }
+
+#clock{
+  font-size: 15px;
+  color: #f8b333;
+  /* margin-right: 5px; */
+  margin-top: 15px;
+}
+
+/* changing border radius of the clock */
+#datePicker{
+  border-radius: 50px;
+  border: 1px solid #fff;
+  /* padding: 5px; */
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-family: Rockwell;
+  padding: 10px 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: white;
+}
+
 </style>

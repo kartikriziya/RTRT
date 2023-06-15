@@ -4,7 +4,7 @@
     <div class="container-fluid pt-5" id="footer">
       <div class="row">
         <div class="col-sm-4 p-3" id="footer_start">
-          <router-link class="nav-link mb-2" id="links" :to="{ name: 'home' }">HOME</router-link>
+          <router-link class="nav-link mb-2" id="links" :to="{ name: 'home' }">Home</router-link>
           <router-link class="nav-link mb-2" id="links" :to="{ name: 'about' }"
             >About Us</router-link
           >
@@ -21,15 +21,15 @@
           >
         </div>
         <div class="col-sm-4 p-3" id="footer_end">
-          <router-link class="nav-link mb-2" id="links" :to="{ name: 'home' }"
-            >Impressum</router-link
+          <router-link class="nav-link mb-2" id="links" :to="{ name: 'imprint' }"
+            >Imprint</router-link
           >
-          <router-link class="nav-link mb-2" id="links" :to="{ name: 'about' }"
-            >Datenschutz</router-link
+          <router-link class="nav-link mb-2" id="links" :to="{ name: 'terms' }"
+            >Terms & Conditions</router-link
           >
-          <router-link class="nav-link mb-2" id="links" :to="{ name: 'contact' }"
+          <!-- <router-link class="nav-link mb-2" id="links" :to="{ name: 'contact' }"
             >Kontaktdatenerhebung Covid-19</router-link
-          >
+          > -->
         </div>
       </div>
       <div class="row">
