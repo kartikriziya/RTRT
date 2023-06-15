@@ -22,10 +22,10 @@
         </div>
         <div class="col-sm-4 p-3" id="footer_end">
           <router-link class="nav-link mb-2" id="links" :to="{ name: 'imprint' }"
-            >Impressum</router-link
+            >Imprint</router-link
           >
           <router-link class="nav-link mb-2" id="links" :to="{ name: 'terms' }"
-            >Datenschutz</router-link
+            >Terms & Conditions</router-link
           >
           <!-- <router-link class="nav-link mb-2" id="links" :to="{ name: 'contact' }"
             >Kontaktdatenerhebung Covid-19</router-link
