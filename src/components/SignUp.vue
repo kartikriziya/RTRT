@@ -157,7 +157,7 @@ async function verifyEmail() {
 #signUpOTPForm,
 #signUpPasswordForm {
   margin-top: 5%;
-  box-shadow: rgba(248, 179, 51, 0.1) 0px 20px 30px;
+  /* box-shadow: rgba(248, 179, 51, 0.1) 0px 20px 30px; */
 }
 .signUpForm_animation {
   animation: 0.7s ease-out 0s 1 slideFromRight;

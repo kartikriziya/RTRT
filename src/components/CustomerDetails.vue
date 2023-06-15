@@ -305,7 +305,7 @@ const timinings = ref([
 }
 
 #clock{
-  font-size: 20px;
+  font-size: 15px;
   color: #f8b333;
   /* margin-right: 5px; */
   margin-top: 15px;
