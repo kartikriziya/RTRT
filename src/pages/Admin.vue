@@ -12,7 +12,7 @@
                   <td scope="col" style="color: #b47501">Name</td>
                   <td scope="col" style="color: #b47501">Email</td>
                   <td scope="col" class="text-center" style="color: #b47501; font-weight: 700">
-                    APPROVE
+                    Arrived
                   </td>
                   <td scope="col" class="text-center" style="color: #b47501; font-weight: 700">
                     REJECT
@@ -50,7 +50,28 @@
     </div>
   </div>
 </template>
-<script setup></script>
+<script setup>
+import { ref } from 'vue'
+
+let action_id = 3
+
+const reservationList = ref([
+  { Id: 1, Name: 'Kartik', Email: 'kartikriziya30721@gmail.com', Result: 0 },
+  { Id: 2, Name: 'Nancy', Email: 'nancybalar132313@gmail.com', Result: 0 }
+])
+
+reservationList.value.push({ Id: 3, Name: 'RTRT', Email: 'rtrt@gmail.com', Result: 0 }) // add
+
+let action_id_index = reservationList.value
+  .map((el) => {
+    return el.Id
+  })
+  .indexOf(action_id) // finds index based on the selected action_id in an array reservation_list.
+
+reservationList.value.splice(action_id_index, 1) // remove
+reservationList.value[1].Name = 'Nancy Balar' // update
+console.log(reservationList.value)
+</script>
 <style scoped>
 #admin {
   background-color: #f4ebd9;
