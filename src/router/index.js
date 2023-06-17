@@ -5,6 +5,7 @@ import About from '../pages/About.vue'
 import Contact from '../pages/Contact.vue'
 import Reservation from '../pages/Reservation.vue'
 import Account from '../pages/Account.vue'
+import Admin from '../pages/Admin.vue'
 import test from '../pages/test.vue'
 
 const routes = [
@@ -32,6 +33,11 @@ const routes = [
     path: '/account',
     name: 'account',
     component: Account
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: Admin
   },
   {
     path: '/test',
