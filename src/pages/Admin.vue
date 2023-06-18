@@ -35,15 +35,25 @@
                 <tr v-for="reservation in reservationList">
                   <td scope="row" id="table_row_data" style="color: #262626">
                     {{ reservation.Id }}
+                    <input
+                      type="text"
+                      :id="reservation.Id"
+                      :value="reservation.Id"
+                      @click="reservationAction($event.target.value)"
+                    />
                   </td>
                   <td id="table_row_data">{{ reservation.Name }}</td>
                   <td id="table_row_data">{{ reservation.Email }}</td>
                   <td id="table_row_data">{{ reservation.Time }}</td>
                   <td class="text-center">
-                    <i class="fa-solid fa-check fa-2xl table_row_data_action" @click="test()"></i>
+                    <label id="table_row_data_action" :for="reservation.Id"
+                      ><i class="fa-solid fa-check fa-2xl"></i
+                    ></label>
                   </td>
                   <td class="text-center">
-                    <i class="fa-solid fa-xmark fa-2xl table_row_data_action"></i>
+                    <label id="table_row_data_action" :for="reservation.Id"
+                      ><i class="fa-solid fa-xmark fa-2xl"></i
+                    ></label>
                   </td>
                 </tr>
               </tbody>
@@ -58,25 +68,27 @@
 <script setup>
 import { ref } from 'vue'
 
-let action_id = 2
+const action_id = ref('')
 
 // Array named 'reservationList' as const contains all Reservation of the selected Date.
 const reservationList = ref([
-  { Id: 1, Name: 'Kartik', Email: 'kartikriziya30721@gmail.com', Time: '14:00', Result: 0 },
-  { Id: 2, Name: 'Nancy', Email: 'nancybalar132313@gmail.com', Time: '18:00', Result: 0 }
+  { Id: '1', Name: 'Kartik', Email: 'kartikriziya30721@gmail.com', Time: '14:00', Result: 0 },
+  { Id: '2', Name: 'Nancy', Email: 'nancybalar132313@gmail.com', Time: '18:00', Result: 0 }
 ])
-
-function test() {
-  console.log('clicked')
-}
 
 console.log(reservationList.value)
 
-let action_id_index = reservationList.value
-  .map((el) => {
-    return el.Id
-  })
-  .indexOf(action_id) // finds index based on the selected action_id in an array reservation_list.
+function reservationAction(id) {
+  action_id.value = id
+
+  let action_id_index = reservationList.value
+    .map((el) => {
+      return el.Id
+    })
+    .indexOf(action_id.value) // finds index based on the selected action_id in an array reservation_list.
+
+  console.log('Reservation ID: ' + action_id.value + ' is on Index: ' + action_id_index)
+}
 
 // reservationList.value.push({
 //   Id: 3,
@@ -108,7 +120,7 @@ let action_id_index = reservationList.value
 #table_row_data {
   color: #262626;
 }
-.table_row_data_action {
+#table_row_data_action {
   color: #b47501;
   cursor: pointer;
 }
