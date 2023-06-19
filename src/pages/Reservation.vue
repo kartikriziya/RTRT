@@ -3,7 +3,7 @@
     <div class="row pt-5">
       <div class="col-lg-6 p-5">
         <div class="row">
-          <div class="col-sm-7 col-lg-8 col-xl-6">
+          <div class="col-sm-7 col-lg-9 col-xl-7">
             <h2 style="cursor: default"><b>Olivewood restaurent</b></h2>
           </div>
           <!-- Emit named '@getStars' called hier from 'Rating.vue' and

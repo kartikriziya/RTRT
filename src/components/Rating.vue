@@ -1,5 +1,5 @@
 <template>
-  <div class="col-sm-8 col-md-12 pe-4 gap-2" id="wrapperRating">
+  <div class="col-sm-5 col-lg-3 col-xl-5 pe-4 gap-2" id="wrapperRating">
     <input v-model="collectStars" type="radio" id="star5" value="5" @change="sendRatings()" />
     <label id="stars" for="star5"><i class="fa fa-star"></i></label>
 
@@ -52,10 +52,10 @@ function sendRatings() {
 
 <style scoped>
 #wrapperRating {
-  background-color: darkolivegreen;
   display: flex;
   flex-direction: row-reverse;
-  justify-content: end;
+  justify-content: start;
+  align-items: center;
 }
 #wrapperRating input {
   display: none;
@@ -63,7 +63,7 @@ function sendRatings() {
 
 /* Stars */
 #stars {
-  color: #f4ebd9;
+  color: #a28a5a;
   cursor: pointer;
   transition: color 0.2s, trasnform 0.2s;
 }
