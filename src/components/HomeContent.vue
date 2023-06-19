@@ -17,7 +17,12 @@
     </div>
   </div>
 </template>
-<script setup></script>
+
+<script setup>
+import { inject } from 'vue'
+const store = inject('store')
+</script>
+
 <style scoped>
 #videoContent {
   min-height: calc(100vh - 150px);

@@ -40,18 +40,19 @@
                       :id="reservation.Id"
                       :value="reservation.Id"
                       @click="reservationAction($event.target.value)"
+                      style="display: none"
                     />
                   </td>
                   <td id="table_row_data">{{ reservation.Name }}</td>
                   <td id="table_row_data">{{ reservation.Email }}</td>
                   <td id="table_row_data">{{ reservation.Time }}</td>
                   <td class="text-center">
-                    <label id="table_row_data_action" :for="reservation.Id"
+                    <label id="table_row_data_action" :for="reservation.Id" @click="arrived(true)"
                       ><i class="fa-solid fa-check fa-2xl"></i
                     ></label>
                   </td>
                   <td class="text-center">
-                    <label id="table_row_data_action" :for="reservation.Id"
+                    <label id="table_row_data_action" :for="reservation.Id" @click="cancel(false)"
                       ><i class="fa-solid fa-xmark fa-2xl"></i
                     ></label>
                   </td>
@@ -66,9 +67,20 @@
   </div>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { ref, onBeforeMount, onMounted, inject } from 'vue'
 
+const store = inject('store')
 const action_id = ref('')
+const action = ref('')
+
+// onBeforeMount(() => {
+//   store.state.isLoading = true
+//   console.log('onBeforeMount isLoading : ' + store.state.isLoading)
+// })
+onMounted(() => {
+  store.state.isLoading = false
+  console.log('onMounted isLoading : ' + store.state.isLoading)
+})
 
 // Array named 'reservationList' as const contains all Reservation of the selected Date.
 const reservationList = ref([
@@ -78,6 +90,12 @@ const reservationList = ref([
 
 console.log(reservationList.value)
 
+function arrived(boolean) {
+  action.value = boolean
+}
+function cancel(boolean) {
+  action.value = boolean
+}
 function reservationAction(id) {
   action_id.value = id
 
@@ -87,7 +105,15 @@ function reservationAction(id) {
     })
     .indexOf(action_id.value) // finds index based on the selected action_id in an array reservation_list.
 
-  console.log('Reservation ID: ' + action_id.value + ' is on Index: ' + action_id_index)
+  reservationList.value.splice(action_id_index, 1)
+  console.log(
+    'Reservation ID: ' +
+      action_id.value +
+      ' is on Index: ' +
+      action_id_index +
+      ' and has been ARRIVED: ' +
+      action.value
+  )
 }
 
 // reservationList.value.push({

@@ -19,7 +19,9 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, inject } from 'vue'
+
+const store = inject('store')
 
 const collectStars = ref('') // stars will be updated in collectStars variable as const
 const emitRatings = defineEmits(['getStars']) // emits defined in emitRatings variable as const

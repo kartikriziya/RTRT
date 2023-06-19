@@ -1,4 +1,3 @@
-<script setup></script>
 <template>
   <footer>
     <div class="container-fluid pt-5" id="footer">
@@ -59,6 +58,10 @@
     </div>
   </footer>
 </template>
+<script setup>
+import { inject } from 'vue'
+const store = inject('store')
+</script>
 <style scoped>
 #footer {
   min-height: 25vh;

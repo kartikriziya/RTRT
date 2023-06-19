@@ -9,11 +9,18 @@
       <Footer />
     </div>
   </div>
+  <Loader />
 </template>
 <script setup>
+import { provide } from 'vue'
+
 import Header from './components/Header.vue'
 import Main from './components/Main.vue'
 import Footer from './components/Footer.vue'
+import Loader from './components/Loader.vue'
+import store from './store/store'
+
+provide('store', store)
 </script>
 
 <style scoped>

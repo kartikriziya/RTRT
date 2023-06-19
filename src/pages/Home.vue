@@ -15,14 +15,15 @@
   </div>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { onMounted, inject } from 'vue'
 import HomeVideo from '../components/HomeVideo.vue'
 import HomeContent from '../components/HomeContent.vue'
 import Menu from '../components/Menu.vue'
-/*import { useRoute } from 'vue-router'
-const pageName = useRoute()
-console.log(pageName.fullPath)
-*/
+
+const store = inject('store')
+onMounted(() => {
+  store.state.isLoading = false
+})
 </script>
 <style scoped>
 #homeSection1 {

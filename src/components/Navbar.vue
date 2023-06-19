@@ -36,27 +36,22 @@
   </nav>
 </template>
 <script setup>
-import { onMounted, ref, watch } from 'vue'
+import { ref, onMounted, watchEffect, inject } from 'vue'
 import { useRouter } from 'vue-router'
+
+const store = inject('store')
 const router = useRouter()
 
-let user = ref('')
-setInterval(function () {
-  user.value = sessionStorage.getItem('user-email')
-}, 1000)
-
 onMounted(() => {
-  if (user.value) {
+  if (store.state.isUser) {
     document.getElementById('logout').style.display = 'block'
   } else {
     document.getElementById('logout').style.display = 'none'
   }
 })
-watch(user, async () => {
-  if (user.value) {
+watchEffect(() => {
+  if (store.state.isUser) {
     document.getElementById('logout').style.display = 'block'
-  } else {
-    document.getElementById('logout').style.display = 'none'
   }
 })
 

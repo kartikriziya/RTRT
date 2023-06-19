@@ -43,8 +43,14 @@
   </div>
 </template>
 <script setup>
+import { onMounted, inject } from 'vue'
 import Login from '../components/Login.vue'
 import SignUp from '../components/SignUp.vue'
+
+const store = inject('store')
+onMounted(() => {
+  store.state.isLoading = false
+})
 
 function showLogin() {
   const slider = document.querySelector('#slider')

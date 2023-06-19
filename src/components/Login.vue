@@ -183,10 +183,11 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, inject } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 
+const store = inject('store')
 const router = useRouter()
 const Base_Url = 'https://olivewood.elementfx.com'
 
@@ -208,11 +209,14 @@ async function login() {
     Login_Error.style.display = 'block'
     LogIn_Error_Message.value = 'Please enter valid Credentials!'
   } else {
+    store.state.isLoading = true
     let result = await axios.post(Base_Url + '/account.php', {
       action: 'login_login',
       logEmail: loginEmail.value,
       logPassword: loginPassword.value
     })
+    store.state.isLoading = false
+
     if (result.status == 200 || result.status == 201) {
       console.log(result.data)
       console.log(loginEmail.value + ', ' + loginPassword.value)
@@ -227,6 +231,7 @@ async function login() {
         document.querySelector('#loginForm').style.display = 'flex'
         /* Email get saved in sessionStorage as named of 'user-email' */
         sessionStorage.setItem('user-email', JSON.stringify(loginEmail.value))
+        store.methods.updateUser()
         router.push({ path: '/reservation' })
       } else {
         document.querySelector('#loginForm').style.display = 'none'

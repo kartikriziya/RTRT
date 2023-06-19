@@ -27,10 +27,15 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onBeforeMount, onMounted, inject } from 'vue'
 import axios from 'axios'
 import Rating from '../components/Rating.vue'
 import CustomerDetails from '../components/CustomerDetails.vue'
+
+const store = inject('store')
+onMounted(() => {
+  store.state.isLoading = false
+})
 
 const sendStars = ref('') // stars will be updated after getting 'getStars()' called in 'sendStars' variable as const
 

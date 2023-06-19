@@ -96,9 +96,10 @@
   </div>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { ref, inject } from 'vue'
 import axios from 'axios'
 
+const store = inject('store')
 const Base_Url = 'https://olivewood.elementfx.com'
 
 const props = defineProps({ sendStars: String }) // props defined in props variable as const
