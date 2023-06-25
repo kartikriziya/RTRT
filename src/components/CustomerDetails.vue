@@ -155,7 +155,7 @@ async function reserveTable() {
       ', Time = ' +
       collectTime.value
   )
-        if (result.data == 'Reservation added!') {
+  if (result.data.includes('Reservation added!')) {
           console.log('Data stored.')
         } else {
            console.log('NO Data received.')
