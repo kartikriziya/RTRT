@@ -5,6 +5,7 @@ import About from '../pages/About.vue'
 import Contact from '../pages/Contact.vue'
 import Reservation from '../pages/Reservation.vue'
 import Account from '../pages/Account.vue'
+import Admin from '../pages/Admin.vue'
 import test from '../pages/test.vue'
 import Cancel from '../pages/Cancel.vue'
 
@@ -15,24 +16,29 @@ const routes = [
     component: Home
   },
   {
-    path: '/ueber-uns',
-    name: 'ueber-uns',
+    path: '/about',
+    name: 'about',
     component: About
   },
   {
-    path: '/kontakt',
-    name: 'kontakt',
+    path: '/contact',
+    name: 'contact',
     component: Contact
   },
   {
-    path: '/reservieren',
-    name: 'reservieren',
+    path: '/reservation',
+    name: 'reservation',
     component: Reservation
   },
   {
     path: '/account',
     name: 'account',
     component: Account
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: Admin
   },
   {
     path: '/test',
@@ -52,9 +58,6 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  //console.log(to)
-  //console.log(from)
-
   let user = sessionStorage.getItem('user-email')
 
   /* Navigation Guard for 'account.vue' page */
@@ -64,7 +67,8 @@ router.beforeEach((to, from, next) => {
     } else {
       next()
     }
-  } else if (to.path === '/reservieren') {
+    /* Navigation Guard for 'reservation.vue' page */
+  } else if (to.path === '/reservation') {
     if (!user) {
       next({ name: 'account' })
     } else {

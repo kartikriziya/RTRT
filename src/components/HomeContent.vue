@@ -1,11 +1,10 @@
-<script setup></script>
 <template>
   <div class="d-flex flex-column text-center justify-content-between" id="videoContent">
     <div id="wrapper">
       <img src="../assets/los.svg" id="logoWrapper" height="236" width="229" alt="" />
       <div class="mt-5" id="reserve">
-        <router-link class="nav-link" id="reserveBtn" :to="{ name: 'reservieren' }"
-          >jetzt reservieren</router-link
+        <router-link class="nav-link" id="reserveBtn" :to="{ name: 'reservation' }"
+          >register now</router-link
         >
       </div>
     </div>
@@ -18,6 +17,12 @@
     </div>
   </div>
 </template>
+
+<script setup>
+import { inject } from 'vue'
+const store = inject('store')
+</script>
+
 <style scoped>
 #videoContent {
   min-height: calc(100vh - 150px);

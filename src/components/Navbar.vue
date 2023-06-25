@@ -1,9 +1,9 @@
 <template>
   <nav class="navbar sticky-top navbar-expand-md navbar-light">
     <div class="container">
-      <a class="navbar-brand me-5" href="#"
+      <router-link class="navbar-brand me-5" id="links" :to="{ name: 'home' }"
         ><img alt="Vue logo" class="logo" src="../assets/olivewood.png" width="125" height="125"
-      /></a>
+      /></router-link>
       <button
         class="navbar-toggler"
         type="button"
@@ -22,12 +22,10 @@
             <router-link class="nav-link" id="links" :to="{ name: 'home' }">HOME</router-link>
           </li>
           <li class="nav-item me-4">
-            <router-link class="nav-link" id="links" :to="{ name: 'ueber-uns' }"
-              >ÜBER UNS</router-link
-            >
+            <router-link class="nav-link" id="links" :to="{ name: 'about' }">ABOUT US</router-link>
           </li>
           <li class="nav-item me-4">
-            <router-link class="nav-link" id="links" :to="{ name: 'kontakt' }">KONTAKT</router-link>
+            <router-link class="nav-link" id="links" :to="{ name: 'contact' }">CONTACT</router-link>
           </li>
           <li class="nav-item me-4" id="logout">
             <a class="nav-link" id="links" @click.prevent="logout()"><u>Logout</u></a>
@@ -38,24 +36,28 @@
   </nav>
 </template>
 <script setup>
-import { onMounted, watch } from 'vue'
+import { ref, onMounted, watchEffect, inject } from 'vue'
 import { useRouter } from 'vue-router'
+
+const store = inject('store')
 const router = useRouter()
 
-let user = sessionStorage.getItem('user-email')
 onMounted(() => {
-  if (user) {
+  if (store.state.isUser) {
     document.getElementById('logout').style.display = 'block'
-    console.log('yes')
   } else {
     document.getElementById('logout').style.display = 'none'
-    console.log('no')
+  }
+})
+watchEffect(() => {
+  if (store.state.isUser) {
+    document.getElementById('logout').style.display = 'block'
   }
 })
 
 function logout() {
-  sessionStorage.removeItem('user-email')
   document.getElementById('logout').style.display = 'none'
+  sessionStorage.removeItem('user-email')
   router.push({ path: '/' })
 }
 </script>

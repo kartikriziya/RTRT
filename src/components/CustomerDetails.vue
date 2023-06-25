@@ -1,20 +1,15 @@
 <template>
-  <div class="row pb-5">
-    <div class="col-sm-12 ps-5 pt-3 pe-5 pb-2" id="details" style="background-color: burlywood">
+  <div class="row pt-5 pb-5">
+    <div class="col-sm-12 ps-5 pt-3 pe-5 pb-2">
       <!-- No of People -->
       <div class="row">
-        <div class="col-12 pb-2" style="background-color: cadetblue">
-          <h3>No of People</h3>
+        <div class="col-12 pb-5">
+          <h3 style="cursor: default">No of People</h3>
           <div
             class="row ps-2 ps-sm-4 ps-md-1 ps-lg-3 ps-xl-5 pt-2 pe-xl-5 pe-lg-3 pe-md-1 pe-sm-4 pe-2"
             id="noOfPeople"
           >
-            <div
-              v-for="People in noOfPeople1"
-              class="col-2"
-              id="check"
-              style="background-color: darkred"
-            >
+            <div v-for="People in noOfPeople1" class="col-2" id="check">
               <input
                 v-model="collectPeople"
                 type="radio"
@@ -31,12 +26,7 @@
             class="row ps-2 ps-sm-4 ps-md-1 ps-lg-3 ps-xl-5 pt-2 pe-xl-5 pe-lg-3 pe-md-1 pe-sm-4 pe-2"
             id="noOfPeople"
           >
-            <div
-              v-for="People in noOfPeople2"
-              class="col-2"
-              id="check"
-              style="background-color: darkred"
-            >
+            <div v-for="People in noOfPeople2" class="col-2" id="check">
               <input
                 v-model="collectPeople"
                 type="radio"
@@ -50,56 +40,48 @@
             </div>
           </div>
         </div>
-        <!-- Calender -->
-        <div class="col-12 pt-2" style="background-color: ">
-          <h3 id="noOfPeople">
-            <div class="col-sm-2"></div>
-
-            <div class="col-sm-8" style="text-align: center">
-              <img
-                src="../assets/people1.png"
-                alt="Icon"
-                width="35"
-                height="35"
-                style="margin-right: 4px"
-              />
-              Calender
-            </div>
-
-            <div class="col-sm-2"></div>
-          </h3>
-          <div class="row" style="background-color: ">
-            <div class="col-sm-3"></div>
+      </div>
+      <!-- Calender -->
+      <div class="row">
+        <div class="col-12 pt-5 pb-5">
+          <h3 style="cursor: default">Date</h3>
+          <div class="row">
             <div
-              class="col-sm-6"
-              style="background-color: ; display: flex; justify-content: center"
+              class="col-sm-12 ps-5 mt-3"
+              style="background-color: ; display: flex; justify-content: start"
             >
               <input
                 v-model="collectDate"
                 type="date"
+                class="ms-3"
                 id="datePicker"
                 @click="datePickerRestrictions()"
               />
             </div>
-            <div class="col-sm-3"></div>
           </div>
         </div>
       </div>
-    </div>
-    <!-- Time Slot's  -->
-    <div class="col-sm-12 pt-3 pb-2" style="background-color: darkgray">
-      <h2>Time Slot's</h2>
-      <div class="row pt-2" id="timinings">
-        <div
-          v-for="Slot in timinings"
-          class="col-2 col-md-3 col-lg-2 col-xl-3 col-xxl-2 pt-2 pb-3"
-          id="slots"
-          style="background-color: darkolivegreen"
-        >
-          <input v-model="collectTime" type="radio" name="slots" :id="Slot.id" :value="Slot.time" />
-          <label :for="Slot.id" id="timeLabel"
-            ><span id="time">{{ Slot.time }}</span></label
+      <!-- Time Slot's  -->
+      <div class="row">
+        <div class="col-sm-12 pt-5">
+          <h3 style="cursor: default">Time</h3>
+          <div
+            class="row ps-2 ps-sm-4 ps-md-1 ps-lg-3 ps-xl-5 pt-2 pe-xl-5 pe-lg-3 pe-md-1 pe-sm-4 pe-2"
+            id="timinings"
           >
+            <div v-for="Slot in timinings" class="col-2 pb-2" id="slots">
+              <input
+                v-model="collectTime"
+                type="radio"
+                name="slots"
+                :id="Slot.id"
+                :value="Slot.time"
+              />
+              <label :for="Slot.id" id="timeLabel"
+                ><span id="time">{{ Slot.time }}</span></label
+              >
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -114,9 +96,10 @@
   </div>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { ref, inject } from 'vue'
 import axios from 'axios'
 
+const store = inject('store')
 const Base_Url = 'https://olivewood.elementfx.com'
 
 const props = defineProps({ sendStars: String }) // props defined in props variable as const
@@ -130,40 +113,38 @@ const collectTime = ref('') // time will be updated in collectTime variable as c
 /********************************************************************************/
 async function reserveTable() {
   console.log('reserveTable')
-  if (collectPeople.value == '' || collectDate.value == '' || collectTime =='') {
+  if (collectPeople.value == '' || collectDate.value == '' || collectTime == '') {
     console.log('Please enter missing value.')
   } else {
-    let result = await axios
-      .post(Base_Url + '/reservation.php', {
-        action: 'reserve_Table',
-        props : props,
-        noOfPeople : collectPeople.value,
-        reserveDate : collectDate.value,
-        reserveTime : collectTime.value
-      })
-      if(result.status == 200 || result.status == 201) {
-        console.log(result.data)
-        console.log(
-    'Reserve Now clicked' +
-      'with -> ' +
-      'Stars = ' +
-      props.sendStars +
-      ', People = ' +
-      collectPeople.value +
-      ', Date = ' +
-      collectDate.value +
-      ', Time = ' +
-      collectTime.value
-  )
-  if (result.data.includes('Reservation added!')) {
-          console.log('Data stored.')
-        } else {
-           console.log('NO Data received.')
-        }
+    let result = await axios.post(Base_Url + '/reservation.php', {
+      action: 'reserve_Table',
+      props: props,
+      noOfPeople: collectPeople.value,
+      reserveDate: collectDate.value,
+      reserveTime: collectTime.value
+    })
+    if (result.status == 200 || result.status == 201) {
+      console.log(result.data)
+      console.log(
+        'Reserve Now clicked' +
+          'with -> ' +
+          'Stars = ' +
+          props.sendStars +
+          ', People = ' +
+          collectPeople.value +
+          ', Date = ' +
+          collectDate.value +
+          ', Time = ' +
+          collectTime.value
+      )
+      if (result.data.includes('Reservation added!')) {
+        console.log('Data stored.')
+      } else {
+        console.log('NO Data received.')
       }
-      else {
-        console.log(result.data)
-      }
+    } else {
+      console.log(result.data)
+    }
   }
 }
 /* End of reserveTable()  */
@@ -245,7 +226,7 @@ const timinings = ref([
 }
 #check {
   display: flex;
-  justify-content: center;
+  justify-content: start;
 }
 #noOfPeople input {
   display: none;
@@ -279,6 +260,16 @@ const timinings = ref([
   font-size: 20px;
   background-color: #b47501;
   color: #f4ebd9;
+}
+/* ********************************** */
+/*             Calender           */
+/* ********************************** */
+#datePicker {
+  color: #b47501;
+
+  font-weight: 600;
+  border: 1px solid #b47501;
+  cursor: pointer;
 }
 
 /* ********************************** */
