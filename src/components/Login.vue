@@ -201,6 +201,7 @@ const loginForgotPassword2 = ref('')
 
 const LogIn_Error_Message = ref('')
 
+
 /* ______ login ______ */
 async function login() {
   const Login_Error = document.querySelector('.Login_Error')
@@ -209,12 +210,19 @@ async function login() {
     Login_Error.style.display = 'block'
     LogIn_Error_Message.value = 'Please enter valid Credentials!'
   } else {
-    store.state.isLoading = true
+    //store.state.isLoading = true
     let result = await axios.post(Base_Url + '/account.php', {
       action: 'login_login',
       logEmail: loginEmail.value,
       logPassword: loginPassword.value
     })
+      // Email validation
+    const Login_emailRegex = /@gmail\.com$/i;
+    if (!Login_emailRegex.test(loginEmail.value)) {
+    Login_Error.style.display = 'block';
+    LogIn_Error_Message.value = 'Please use a Gmail account!';
+    return;
+  }
     store.state.isLoading = false
 
     if (result.status == 200 || result.status == 201) {
@@ -514,4 +522,5 @@ async function resetPassword() {
   --bs-btn-disabled-border-color: #b47501;
   --bs-gradient: none;
 }
+
 </style>
