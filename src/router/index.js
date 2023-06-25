@@ -8,6 +8,8 @@ import Account from '../pages/Account.vue'
 import test from '../pages/test.vue'
 import Imprint from '../pages/Imprint.vue'
 import TermsConditions from '../pages/TermsConditions.vue'
+import Admin from '../pages/Admin.vue'
+import Cancel from '../pages/Cancel.vue'
 
 const routes = [
   {
@@ -49,6 +51,16 @@ const routes = [
     path: '/terms',
     name: 'terms',
     component: TermsConditions
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: Admin
+  },
+  {
+    path: '/cancel',
+    name: 'cancel',
+    component: Cancel
   }
 ]
 
