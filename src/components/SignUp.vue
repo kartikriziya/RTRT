@@ -162,9 +162,10 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, inject } from 'vue'
 import axios from 'axios'
 
+const store = inject('store')
 const Base_Url = 'https://olivewood.elementfx.com'
 
 const signUpFname = ref('')

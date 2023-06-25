@@ -1,4 +1,3 @@
-<script setup></script>
 <template>
   <div class="row pb-5" style="">
     <div class="col-lg-12 text-center" id="menu">
@@ -152,6 +151,12 @@
   </div>
   <!-- ******************************************************************************************** -->
 </template>
+
+<script setup>
+import { inject } from 'vue'
+const store = inject('store')
+</script>
+
 <style scoped>
 #menu {
   color: #f8b333;

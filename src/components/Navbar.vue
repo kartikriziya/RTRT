@@ -1,10 +1,9 @@
-<script setup></script>
 <template>
   <nav class="navbar sticky-top navbar-expand-md navbar-light">
     <div class="container">
-      <a class="navbar-brand me-5" href="#"
+      <router-link class="navbar-brand me-5" id="links" :to="{ name: 'home' }"
         ><img alt="Vue logo" class="logo" src="../assets/olivewood.png" width="125" height="125"
-      /></a>
+      /></router-link>
       <button
         class="navbar-toggler"
         type="button"
@@ -23,27 +22,57 @@
             <router-link class="nav-link" id="links" :to="{ name: 'home' }">HOME</router-link>
           </li>
           <li class="nav-item me-4">
-            <router-link class="nav-link" id="links" :to="{ name: 'ueber-uns' }"
-              >ÜBER UNS</router-link
-            >
+            <router-link class="nav-link" id="links" :to="{ name: 'about' }">ABOUT US</router-link>
           </li>
-
           <li class="nav-item me-4">
-            <router-link class="nav-link" id="links" :to="{ name: 'kontakt' }">KONTAKT</router-link>
+            <router-link class="nav-link" id="links" :to="{ name: 'contact' }">CONTACT</router-link>
+          </li>
+          <li class="nav-item me-4" id="logout">
+            <a class="nav-link" id="links" @click.prevent="logout()"><u>Logout</u></a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
 </template>
+<script setup>
+import { ref, onMounted, watchEffect, inject } from 'vue'
+import { useRouter } from 'vue-router'
+
+const store = inject('store')
+const router = useRouter()
+
+onMounted(() => {
+  if (store.state.isUser) {
+    document.getElementById('logout').style.display = 'block'
+  } else {
+    document.getElementById('logout').style.display = 'none'
+  }
+})
+watchEffect(() => {
+  if (store.state.isUser) {
+    document.getElementById('logout').style.display = 'block'
+  }
+})
+
+function logout() {
+  document.getElementById('logout').style.display = 'none'
+  sessionStorage.removeItem('user-email')
+  router.push({ path: '/' })
+}
+</script>
 <style scoped>
 #links {
   color: #f4ebd9;
   font-size: 25px;
   font-weight: 500;
+  cursor: pointer;
 }
 #links:hover {
   color: #b47501;
   font-weight: 700;
+}
+#logout {
+  display: none;
 }
 </style>
