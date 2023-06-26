@@ -4,7 +4,7 @@
       <!-- No of People -->
       <div class="row">
         <div class="col-12 pb-5">
-          <h3 style="cursor: default">No of People</h3>
+          <h3 style="cursor: default">No of People*</h3>
           <div
             class="row ps-2 ps-sm-4 ps-md-1 ps-lg-3 ps-xl-5 pt-2 pe-xl-5 pe-lg-3 pe-md-1 pe-sm-4 pe-2"
             id="noOfPeople"
@@ -44,7 +44,7 @@
       <!-- Calender -->
       <div class="row">
         <div class="col-12 pt-5 pb-5">
-          <h3 style="cursor: default">Date</h3>
+          <h3 style="cursor: default">Date*</h3>
           <div class="row">
             <div
               class="col-sm-12 ps-5 mt-3"
@@ -64,7 +64,7 @@
       <!-- Time Slot's  -->
       <div class="row">
         <div class="col-sm-12 pt-5">
-          <h3 style="cursor: default">Time</h3>
+          <h3 style="cursor: default">Time*</h3>
           <div
             class="row ps-2 ps-sm-4 ps-md-1 ps-lg-3 ps-xl-5 pt-2 pe-xl-5 pe-lg-3 pe-md-1 pe-sm-4 pe-2"
             id="timinings"
@@ -82,6 +82,42 @@
               >
             </div>
           </div>
+        </div>
+      </div>
+      <div class="row pt-5">
+        <div class="col-12">
+          <h3 style="cursor: default;">Guest</h3>
+          <form
+      action=""
+      class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
+      autocomplete="off"
+      id="loginForm"
+      >
+        <div class="row">
+          <div class="col-md-1 col-lg-2 col-xl-3">
+          </div>
+          <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3 text-center">
+            <div class="form-floating">
+              <input type="text" class="form-control" id="guest_fname" placeholder="guestFname">
+              <label for="guest_fname"  id="guest_labels">Firstname</label>
+            </div>  
+          </div>
+          <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3 text-center">
+            <div class="form-floating">
+              <input type="text" class="form-control" id="guest_lname" placeholder="guestLname">
+              <label for="guest_lname"  id="guest_labels">Lastname</label>
+            </div> 
+          </div>
+          <div class="col-md-1 col-lg-2 col-xl-3">
+          </div>
+        </div>
+      </form>
+        </div>
+      </div>
+      
+      <div class="row pt-3">
+        <div class="col-12 text-center">
+          <div class="R_Error" id="Reservation_Error">{{ Reservation_Error_msg }}</div>
         </div>
       </div>
     </div>
@@ -102,6 +138,10 @@ import axios from 'axios'
 const store = inject('store')
 const Base_Url = 'https://olivewood.elementfx.com'
 
+
+
+const Reservation_Error_msg = ref('')
+
 const props = defineProps({ sendStars: String }) // props defined in props variable as const
 const collectPeople = ref('') // no. of people will be updated in collectPeople variable as const
 const collectDate = ref('') // date will be updated in collectDate variable as const
@@ -114,7 +154,9 @@ const collectTime = ref('') // time will be updated in collectTime variable as c
 async function reserveTable() {
   console.log('reserveTable')
   if (collectPeople.value == '' || collectDate.value == '' || collectTime == '') {
-    console.log('Please enter missing value.')
+    const Reservation_Error = document.getElementById('Reservation_Error')
+    Reservation_Error.style.display = 'block'
+    Reservation_Error_msg.value = "Please enter missing value!" 
   } else {
     let result = await axios.post(Base_Url + '/reservation.php', {
       action: 'reserve_Table',
@@ -214,6 +256,7 @@ const timinings = ref([
   { id: 'nineteen', time: '19:00' },
   { id: 'nineteenteenthirty', time: '19:30' }
 ])
+Reservation_Error_msg.value = "ERROR!!"
 </script>
 <style scoped>
 /* ********************************** */
@@ -320,6 +363,20 @@ const timinings = ref([
   color: #f4ebd9;
 }
 
+
+.R_Error {
+  display: none;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 0.875em;
+  color: #dc3545;
+  animation: erroBlinker 1.5s linear infinite;
+}
+@keyframes erroBlinker {
+  50% {
+    opacity: 0;
+  }
+}
 /* ********************************** */
 /*          Reservation Button        */
 /* ********************************** */
