@@ -2,9 +2,9 @@
 <template>
   <div class="row pb-5" style="">
     <div class="col-lg-12 text-center" id="menu">
-      <hr id = "hr">
+      <hr id="hr" />
       <h1 id="menuTxt">Menu</h1>
-      <hr id = "hr">
+      <hr id="hr" />
     </div>
   </div>
   <!--********************************************************************************************
@@ -22,7 +22,6 @@
             <h3>Pizza</h3>
           </div>
           <div id="name_price">
-
             <div id="names">
               <h6>Margerita</h6>
               <h6>Caprese</h6>
@@ -30,23 +29,20 @@
               <h6>Frutti di Romana</h6>
               <h6>Bombay</h6>
               <h6>Calzone</h6>
-              <h6>Pizza al Pesto</h6>  
+              <h6>Pizza al Pesto</h6>
               <h6>Funghi</h6>
-
             </div>
 
             <div id="prices">
-              <h6>11€</h6>
-              <h6>13€</h6>
-              <h6>12€</h6>
-              <h6>9€</h6>
-              <h6>12.50€</h6>
-              <h6>11.50</h6>
-              <h6>13€</h6>
-              <h6>9€</h6>
-
+              <h6>11.00 €</h6>
+              <h6>13.00 €</h6>
+              <h6>12.00 €</h6>
+              <h6>9.00 €</h6>
+              <h6>12.50 €</h6>
+              <h6>11.50 €</h6>
+              <h6>13.00 €</h6>
+              <h6>9.00 €</h6>
             </div>
-
           </div>
         </div>
       </div>
@@ -62,27 +58,27 @@
             <h3>Pasta</h3>
           </div>
           <div id="name_price">
-
             <div id="names">
-              <h6>Margerita</h6>
-              <h6>Caprese</h6>
+              <h6>Spaghetti Bolognese</h6>
+              <h6>Penne Arrabbiata</h6>
+              <h6>Fettuccine Alfredo</h6>
+              <h6>Lasagna</h6>
               <h6>Carbonara</h6>
-              <h6>Frutti di Romana</h6>
-              <h6>Bombay</h6>
-              <h6>Calzone</h6>
-              <h6>Pizza al Pesto</h6>  
+              <h6>Rigatoni alla Vodka</h6>
+              <h6>Ravioli with Tomato Sauce</h6>
+              <h6>Lobster Ravioli</h6>
             </div>
 
             <div id="prices">
-              <h6>11€</h6>
-              <h6>13€</h6>
-              <h6>12€</h6>
-              <h6>9€</h6>
-              <h6>12.50€</h6>
-              <h6>11.50</h6>
-              <h6>13€</h6>
+              <h6>12.50 €</h6>
+              <h6>10.95 €</h6>
+              <h6>14.75 €</h6>
+              <h6>13.50 €</h6>
+              <h6>11.95 €</h6>
+              <h6>12.95 €</h6>
+              <h6>13.00 €</h6>
+              <h6>18.95 €</h6>
             </div>
-
           </div>
         </div>
       </div>
@@ -99,29 +95,27 @@
             <h3>Risotto</h3>
           </div>
           <div id="name_price">
-
             <div id="names">
-              <h6>Margerita</h6>
-              <h6>Caprese</h6>
-              <h6>Carbonara</h6>
-              <h6>Frutti di Romana</h6>
-              <h6>Bombay</h6>
-              <h6>Calzone</h6>
-              <h6>Pizza al Pesto</h6>  
-              <h6>Pizza al Pesto</h6>  
+              <h6>Mushroom Risotto</h6>
+              <h6>Seafood Risotto</h6>
+              <h6>Truffle Risotto</h6>
+              <h6>Chicken & Asparagus Risotto</h6>
+              <h6>Spinach & Parmesan Risotto</h6>
+              <h6>Saffron Risotto</h6>
+              <h6>Butternut Squash Risotto</h6>
+              <h6>Smoked Salmon Risotto</h6>
             </div>
 
             <div id="prices">
-              <h6>11€</h6>
-              <h6>13€</h6>
-              <h6>12€</h6>
-              <h6>9€</h6>
-              <h6>12.50€</h6>
-              <h6>11.50</h6>
-              <h6>13€</h6>
-              <h6>13€</h6>
+              <h6>14.50 €</h6>
+              <h6>16.95 €</h6>
+              <h6>18.75 €</h6>
+              <h6>15.95 €</h6>
+              <h6>12.50 €</h6>
+              <h6>11.50 €</h6>
+              <h6>13.00 €</h6>
+              <h6>16.25 €</h6>
             </div>
-
           </div>
         </div>
       </div>
@@ -139,29 +133,27 @@
             <h3>Antipasti</h3>
           </div>
           <div id="name_price">
-
             <div id="names">
-              <h6>Margerita</h6>
-              <h6>Caprese</h6>
-              <h6>Carbonara</h6>
-              <h6>Frutti di Romana</h6>
-              <h6>Bombay</h6>
-              <h6>Calzone</h6>
-              <h6>Pizza al Pesto</h6>  
-              <h6>Pizza al Pesto</h6>  
+              <h6>Bruschetta</h6>
+              <h6>Caprese Salad</h6>
+              <h6>Prosciutto and Melon</h6>
+              <h6>Stuffed Mushroom</h6>
+              <h6>Antipasto Platter</h6>
+              <h6>Grilled Vegetables</h6>
+              <h6>Fried Calamari</h6>
+              <h6>Garlic Shrimp</h6>
             </div>
 
             <div id="prices">
-              <h6>11€</h6>
-              <h6>13€</h6>
-              <h6>12€</h6>
-              <h6>9€</h6>
-              <h6>12.50€</h6>
-              <h6>11.50</h6>
-              <h6>13€</h6>
-              <h6>13€</h6>
+              <h6>8.50 €</h6>
+              <h6>9.95 €</h6>
+              <h6>11.75 €</h6>
+              <h6>10.50 €</h6>
+              <h6>14.95 €</h6>
+              <h6>9.25 €</h6>
+              <h6>12.50 €</h6>
+              <h6>13.95 €</h6>
             </div>
-
           </div>
         </div>
       </div>
@@ -179,29 +171,27 @@
             <h3>Burger</h3>
           </div>
           <div id="name_price">
-
             <div id="names">
-              <h6>Margerita</h6>
-              <h6>Caprese</h6>
-              <h6>Carbonara</h6>
-              <h6>Frutti di Romana</h6>
-              <h6>Bombay</h6>
-              <h6>Calzone</h6>
-              <h6>Pizza al Pesto</h6>  
-              <h6>Pizza al Pesto</h6>  
+              <h6>Classic Cheeseburger</h6>
+              <h6>Bacon Mushroom Swiss Burger</h6>
+              <h6>BBQ Bacon Burger</h6>
+              <h6>Spicy Jalapeno Burger</h6>
+              <h6>Veggie Burger</h6>
+              <h6>Blue Cheese Burger</h6>
+              <h6>Hawaiian Teriyaki Burger</h6>
+              <h6>Double Bacon Cheddar Burger</h6>
             </div>
 
             <div id="prices">
-              <h6>11€</h6>
-              <h6>13€</h6>
-              <h6>12€</h6>
-              <h6>9€</h6>
-              <h6>12.50€</h6>
-              <h6>11.50</h6>
-              <h6>13€</h6>
-              <h6>13€</h6>
+              <h6>9.95 €</h6>
+              <h6>11.50 €</h6>
+              <h6>10.75 €</h6>
+              <h6>9.95 €</h6>
+              <h6>10.25 €</h6>
+              <h6>11.95 €</h6>
+              <h6>10.50 €</h6>
+              <h6>12.75 €</h6>
             </div>
-
           </div>
         </div>
       </div>
@@ -219,36 +209,34 @@
             <h3>Drinks</h3>
           </div>
           <div id="name_price">
-
-              <div id="names">
-              <h6>Margerita</h6>
-              <h6>Caprese</h6>
-              <h6>Carbonara</h6>
-              <h6>Frutti di Romana</h6>
-              <h6>Bombay</h6>
-              <h6>Calzone</h6>
-              <h6>Pizza al Pesto</h6>  
-              <h6>Pizza al Pesto</h6>  
+            <div id="names">
+              <h6>Coca-Cola</h6>
+              <h6>Freshly Squeezed Orange Juice</h6>
+              <h6>Iced Coffee</h6>
+              <h6>Lemonade</h6>
+              <h6>Mojito</h6>
+              <h6>Fruit Smoothie</h6>
+              <h6>Mineral Water</h6>
+              <h6>Red Wine (glass)</h6>
             </div>
 
             <div id="prices">
-              <h6>11€</h6>
-              <h6>13€</h6>
-              <h6>12€</h6>
-              <h6>9€</h6>
-              <h6>12.50€</h6>
-              <h6>11.50</h6>
-              <h6>13€</h6>
-              <h6>13€</h6>
+              <h6>2.50 €</h6>
+              <h6>3.95 €</h6>
+              <h6>4.25 €</h6>
+              <h6>3.50 €</h6>
+              <h6>8.75 €</h6>
+              <h6>4.95 €</h6>
+              <h6>1.95 €</h6>
+              <h6>6.50 €</h6>
             </div>
-
           </div>
         </div>
       </div>
     </div>
 
     <!-- Item 7 -->
-    
+
     <div class="col-sm-4 col-md-4 col-lg-3 mt-5" id="itemCol">
       <div id="item">
         <div id="front">
@@ -258,104 +246,94 @@
           <div class="text-center" id="itemText">
             <h3>Dessert</h3>
           </div>
-          <div id="name_price" >
-
+          <div id="name_price">
             <div id="names">
-              <h6>Margerita</h6>
-              <h6>Caprese</h6>
-              <h6>Carbonara</h6>
-              <h6>Frutti di Romana</h6>
-              <h6>Bombay</h6>
-              <h6>Calzone</h6>
-              <h6>Pizza al Pesto</h6>  
-              <h6>Pizza al Pesto</h6>  
+              Chocolate Lava Cake
+              <h6>Tiramisu</h6>
+              <h6>Cheesecake</h6>
+              <h6>Apple Pie with Vanilla Ice Cream</h6>
+              <h6>Crème Brûlée</h6>
+              <h6>Brownie Sundae</h6>
+              <h6>Fruit Tart</h6>
+              <h6>Gelato (per scoop)</h6>
             </div>
 
             <div id="prices">
-              <h6>11€</h6>
-              <h6>13€</h6>
-              <h6>12€</h6>
-              <h6>9€</h6>
-              <h6>12.50€</h6>
-              <h6>11.50</h6>
-              <h6>13€</h6>
-              <h6>13€</h6>
+              <h6>7.95 €</h6>
+              <h6>6.50 €</h6>
+              <h6>6.75 €</h6>
+              <h6>7.25 €</h6>
+              <h6>7.50 €</h6>
+              <h6>8.25 €</h6>
+              <h6>6.95 €</h6>
+              <h6>3.50 €</h6>
             </div>
-
           </div>
         </div>
       </div>
     </div>
 
+    <!-- Item 8 -->
 
-
-  <!-- Item 8 -->
-    
-  <div class="col-sm-4 col-md-4 col-lg-3 mt-5" id="itemCol">
+    <div class="col-sm-4 col-md-4 col-lg-3 mt-5" id="itemCol">
       <div id="item">
         <div id="front">
           <img src="../assets/dessert.png" alt="items" id="itemImg" />
         </div>
         <div id="back">
           <div class="text-center" id="itemText">
-            <h3>Dessert</h3>
+            <h3>Finger Food</h3>
           </div>
-          <div id="name_price" >
-
+          <div id="name_price">
             <div id="names">
-              <h6>Margerita</h6>
-              <h6>Caprese</h6>
-              <h6>Carbonara</h6>
-              <h6>Frutti di Romana</h6>
-              <h6>Bombay</h6>
-              <h6>Calzone</h6>
-              <h6>Pizza al Pesto</h6>  
-              <h6>Pizza al Pesto</h6>  
+              <h6>Chicken Wings</h6>
+              <h6>Mozzarella Sticks</h6>
+              <h6>Mini Sliders (beef or chicken)</h6>
+              <h6>Nachos (Cheese or Guacamole)</h6>
+              <h6>Potato Skins with Sour Cream</h6>
+              <h6>Mini Spring Rolls</h6>
+              <h6>Buffalo Cauliflower Bites</h6>
+              <h6>Garlic Parmesan Fries</h6>
+
             </div>
 
             <div id="prices">
-              <h6>11€</h6>
-              <h6>13€</h6>
-              <h6>12€</h6>
-              <h6>9€</h6>
-              <h6>12.50€</h6>
-              <h6>11.50</h6>
-              <h6>13€</h6>
-              <h6>13€</h6>
+              <h6>8.50 €</h6>
+              <h6>7.95 €</h6>
+              <h6>9.50 €</h6>
+              <h6>8.75 €</h6>
+              <h6>7.95 €</h6>
+              <h6>7.25 €</h6>
+              <h6>8.95 €</h6>
+              <h6>6.50 €</h6>
             </div>
-
           </div>
         </div>
       </div>
     </div>
   </div>
 
-
-
-
-
   <!-- ******************************************************************************************** -->
 </template>
 <style scoped>
-#names{
+#names {
   font-family: 'Apple Chancery';
   font-style: italic;
   text-align: left;
-  color : #ffffff;
+  color: #ffffff;
 }
-#prices{
+#prices {
   font-family: 'Apple Chancery';
   font-style: italic;
   text-align: right;
 }
 
-#itemText{
+#itemText {
   font-family: chalkduster;
 }
 
-#hr{
+#hr {
   border-width: 5px;
-
 }
 
 #menu {
@@ -384,7 +362,7 @@
 }
 #item {
   position: relative;
-  width:  150px;
+  width: 150px;
   height: 250px;
 }
 #item:hover #names {
@@ -463,16 +441,16 @@
 #item > #back {
   position: absolute;
   /* transform: perspective(600px) rotateY(180deg); */
-  
+
   /* background-image: url("../assets/pizza1.jpg"); /*dev's code*/
   background-repeat: no-repeat;
-  background-size: cover; 
+  background-size: cover;
   /* filter: contrast(300%);
   filter: blur(8px);
   animation: 1.2s ease-out 0s 1 slideUp; */
 
   /* background: #262626; */
-  background:#434242;
+  background: #434242;
 
   color: #fff;
   box-shadow: rgba(248, 179, 51, 1) 0px 20px 30px -10px;
