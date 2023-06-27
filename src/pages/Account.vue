@@ -1,6 +1,80 @@
+<template>
+  <div class="container-fluid pt-5" id="">
+    <div class="row pt-2">
+      <div class="col-sm-1 col-md-1 col-lg-2 col-xl-2"></div>
+      <!--style="background-color: aqua" -->
+      <div class="col-sm-10 col-md-8 col-lg-8 col-xl-8" id="Account">
+        <div class="row">
+          <!-- Login -->
+          <div
+            class="col-sm-6 col-md-6 col-lg-6 col-xl-6"
+            id="login_box"
+            style="background-color: #fff"
+          >
+            <Login />
+          </div>
+
+          <!-- SignUp -->
+          <div
+            class="col-sm-6 col-md-6 col-lg-6 col-xl-6"
+            id="signup_box"
+            style="background-color: #fff"
+          >
+            <SignUp />
+          </div>
+
+          <!-- Slider----------------------------------------------------------------------------------------------------------------- -->
+          <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6" id="slider">
+            <div class="row">
+              <div class="col-12 text-center mt-5" id="signUpLink">
+                <br />
+                <h3>Hello, Friend!</h3>
+
+                <br />
+
+                <h4>Enter your personal details and start your journey with us</h4>
+
+                <br />
+
+                <h6>
+                  Don't have an account?
+                  <span id="showSignUp" @click="showSignUp()">SignUp</span>
+                </h6>
+              </div>
+              <div class="col-12 text-center mt-5" id="loginLink" style="color: #fff">
+                <br />
+                <h3>Welcome Back!</h3>
+
+                <br />
+
+                <h4>To keep connected with us please login with your personal info</h4>
+
+                <br />
+                <h6>
+                  Already an account?
+                  <span id="showLogin" @click="showLogin()">Login</span>
+                </h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-1 col-md-1 col-lg-2 col-xl-2"></div>
+    </div>
+  </div>
+</template>
+
 <script setup>
+import { onMounted, inject } from 'vue'
 import Login from '../components/Login.vue'
 import SignUp from '../components/SignUp.vue'
+
+const store = inject('store')
+onMounted(() => {
+  store.state.isLoading = false
+})
+
 function showLogin() {
   const slider = document.querySelector('#slider')
   slider.classList.remove('showSignUp')
@@ -12,6 +86,8 @@ function showLogin() {
   loginForm.classList.add('loginForm_animation')
   const signUpForm = document.querySelector('#signUpForm')
   signUpForm.classList.remove('signUpForm_animation')
+
+  emptySignUp()
 }
 function showSignUp() {
   const slider = document.querySelector('#slider')
@@ -24,93 +100,35 @@ function showSignUp() {
   signUpForm.classList.add('signUpForm_animation')
   const loginForm = document.querySelector('#loginForm')
   loginForm.classList.remove('loginForm_animation')
+
+  emptyLogin()
+}
+
+function emptyLogin() {
+  document.getElementById('loginEmail').value = ''
+  document.getElementById('loginPassword').value = ''
+  document.getElementById('forgetPasswordEmail').value = ''
+  document.getElementById('loginVerifyOTP').value = ''
+  document.getElementById('loginForgotPassword1').value = ''
+  document.getElementById('loginForgotPassword2').value = ''
+}
+function emptySignUp() {
+  document.getElementById('signUpFname').value = ''
+  document.getElementById('signUpLname').value = ''
+  document.getElementById('signUpEmail').value = ''
+  document.getElementById('signUpOTP').value = ''
+  document.getElementById('signUpPassword1').value = ''
+  document.getElementById('signUpPassword2').value = ''
 }
 </script>
-<template>
-  <div class="container-fluid pt-5" id="">
-    <div class="row pt-2">
-      <div class="col-sm-1 col-md-1 col-lg-2 col-xl-2" ></div>  <!--style="background-color: aqua" -->
-      <div
-        class="col-sm-10 col-md-8 col-lg-8 col-xl-8"
-        id="Account"
-        
-      >
-        <div class="row">
-          <!-- Login -->
-          <div
-            class="col-sm-6 col-md-6 col-lg-6 col-xl-6"
-            id="login_box"
-            style="background-color: #fff"
-          >
-            <Login />
-          </div>
 
-
-
-          <!-- SignUp -->
-          <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6" id="signup_box" style="background-color: #fff">
-            <SignUp />
-          </div>
-
-
-          <!-- Slider----------------------------------------------------------------------------------------------------------------- -->
-          <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6" id="slider">
-            <div class="row">
-              <div class="col-12 text-center mt-5" id="signUpLink">
-
-                <br>
-                <h3>
-                  Hello, Friend!
-                </h3>
-                
-                <br>
-                
-                <h4>
-                  Enter your personal details and start your journey with us
-                </h4>
-
-                <br>
-
-                <h6>
-                  Don't have an account?
-                  <span id="showSignUp" @click="showSignUp()">SignUp</span>
-                </h6>
-              </div>
-              <div class="col-12 text-center mt-5" id="loginLink" style = "color: #fff;">
-                <br>
-                <h3>
-                  Welcome Back!
-                </h3>
-                
-                <br>
-                
-                <h4>
-                  To keep connected with us please login with your personal info
-                </h4>
-
-                <br>
-                <h6>
-                  Already an account?
-                  <span id="showLogin" @click="showLogin()">Login</span>
-                </h6>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-sm-1 col-md-1 col-lg-2 col-xl-2"></div> <!--style="background-color:burlywood
-" -->
-    </div>
-  </div>
-</template>
 <style scoped>
 #Account {
   position: relative;
 }
 #signUpLink {
   display: none;
-  color : #fff;
+  color: #fff;
 }
 /* #loginLink {
   display: none;
@@ -130,7 +148,7 @@ function showSignUp() {
 }
 #slider {
   /* background-color: rgb(220, 91, 108); */
-  background-color: #EA3C53;
+  background-color: #ea3c53;
   /* background-color: #f8b333; */
   /* background-color: rgba(255, 160, 122, 0.8);; */
   position: absolute;
@@ -148,15 +166,12 @@ function showSignUp() {
   transition: all 0.75s ease;
 }
 
-#login_box{
+#login_box {
   border-radius: 10px;
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.4);
-
 }
-#signup_box{
+#signup_box {
   border-radius: 10px;
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.4);
-
 }
-
 </style>

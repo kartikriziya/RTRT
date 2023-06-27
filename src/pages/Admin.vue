@@ -79,7 +79,7 @@ const action = ref('')
 // })
 onMounted(() => {
   store.state.isLoading = false
-  console.log('onMounted isLoading : ' + store.state.isLoading)
+  //console.log('onMounted isLoading : ' + store.state.isLoading)
 })
 
 // Array named 'reservationList' as const contains all Reservation of the selected Date.

@@ -5,7 +5,6 @@ import About from '../pages/About.vue'
 import Contact from '../pages/Contact.vue'
 import Reservation from '../pages/Reservation.vue'
 import Account from '../pages/Account.vue'
-import test from '../pages/test.vue'
 import Imprint from '../pages/Imprint.vue'
 import TermsConditions from '../pages/TermsConditions.vue'
 import Admin from '../pages/Admin.vue'
@@ -36,11 +35,6 @@ const routes = [
     path: '/account',
     name: 'account',
     component: Account
-  },
-  {
-    path: '/test',
-    name: 'test',
-    component: test
   },
   {
     path: '/imprint',

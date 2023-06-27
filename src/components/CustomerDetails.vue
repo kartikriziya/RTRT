@@ -1,51 +1,3 @@
-<script setup>
-import { ref } from 'vue'
-
-const count = ref('')
-
-const current = new Date()
-const date = current.getDate()
-const month = current.getMonth() + 1
-const year = current.getFullYear()
-const totalDays = new Date(year, month, 0).getDate()
-
-const minDate = ref(year + '-0' + month + '-0' + date)
-console.log(minDate.value)
-
-function test() {
-  document.querySelector('#datePicker').setAttribute('min', minDate.value)
-}
-
-const noOfPeople = ref([
-  { id: 'check2', people: '2' },
-  { id: 'check4', people: '4' },
-  { id: 'check6', people: '6' },
-  { id: 'check8', people: '8' },
-  { id: 'check10', people: '10' },
-  { id: 'check10+', people: '10+' }
-])
-
-const timinings = ref([
-  { id: 'eleven', time: '11:00' },
-  { id: 'eleventhirty', time: '11:30' },
-  { id: 'twelve', time: '12:00' },
-  { id: 'twelvethirty', time: '12:30' },
-  { id: 'thirteen', time: '13:00' },
-  { id: 'thirteenthirty', time: '13:30' },
-  { id: 'fourteen', time: '14:00' },
-  { id: 'fourteenthirty', time: '14:30' },
-  { id: 'fifteen', time: '15:00' },
-  { id: 'fifteenthirty', time: '15:30' },
-  { id: 'sixteen', time: '16:00' },
-  { id: 'sixteenthirty', time: '16:30' },
-  { id: 'seventeen', time: '17:00' },
-  { id: 'seventeenthirty', time: '17:30' },
-  { id: 'eightteen', time: '18:00' },
-  { id: 'eightteenthirty', time: '18:30' },
-  { id: 'nineteen', time: '19:00' },
-  { id: 'nineteenteenthirty', time: '19:30' }
-])
-</script>
 <template>
   <div class="row pb-5">
     <div class="col-sm-12 ps-5 pt-3 pe-5 pb-2" id="details">
@@ -76,9 +28,31 @@ const timinings = ref([
             class="row ps-2 ps-sm-4 ps-md-1 ps-lg-3 ps-xl-5 pt-2 pe-xl-5 pe-lg-3 pe-md-1 pe-sm-4 pe-2"
             id="noOfPeople"
           >
-            <div v-for="People in noOfPeople" class="col-2" id="check">
-              <!-- style="background-color: darkred" -->
-              <input type="radio" name="people" :id="People.id" value="2" />
+            <div v-for="People in noOfPeople1" class="col-2" id="check">
+              <input
+                v-model="collectPeople"
+                type="radio"
+                name="people"
+                :id="People.id"
+                :value="People.people"
+              />
+              <label :for="People.id" id="numberLabel"
+                ><span id="number">{{ People.people }}</span></label
+              >
+            </div>
+          </div>
+          <div
+            class="row ps-2 ps-sm-4 ps-md-1 ps-lg-3 ps-xl-5 pt-2 pe-xl-5 pe-lg-3 pe-md-1 pe-sm-4 pe-2"
+            id="noOfPeople"
+          >
+            <div v-for="People in noOfPeople2" class="col-2" id="check">
+              <input
+                v-model="collectPeople"
+                type="radio"
+                name="people"
+                :id="People.id"
+                :value="People.people"
+              />
               <label :for="People.id" id="numberLabel"
                 ><span id="number">{{ People.people }}</span></label
               >
@@ -88,9 +62,6 @@ const timinings = ref([
         <!--                     -->
         <!--        Calender     -->
         <!--                     -->
-
-
-        
 
         <div class="col-12 pt-4" style="background-color: #fff">
           <h3 id="noOfPeople">
@@ -106,18 +77,23 @@ const timinings = ref([
               />
               Date
             </div>
-            
+
             <div class="col-sm-2"></div>
           </h3>
 
-          
-          <div class="row" style="background-color:#fff" id="clock">
+          <div class="row" style="background-color: #fff" id="clock">
             <div class="col-sm-3"></div>
             <div
               class="col-sm-6"
               style="background-color: #fff; display: flex; justify-content: center"
             >
-              <input type="date" id="datePicker" @click="test()" />
+              <input
+                v-model="collectDate"
+                type="date"
+                class="ms-3"
+                id="datePicker"
+                @click="datePickerRestrictions()"
+              />
             </div>
             <div class="col-sm-3"></div>
           </div>
@@ -151,8 +127,7 @@ const timinings = ref([
           class="col-2 col-md-3 col-lg-2 col-xl-3 col-xxl-2 pt-2 pb-3"
           id="slots"
         >
-          <!-- style="background-color: darkolivegreen" -->
-          <input type="radio" name="slots" :id="Slot.id" :value="Slot.time" />
+          <input v-model="collectTime" type="radio" name="slots" :id="Slot.id" :value="Slot.time" />
           <label :for="Slot.id" id="timeLabel"
             ><span id="time" style="color: #000">{{ Slot.time }}</span></label
           >
@@ -164,11 +139,136 @@ const timinings = ref([
   <div class="row pb-2">
     <div class="col-lg-4"></div>
     <div class="col-lg-4 text-center d-grid">
-      <button class="btn" id="reserveBtn">Reserve Now</button>
+      <button class="btn" id="reserveBtn" @click="reserveTable()">Reserve Now</button>
     </div>
     <div class="col-lg-4"></div>
   </div>
 </template>
+<script setup>
+import { ref, inject } from 'vue'
+import axios from 'axios'
+
+const store = inject('store')
+const Base_Url = 'https://olivewood.elementfx.com'
+
+const Reservation_Error_msg = ref('')
+
+const props = defineProps({ sendStars: String }) // props defined in props variable as const
+const collectPeople = ref('') // no. of people will be updated in collectPeople variable as const
+const collectDate = ref('') // date will be updated in collectDate variable as const
+const collectTime = ref('') // time will be updated in collectTime variable as const
+
+/********************************************************************************/
+/* Start of reserveTable() */
+/* -> Rating Stars received => as a Prop name 'sendStars'
+/********************************************************************************/
+async function reserveTable() {
+  console.log('reserveTable')
+  if (collectPeople.value == '' || collectDate.value == '' || collectTime == '') {
+    const Reservation_Error = document.getElementById('Reservation_Error')
+    Reservation_Error.style.display = 'block'
+    Reservation_Error_msg.value = 'Please enter missing value!'
+  } else {
+    let result = await axios.post(Base_Url + '/reservation.php', {
+      action: 'reserve_Table',
+      props: props,
+      noOfPeople: collectPeople.value,
+      reserveDate: collectDate.value,
+      reserveTime: collectTime.value
+    })
+    if (result.status == 200 || result.status == 201) {
+      console.log(result.data)
+      console.log(
+        'Reserve Now clicked' +
+          'with -> ' +
+          'Stars = ' +
+          props.sendStars +
+          ', People = ' +
+          collectPeople.value +
+          ', Date = ' +
+          collectDate.value +
+          ', Time = ' +
+          collectTime.value
+      )
+      if (result.data.includes('Reservation added!')) {
+        console.log('Data stored.')
+      } else {
+        console.log('NO Data received.')
+      }
+    } else {
+      console.log(result.data)
+    }
+  }
+}
+/* End of reserveTable()  */
+
+const current = new Date()
+const date = current.getDate()
+const month = current.getMonth() + 1
+const year = current.getFullYear()
+const totalDays = new Date(year, month, 0).getDate()
+
+const minDate = ref('')
+//const minDate = ref(year + '-0' + month + '-0' + date)
+
+if (month <= 9 || date <= 9) {
+  if (month <= 9 && date >= 9) {
+    minDate.value = year + '-0' + month + '-' + date
+    //console.log(minDate.value)
+  } else if (date <= 9 && month >= 9) {
+    minDate.value = year + '-' + month + '-0' + date
+    //console.log(minDate.value)
+  } else {
+    minDate.value = year + '-0' + month + '-0' + date
+    //console.log(minDate.value)
+  }
+} else {
+  minDate = year + '-' + month + '-' + date
+  //console.log(minDate.value)
+}
+
+function datePickerRestrictions() {
+  document.querySelector('#datePicker').setAttribute('min', minDate.value)
+}
+
+const noOfPeople1 = ref([
+  { id: 'check1', people: '1' },
+  { id: 'check2', people: '2' },
+  { id: 'check3', people: '3' },
+  { id: 'check4', people: '4' },
+  { id: 'check5', people: '5' }
+])
+
+const noOfPeople2 = ref([
+  { id: 'check6', people: '6' },
+  { id: 'check7', people: '7' },
+  { id: 'check8', people: '8' },
+  { id: 'check9', people: '9' },
+  { id: 'check10', people: '10' }
+])
+
+const timinings = ref([
+  { id: 'eleven', time: '11:00' },
+  { id: 'eleventhirty', time: '11:30' },
+  { id: 'twelve', time: '12:00' },
+  { id: 'twelvethirty', time: '12:30' },
+  { id: 'thirteen', time: '13:00' },
+  { id: 'thirteenthirty', time: '13:30' },
+  { id: 'fourteen', time: '14:00' },
+  { id: 'fourteenthirty', time: '14:30' },
+  { id: 'fifteen', time: '15:00' },
+  { id: 'fifteenthirty', time: '15:30' },
+  { id: 'sixteen', time: '16:00' },
+  { id: 'sixteenthirty', time: '16:30' },
+  { id: 'seventeen', time: '17:00' },
+  { id: 'seventeenthirty', time: '17:30' },
+  { id: 'eightteen', time: '18:00' },
+  { id: 'eightteenthirty', time: '18:30' },
+  { id: 'nineteen', time: '19:00' },
+  { id: 'nineteenteenthirty', time: '19:30' }
+])
+Reservation_Error_msg.value = 'ERROR!!'
+</script>
 <style scoped>
 /* ********************************** */
 /*            No of People            */
@@ -304,7 +404,7 @@ const timinings = ref([
   background-color: #f7bb08;
 }
 
-#clock{
+#clock {
   font-size: 15px;
   color: #f8b333;
   /* margin-right: 5px; */
@@ -312,7 +412,7 @@ const timinings = ref([
 }
 
 /* changing border radius of the clock */
-#datePicker{
+#datePicker {
   border-radius: 50px;
   border: 1px solid #fff;
   /* padding: 5px; */
@@ -323,5 +423,4 @@ const timinings = ref([
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   background-color: white;
 }
-
 </style>

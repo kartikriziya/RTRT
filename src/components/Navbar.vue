@@ -1,4 +1,3 @@
-<script setup></script>
 <template>
   <nav class="navbar sticky-top navbar-expand-md navbar-light">
     <div class="container">
@@ -25,15 +24,46 @@
           <li class="nav-item me-4">
             <router-link class="nav-link" id="links" :to="{ name: 'about' }">About Us</router-link>
           </li>
-
           <li class="nav-item me-4">
             <router-link class="nav-link" id="links" :to="{ name: 'contact' }">Contact</router-link>
+          </li>
+
+          <li class="nav-item me-4" id="logout">
+            <a class="nav-link" id="links" @click.prevent="logout()"><u>Logout</u></a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
 </template>
+
+<script setup>
+import { ref, onMounted, watchEffect, inject } from 'vue'
+import { useRouter } from 'vue-router'
+
+const store = inject('store')
+const router = useRouter()
+
+onMounted(() => {
+  if (store.state.isUser) {
+    document.getElementById('logout').style.display = 'block'
+  } else {
+    document.getElementById('logout').style.display = 'none'
+  }
+})
+watchEffect(() => {
+  if (store.state.isUser) {
+    document.getElementById('logout').style.display = 'block'
+  }
+})
+
+function logout() {
+  document.getElementById('logout').style.display = 'none'
+  sessionStorage.removeItem('user-email')
+  router.push({ path: '/' })
+}
+</script>
+
 <style scoped>
 #links {
   color: #f8b333;
@@ -44,5 +74,10 @@
 #links:hover {
   color: #b47501;
   font-weight: 700;
+}
+#logout {
+  color: #b47501;
+  display: none;
+  cursor: pointer;
 }
 </style>

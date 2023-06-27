@@ -1,124 +1,5 @@
-<script setup>
-import { ref } from 'vue'
-import axios from 'axios'
-
-const Base_Url = 'https://olivewood.elementfx.com'
-
-const loginEmail = ref('')
-const loginPassword = ref('')
-
-const forgetPasswordEmail = ref('')
-
-const loginVverifyOTP = ref('')
-
-const password1 = ref('')
-const password2 = ref('')
-
-/* ______ login ______ */
-async function login() {
-  console.log('login')
-  await axios
-    .post(Base_Url + '/account.php', {
-      action: 'login_login',
-      logEmail: loginEmail.value,
-      logPassword: loginPassword.value
-    })
-    .then((result) => {
-      console.log(result.data)
-      console.log(loginEmail.value + ', ' + loginPassword.value)
-      document.querySelector('#loginForm').style.display = 'none'
-      document.querySelector('#loginForm').style.display = 'flex'
-    })
-    .catch(function (error) {
-      console.log(error)
-    })
-}
-/* ______ forgetPassword ______ */
-function forgetPassword() {
-    document.querySelector('#loginForm').style.display = 'none'
-    document.querySelector('#getOTPForm').style.display = 'flex' 
-}
-
-/* ______ getOTP ______ */
-async function getOTP() {
-  console.log('getOTP')
-  await axios
-    .post(Base_Url + '/forgetPassword.php', {
-      action: 'get_OTP',
-      forgetPasswordEmail: forgetPasswordEmail.value
-    })
-    .then((result) => {
-      console.log(result.data)
-      console.log(forgetPasswordEmail.value)
-      if(result.data != "No_Email_Found!") {
-        document.querySelector('#getOTPForm').style.display = 'none'
-        document.querySelector('#verifyOTPForm').style.display = 'flex'
-      }
-      else{
-        alert(result.data)
-      }
-
-    })
-    .catch(function (error) {
-      console.log(error)
-    })
-}
-
-/* ______ verifyOTP ______ */
-async function verifyOTP() {
-  console.log('verifyOTP')
-  await axios
-    .post(Base_Url + '/forgetPassword.php', {
-      action: 'verify_OTP',
-      forgetPasswordEmail: forgetPasswordEmail.value,
-      loginVverifyOTP: loginVverifyOTP.value
-    })
-    .then((result) => {
-      console.log(result.data)
-      console.log(forgetPasswordEmail.value + ',' + loginVverifyOTP.value)
-      if(result.data != "Incorrect_OTP")
-      {
-        document.querySelector('#verifyOTPForm').style.display = 'none'
-        document.querySelector('#changePasswordFrom').style.display = 'flex'
-      }
-      else{
-        alert(result.data)
-      }     
-    })
-    .catch(function (error) {
-      console.log(error)
-    })
-}
-
-/* ______ Reset Password ______ */
-async function resetPassword() {
-  console.log('resetPassword')
-  await axios
-    .post(Base_Url + '/forgetPassword.php', {
-      action: 'reset_Password',
-      forgetPasswordEmail: forgetPasswordEmail.value,
-      password1: password1.value,
-      password2: password2.value
-    })
-    .then((result) => {
-      console.log(result.data)
-      console.log(password1.value + ',' + password2.value)
-      if(password1.value == password2.value){
-        document.querySelector('#changePasswordFrom').style.display = 'none'
-        document.querySelector('#loginForm').style.display = 'flex'
-      }
-      else {
-        alert(result.data)
-      }
-  
-    })
-    .catch(function (error) {
-      console.log(error)
-    })
-}
-</script>
 <template>
- <!-- --------------------------------------------------------------------------------------------------- -->
+  <!-- --------------------------------------------------------------------------------------------------- -->
   <!--                                            LogIn Form                                               -->
   <!-- --------------------------------------------------------------------------------------------------- -->
   <form
@@ -127,12 +8,11 @@ async function resetPassword() {
     autocomplete="off"
     id="loginForm"
   >
-
-  <div class="col-sm-3"></div>
-    <div class="col-sm-6 text-center vertical-top d-grid pt-1" id = "signin1">
-      <div id = "signin">Sign in</div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 text-center vertical-top d-grid pt-1" id="signin1">
+      <div id="signin">Sign in</div>
     </div>
-  <div class="col-sm-3"></div>
+    <div class="col-sm-3"></div>
 
     <div class="col-12">
       <div class="form-floating">
@@ -167,27 +47,26 @@ async function resetPassword() {
     <div class="col-sm-6 text-center d-grid pt-3">
       <button class="btn" id="loginBtn" @click.prevent="login()">Login</button>
     </div>
-    <div class="col-sm-3" ></div>
+    <div class="col-sm-3"></div>
   </form>
 
-<!-- --------------------------------------------------------------------------------------------------- -->
-<!--                                            Forget Password                                          -->
-<!-- --------------------------------------------------------------------------------------------------- -->
+  <!-- --------------------------------------------------------------------------------------------------- -->
+  <!--                                            Forget Password                                          -->
+  <!-- --------------------------------------------------------------------------------------------------- -->
 
-<!-- getOTPForm -->
-<form
+  <!-- getOTPForm -->
+  <form
     action=""
     class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
     autocomplete="off"
     id="getOTPForm"
     novalidate
-    style="display: none;"
-> 
-
-  <div class="col-sm-3"></div>
-    <div class="col-sm-6 text-center vertical-top d-grid pt-1" id = "signin1">
-      <div id = "get_OTP">Get OTP</div>
-  </div>
+    style="display: none"
+  >
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 text-center vertical-top d-grid pt-1" id="signin1">
+      <div id="get_OTP">Get OTP</div>
+    </div>
     <div class="col-sm-3"></div>
     <div class="col-12">
       <div class="form-floating">
@@ -199,7 +78,9 @@ async function resetPassword() {
           placeholder="name@example.com"
           required
         />
-        <label for="forgetPasswordEmail" id="loginLabels" @click.prevent="getOTP()">Email address</label>
+        <label for="forgetPasswordEmail" id="loginLabels" @click.prevent="getOTP()"
+          >Email address</label
+        >
       </div>
     </div>
     <div class="col-sm-3"></div>
@@ -207,36 +88,32 @@ async function resetPassword() {
       <button class="btn" id="getOTPBtn" @click.prevent="getOTP()">Get OTP</button>
     </div>
     <div class="col-sm-3"></div>
-</form>
+  </form>
 
-<!-- --------------------------------------------------------------------------------------------------- -->
-<!--                                            Verify OTP                                               -->
-<!-- --------------------------------------------------------------------------------------------------- -->
-
-<!-- verifyOTPForm -->
-<form
+  <!-- verifyOTPForm -->
+  <form
     action=""
     class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
     autocomplete="off"
     id="verifyOTPForm"
     novalidate
-    style="display: none;"
->
-  <div class="col-sm-3"></div>
-    <div class="col-sm-6 text-center vertical-top d-grid pt-1" id = "signin1">
-      <div id = "verify_OTP">Verify OTP</div>
-  </div>  
-  <div class="col-12">
+    style="display: none"
+  >
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 text-center vertical-top d-grid pt-1" id="signin1">
+      <div id="verify_OTP">Verify OTP</div>
+    </div>
+    <div class="col-12">
       <div class="form-floating">
         <input
-          v-model="loginVverifyOTP"
+          v-model="loginVerifyOTP"
           type="text"
           class="form-control"
-          id="loginVverifyOTP"
+          id="loginVerifyOTP"
           placeholder="12345678"
           required
         />
-        <label for="loginVverifyOTP"  id="loginLabels">OTP</label>
+        <label for="loginVerifyOTP" id="loginLabels">OTP</label>
       </div>
     </div>
     <div class="col-sm-3"></div>
@@ -244,58 +121,261 @@ async function resetPassword() {
       <button class="btn" id="resetPasswordBtn" @click.prevent="verifyOTP()">Reset Password</button>
     </div>
     <div class="col-sm-3"></div>
-</form>
+  </form>
 
-<!-- --------------------------------------------------------------------------------------------------- -->
-<!--                                            Change Password                                          -->
-<!-- --------------------------------------------------------------------------------------------------- -->
+  <!-- --------------------------------------------------------------------------------------------------- -->
+  <!--                                            Change Password                                          -->
+  <!-- --------------------------------------------------------------------------------------------------- -->
 
-<!-- changePasswordFrom -->
-<form
+  <!-- changePasswordFrom -->
+  <form
     action=""
     class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
     autocomplete="off"
     id="changePasswordFrom"
     novalidate
-    style="display: none;"
+    style="display: none"
   >
-  <div class="col-sm-3"></div>
-    <div class="col-sm-6 text-center vertical-top d-grid pt-1" id = "signin1">
-      <div id = "change_password">Change Password</div>
-  </div>  
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 text-center vertical-top d-grid pt-1" id="signin1">
+      <div id="change_password">Change Password</div>
+    </div>
     <div class="col-12">
       <div class="form-floating">
         <input
-          v-model="password1"
+          v-model="loginForgotPassword1"
           type="password"
           class="form-control"
-          id="password1"
+          id="loginForgotPassword1"
           placeholder="password"
           required
         />
-        <label for="password1"  id="loginLabels">Password</label>
+        <label for="loginForgotPassword1" id="loginLabels">Password</label>
       </div>
     </div>
     <div class="col-12">
       <div class="form-floating">
         <input
-          v-model="password2"
+          v-model="loginForgotPassword2"
           type="password"
           class="form-control"
-          id="password2"
+          id="loginForgotPassword2"
           placeholder="password"
           required
         />
-        <label for="password2"  id="loginLabels">Re-password</label>
+        <label for="loginForgotPassword2" id="loginLabels">Re-password</label>
       </div>
     </div>
     <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center d-grid pt-3">
-      <button class="btn" id="changePasswordBtn" @click.prevent="resetPassword()">Change Password</button>
+      <button class="btn" id="changePasswordBtn" @click.prevent="resetPassword()">
+        Change Password
+      </button>
     </div>
     <div class="col-sm-3"></div>
-</form>
+  </form>
 </template>
+<script setup>
+import { ref, inject } from 'vue'
+import { useRouter } from 'vue-router'
+import axios from 'axios'
+
+const store = inject('store')
+const router = useRouter()
+const Base_Url = 'https://olivewood.elementfx.com'
+
+const loginEmail = ref('')
+const loginPassword = ref('')
+const forgetPasswordEmail = ref('')
+const login_OTP_Time = ref('')
+const loginVerifyOTP = ref('')
+const loginForgotPassword1 = ref('')
+const loginForgotPassword2 = ref('')
+
+const LogIn_Error_Message = ref('')
+
+/* ______ login ______ */
+async function login() {
+  const Login_Error = document.querySelector('.Login_Error')
+  console.log('login')
+  if (loginEmail.value == '' || loginPassword.value == '') {
+    Login_Error.style.display = 'block'
+    LogIn_Error_Message.value = 'Please enter valid Credentials!'
+  } else {
+    //store.state.isLoading = true
+    let result = await axios.post(Base_Url + '/account.php', {
+      action: 'login_login',
+      logEmail: loginEmail.value,
+      logPassword: loginPassword.value
+    })
+    // Email validation
+    const Login_emailRegex = /@gmail\.com$/i
+    if (!Login_emailRegex.test(loginEmail.value)) {
+      Login_Error.style.display = 'block'
+      LogIn_Error_Message.value = 'Please use a Gmail account!'
+      return
+    }
+    store.state.isLoading = false
+
+    if (result.status == 200 || result.status == 201) {
+      console.log(result.data)
+      console.log(loginEmail.value + ', ' + loginPassword.value)
+      if (result.data == 'No_Email_Found') {
+        document.querySelector('#loginForm').style.display = 'none'
+        document.querySelector('#loginForm').style.display = 'flex'
+        Login_Error.style.display = 'block'
+        LogIn_Error_Message.value =
+          'Email not found. Please check your email address or sign up for a new account!'
+      } else if (result.data == 'LOGIN_SUCCESSFULL') {
+        document.querySelector('#loginForm').style.display = 'none'
+        document.querySelector('#loginForm').style.display = 'flex'
+        /* Email get saved in sessionStorage as named of 'user-email' */
+        sessionStorage.setItem('user-email', JSON.stringify(loginEmail.value))
+        store.methods.updateUser()
+        router.push({ path: '/reservation' })
+      } else {
+        document.querySelector('#loginForm').style.display = 'none'
+        document.querySelector('#loginForm').style.display = 'flex'
+        LogIn_Error_Message.value =
+          'Invalid email or password. Please check your credentials and try again!'
+      }
+    } else {
+      console.log(result.data)
+    }
+  }
+}
+/* ______ forgetPassword ______ */
+function forgetPassword() {
+  document.querySelector('#loginForm').style.display = 'none'
+  document.querySelector('#getOTPForm').style.display = 'flex'
+}
+
+/* ______ getOTP ______ */
+async function getOTP() {
+  const Login_getOTPError = document.querySelector('.Login_getOTPError')
+  console.log('getOTP')
+  if (forgetPasswordEmail.value == '') {
+    Login_getOTPError.style.display = 'block'
+    LogIn_Error_Message.value = 'Please enter your email address!'
+  } else {
+    let result = await axios.post(Base_Url + '/forgetPassword.php', {
+      action: 'get_OTP',
+      forgetPasswordEmail: forgetPasswordEmail.value
+    })
+    if (result.status == 200 || result.status == 201) {
+      console.log(result.data)
+      console.log(forgetPasswordEmail.value)
+      if (result.data != 'No_Email_Found!') {
+        document.querySelector('#getOTPForm').style.display = 'none'
+        document.querySelector('#verifyOTPForm').style.display = 'flex'
+
+        let timeleft = 10
+        const logInOTPexpire = document.getElementById('logInOTPexpire')
+        const otpTimer = setInterval(function () {
+          if (timeleft <= 0) {
+            clearInterval(otpTimer)
+            login_OTP_Time.value = null
+            logInOTPexpire.innerHTML = 'OTP expired'
+            logInOTPexpire.style.color = '#dc3545'
+            logInOTPexpire.classList.add('R_Error')
+            logInOTPexpire.style.display = 'block'
+
+            document.querySelector('.signUp_VerifyOTP_btn').disabled = true
+          } else {
+            login_OTP_Time.value = timeleft
+          }
+          timeleft -= 1
+        }, 1000)
+      } else {
+        //alert(result.data)
+        Login_getOTPError.style.display = 'block'
+        LogIn_Error_Message.value =
+          'Email not found. Please check your email address or sign up for a new account!'
+      }
+    } else {
+      console.log(result.data)
+    }
+  }
+}
+
+/* ______ ResendOTP ______ */
+async function LogIn_resendOTP() {
+  console.log('LogIn_resendOTP')
+  let result = await axios.post(Base_Url + '/forgetPassword.php', {
+    action: 'LogIn_resendOTP',
+    forgetPasswordEmail: forgetPasswordEmail.value
+  })
+  if (result.status == 200 || result.status == 201) {
+    console.log(result.data)
+    console.log(forgetPasswordEmail.value)
+    document.querySelector('.LogIn_VerifyOTP_btn').disabled = true
+  } else {
+    console.log(result.data)
+  }
+}
+
+/* ______ verifyOTP ______ */
+async function verifyOTP() {
+  const Login_verifyOTPError = document.querySelector('.Login_verifyOTPError')
+  console.log('verifyOTP')
+  if (loginVerifyOTP.value == '') {
+    Login_verifyOTPError.style.display = 'block'
+    LogIn_Error_Message.value = 'Please enter the One-Time Password (OTP)!'
+  } else {
+    let result = await axios.post(Base_Url + '/forgetPassword.php', {
+      action: 'verify_OTP',
+      forgetPasswordEmail: forgetPasswordEmail.value,
+      loginVerifyOTP: loginVerifyOTP.value
+    })
+    if (result.status == 200 || result.status == 201) {
+      console.log(result.data)
+      console.log(forgetPasswordEmail.value + ',' + loginVerifyOTP.value)
+      if (result.data != 'Incorrect_OTP') {
+        document.querySelector('#verifyOTPForm').style.display = 'none'
+        document.querySelector('#changePasswordFrom').style.display = 'flex'
+      } else {
+        //alert(result.data)
+        Login_verifyOTPError.style.display = 'block'
+        LogIn_Error_Message.value =
+          'Incorrect OTP. Please check your One-Time Password and try again!'
+      }
+    } else {
+      console.log(result.data)
+    }
+  }
+}
+
+/* ______ Reset Password ______ */
+async function resetPassword() {
+  const Login_createPasswordError = document.querySelector('.Login_createPasswordError')
+  console.log('resetPassword')
+  if (loginForgotPassword1.value == '' || loginForgotPassword2.value == '') {
+    Login_createPasswordError.style.display = 'block'
+    LogIn_Error_Message.value = 'Please enter your new password!'
+  } else {
+    let result = await axios.post(Base_Url + '/forgetPassword.php', {
+      action: 'reset_Password',
+      forgetPasswordEmail: forgetPasswordEmail.value,
+      password1: loginForgotPassword1.value,
+      password2: loginForgotPassword1.value
+    })
+    if (result.status == 200 || result.status == 201) {
+      console.log(result.data)
+      console.log(loginForgotPassword1.value + ',' + loginForgotPassword2.value)
+      if (loginForgotPassword1.value == loginForgotPassword2.value) {
+        document.querySelector('#changePasswordFrom').style.display = 'none'
+        document.querySelector('#loginForm').style.display = 'flex'
+      } else {
+        //alert(result.data)
+        Login_createPasswordError.style.display = 'block'
+        LogIn_Error_Message.value = 'Please make sure your passwords match!'
+      }
+    } else {
+      console.log(result.data)
+    }
+  }
+}
+</script>
 <style scoped>
 #loginForm,
 #changePasswordFrom,
@@ -353,15 +433,14 @@ async function resetPassword() {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-#loginBtn:hover{
+#loginBtn:hover {
   background-color: #f7bb08;
 }
 
-#signin{
+#signin {
   font-size: 23px;
   font-weight: bold;
 }
-
 
 /* Email */
 #getOTPBtn {
@@ -376,17 +455,16 @@ async function resetPassword() {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-#getOTPBtn:hover{
+#getOTPBtn:hover {
   background-color: #f7bb08;
 }
 
-#get_OTP{
+#get_OTP {
   font-size: 23px;
   font-weight: bold;
 }
 
-
-/* Verify OTP*/ 
+/* Verify OTP*/
 #resetPasswordBtn {
   font-family: Rockwell;
   display: inline-block;
@@ -399,15 +477,14 @@ async function resetPassword() {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-#resetPasswordBtn:hover{
+#resetPasswordBtn:hover {
   background-color: #f7bb08;
 }
 
-#verify_OTP{
+#verify_OTP {
   font-size: 23px;
   font-weight: bold;
 }
-
 
 /* Password */
 #changePasswordBtn {
@@ -422,13 +499,12 @@ async function resetPassword() {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-#changePasswordBtn:hover{
+#changePasswordBtn:hover {
   background-color: #f7bb08;
 }
 
-#change_password{
+#change_password {
   font-size: 23px;
   font-weight: bold;
 }
-
 </style>

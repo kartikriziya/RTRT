@@ -1,4 +1,3 @@
-<script setup></script>
 <template>
   <div class="d-flex flex-column text-center justify-content-between" id="videoContent">
     <div id="wrapper">
@@ -10,14 +9,20 @@
       </div>
     </div>
 
-    <div class="mb-4" id="scroll">
+    <!-- <div class="mb-4" id="scroll">
       <span id="scroll_link">
         Esplorare
         <img src="../assets/icons/arrow_down.png" class="mt-3" id="arrow" alt="" />
       </span>
-    </div>
+    </div> -->
   </div>
 </template>
+
+<script setup>
+import { inject } from 'vue'
+const store = inject('store')
+</script>
+
 <style scoped>
 #videoContent {
   min-height: calc(100vh - 150px);

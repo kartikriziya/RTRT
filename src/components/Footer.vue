@@ -1,4 +1,3 @@
-<script setup></script>
 <template>
   <footer>
     <div class="container-fluid pt-5" id="footer">
@@ -16,7 +15,7 @@
           <router-link class="nav-link mb-2" id="links" :to="{ name: 'account' }"
             >SignUp</router-link
           >
-          <router-link class="nav-link mb-2" id="links" :to="{ name: 'account' }"
+          <router-link class="nav-link mb-2" id="links" :to="{ name: 'cancel' }"
             >Cancel Reservation</router-link
           >
         </div>
@@ -59,6 +58,10 @@
     </div>
   </footer>
 </template>
+<script setup>
+import { inject } from 'vue'
+const store = inject('store')
+</script>
 <style scoped>
 #footer {
   min-height: 25vh;

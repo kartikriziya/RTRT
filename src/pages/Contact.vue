@@ -1,5 +1,3 @@
-<script setup></script>
-
 <template>
   <!-- <div class="container" id="imprint">
     <h1>Imprint</h1>
@@ -58,6 +56,14 @@
     </div>
   </div>
 </template>
+
+<script setup>
+import { onMounted, inject } from 'vue'
+const store = inject('store')
+onMounted(() => {
+  store.state.isLoading = false
+})
+</script>
 
 <style scoped>
 p {

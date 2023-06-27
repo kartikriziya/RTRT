@@ -1,4 +1,3 @@
-<script setup></script>
 <template>
   <div class="row pb-5" style="">
     <div class="col-lg-12 text-center" id="menu">
@@ -294,7 +293,6 @@
               <h6>Mini Spring Rolls</h6>
               <h6>Buffalo Cauliflower Bites</h6>
               <h6>Garlic Parmesan Fries</h6>
-
             </div>
 
             <div id="prices">
@@ -315,6 +313,12 @@
 
   <!-- ******************************************************************************************** -->
 </template>
+
+<script setup>
+import { inject } from 'vue'
+const store = inject('store')
+</script>
+
 <style scoped>
 #names {
   font-family: 'Apple Chancery';
