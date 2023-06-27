@@ -3,7 +3,7 @@ import { reactive } from 'vue'
 const state = reactive({ isLoading: true, isUser: false, user: '' })
 
 const methods = {
-  updateUser() {
+  loginUser() {
     state.user = sessionStorage.getItem('user-email')
     state.isUser = true
   }

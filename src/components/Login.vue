@@ -238,7 +238,7 @@ async function login() {
         document.querySelector('#loginForm').style.display = 'flex'
         /* Email get saved in sessionStorage as named of 'user-email' */
         sessionStorage.setItem('user-email', JSON.stringify(loginEmail.value))
-        store.methods.updateUser()
+        store.methods.loginUser()
         router.push({ path: '/reservation' })
       } else {
         document.querySelector('#loginForm').style.display = 'none'
