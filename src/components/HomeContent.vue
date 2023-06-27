@@ -9,12 +9,12 @@
       </div>
     </div>
 
-    <div class="mb-4" id="scroll">
+    <!-- <div class="mb-4" id="scroll">
       <span id="scroll_link">
         Esplorare
         <img src="../assets/icons/arrow_down.png" class="mt-3" id="arrow" alt="" />
       </span>
-    </div>
+    </div> -->
   </div>
 </template>
 

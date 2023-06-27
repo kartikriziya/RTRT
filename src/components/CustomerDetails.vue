@@ -86,35 +86,43 @@
       </div>
       <div class="row pt-5">
         <div class="col-12">
-          <h3 style="cursor: default;">Guest</h3>
+          <h3 style="cursor: default">Guest</h3>
           <form
-      action=""
-      class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
-      autocomplete="off"
-      id="loginForm"
-      >
-        <div class="row">
-          <div class="col-md-1 col-lg-2 col-xl-3">
-          </div>
-          <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3 text-center">
-            <div class="form-floating">
-              <input type="text" class="form-control" id="guest_fname" placeholder="guestFname">
-              <label for="guest_fname"  id="guest_labels">Firstname</label>
-            </div>  
-          </div>
-          <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3 text-center">
-            <div class="form-floating">
-              <input type="text" class="form-control" id="guest_lname" placeholder="guestLname">
-              <label for="guest_lname"  id="guest_labels">Lastname</label>
-            </div> 
-          </div>
-          <div class="col-md-1 col-lg-2 col-xl-3">
-          </div>
-        </div>
-      </form>
+            action=""
+            class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
+            autocomplete="off"
+            id="loginForm"
+          >
+            <div class="row">
+              <div class="col-md-1 col-lg-2 col-xl-3"></div>
+              <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3 text-center">
+                <div class="form-floating">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="guest_fname"
+                    placeholder="guestFname"
+                  />
+                  <label for="guest_fname" id="guest_labels">Firstname</label>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3 text-center">
+                <div class="form-floating">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="guest_lname"
+                    placeholder="guestLname"
+                  />
+                  <label for="guest_lname" id="guest_labels">Lastname</label>
+                </div>
+              </div>
+              <div class="col-md-1 col-lg-2 col-xl-3"></div>
+            </div>
+          </form>
         </div>
       </div>
-      
+
       <div class="row pt-3">
         <div class="col-12 text-center">
           <div class="R_Error" id="Reservation_Error">{{ Reservation_Error_msg }}</div>
@@ -138,8 +146,6 @@ import axios from 'axios'
 const store = inject('store')
 const Base_Url = 'https://olivewood.elementfx.com'
 
-
-
 const Reservation_Error_msg = ref('')
 
 const props = defineProps({ sendStars: String }) // props defined in props variable as const
@@ -156,7 +162,7 @@ async function reserveTable() {
   if (collectPeople.value == '' || collectDate.value == '' || collectTime == '') {
     const Reservation_Error = document.getElementById('Reservation_Error')
     Reservation_Error.style.display = 'block'
-    Reservation_Error_msg.value = "Please enter missing value!" 
+    Reservation_Error_msg.value = 'Please enter missing value!'
   } else {
     let result = await axios.post(Base_Url + '/reservation.php', {
       action: 'reserve_Table',
@@ -256,7 +262,7 @@ const timinings = ref([
   { id: 'nineteen', time: '19:00' },
   { id: 'nineteenteenthirty', time: '19:30' }
 ])
-Reservation_Error_msg.value = "ERROR!!"
+Reservation_Error_msg.value = 'ERROR!!'
 </script>
 <style scoped>
 /* ********************************** */
@@ -362,7 +368,6 @@ Reservation_Error_msg.value = "ERROR!!"
   background-color: #b47501;
   color: #f4ebd9;
 }
-
 
 .R_Error {
   display: none;

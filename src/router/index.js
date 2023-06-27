@@ -6,7 +6,6 @@ import Contact from '../pages/Contact.vue'
 import Reservation from '../pages/Reservation.vue'
 import Account from '../pages/Account.vue'
 import Admin from '../pages/Admin.vue'
-import test from '../pages/test.vue'
 import Cancel from '../pages/Cancel.vue'
 
 const routes = [
@@ -41,13 +40,8 @@ const routes = [
     component: Admin
   },
   {
-    path: '/test',
-    name: 'test',
-    component: test
-  },
-  {
     path: '/cancel',
-    name: 'test',
+    name: 'cancel',
     component: Cancel
   }
 ]
