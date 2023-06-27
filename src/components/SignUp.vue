@@ -38,19 +38,19 @@
       </div>
     </div>
     <div class="col-sm-12">
-      <div class="form-floating">
-        <input
-          v-model="signUpEmail"
-          type="email"
-          class="form-control"
-          name="signUpEmail"
-          id="signUpEmail"
-          placeholder="name@example.com"
-          required
-        />
-        <label for="signUpEmail" id="signUpLabels">Email address *</label>
-      </div>
+    <div class="form-floating">
+      <input
+        v-model="signUpEmail"
+        type="email"
+        class="form-control"
+        name="signUpEmail"
+        id="signUpEmail"
+        placeholder="name@example.com"
+        required
+      />
+      <label for="signUpEmail" id="signUpLabels">Email address *</label>
     </div>
+  </div>
     <div class="col-12">
       <div class="form-floating">
         <div class="R_Error SignUp_Error">{{ signUp_Error_Message }}</div>
@@ -180,6 +180,7 @@ const signUpPassword2 = ref('')
 
 const signUp_Error_Message = ref('')
 
+
 /* ______ verifyEmail ______ */
 async function verifyEmail() {
   const SignUp_Error = document.querySelector('.SignUp_Error')
@@ -194,6 +195,12 @@ async function verifyEmail() {
       lastName: signUpLname.value,
       Email: signUpEmail.value
     })
+    const SignUp_emailRegex = /@gmail\.com$/i;
+    if (!SignUp_emailRegex.test(signUpEmail.value)) {
+    SignUp_Error.style.display = 'block';
+    signUp_Error_Message.value = 'Please use a Gmail account!';
+    return;
+  }
     if (result.status == 200 || result.status == 201) {
       console.log(result.data)
       console.log(signUpFname.value + ', ' + signUpLname.value + ', ' + signUpEmail.value)
@@ -396,4 +403,5 @@ async function SignUp() {
   --bs-btn-disabled-border-color: #b47501;
   --bs-gradient: none;
 }
+
 </style>
