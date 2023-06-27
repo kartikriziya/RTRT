@@ -38,19 +38,19 @@
       </div>
     </div>
     <div class="col-sm-12">
-    <div class="form-floating">
-      <input
-        v-model="signUpEmail"
-        type="email"
-        class="form-control"
-        name="signUpEmail"
-        id="signUpEmail"
-        placeholder="name@example.com"
-        required
-      />
-      <label for="signUpEmail" id="signUpLabels">Email address *</label>
+      <div class="form-floating">
+        <input
+          v-model="signUpEmail"
+          type="email"
+          class="form-control"
+          name="signUpEmail"
+          id="signUpEmail"
+          placeholder="name@example.com"
+          required
+        />
+        <label for="signUpEmail" id="signUpLabels">Email address *</label>
+      </div>
     </div>
-  </div>
     <div class="col-12">
       <div class="form-floating">
         <div class="R_Error SignUp_Error">{{ signUp_Error_Message }}</div>
@@ -180,7 +180,6 @@ const signUpPassword2 = ref('')
 
 const signUp_Error_Message = ref('')
 
-
 /* ______ verifyEmail ______ */
 async function verifyEmail() {
   const SignUp_Error = document.querySelector('.SignUp_Error')
@@ -189,18 +188,21 @@ async function verifyEmail() {
     SignUp_Error.style.display = 'block'
     signUp_Error_Message.value = 'Please fill in all the required fields!'
   } else {
+    const SignUp_emailRegex = /@gmail\.com$/i
+    if (!SignUp_emailRegex.test(signUpEmail.value)) {
+      SignUp_Error.style.display = 'block'
+      signUp_Error_Message.value = 'Please use a valid E-Mail format!'
+      return
+    }
+    store.state.isLoading = true
     let result = await axios.post(Base_Url + '/account.php', {
       action: 'verify_email',
       firstName: signUpFname.value,
       lastName: signUpLname.value,
       Email: signUpEmail.value
     })
-    const SignUp_emailRegex = /@gmail\.com$/i;
-    if (!SignUp_emailRegex.test(signUpEmail.value)) {
-    SignUp_Error.style.display = 'block';
-    signUp_Error_Message.value = 'Please use a Gmail account!';
-    return;
-  }
+    store.state.isLoading = false
+
     if (result.status == 200 || result.status == 201) {
       console.log(result.data)
       console.log(signUpFname.value + ', ' + signUpLname.value + ', ' + signUpEmail.value)
@@ -238,6 +240,7 @@ async function verifyEmail() {
 /* ______ ResendOTP ______ */
 async function SignUp_resendOTP() {
   console.log('SignUp_resendOTP')
+  store.state.isLoading = true
   await axios
     .post(Base_Url + '/account.php', {
       action: 'SignUp_resendOTP',
@@ -250,6 +253,7 @@ async function SignUp_resendOTP() {
     .catch(function (error) {
       console.log(error)
     })
+  store.state.isLoading = false
 }
 
 /* ______ verifyOTP ______ */
@@ -260,11 +264,13 @@ async function verifyOTP() {
     SignUp_verifyOTPError.style.display = 'block'
     signUp_Error_Message.value = 'Please enter the One-Time Password (OTP)!'
   } else {
+    store.state.isLoading = true
     let result = await axios.post(Base_Url + '/account.php', {
       action: 'verify_otp',
       signUpOTP: signUpOTP.value,
       Email: signUpEmail.value
     })
+    store.state.isLoading = false
     if (result.status == 200 || result.status == 201) {
       console.log(result.data)
       console.log(signUpEmail.value + ',' + signUpOTP.value)
@@ -297,6 +303,7 @@ async function SignUp() {
     SignUp_createPasswordError.style.display = 'block'
     signUp_Error_Message.value = 'Please enter password in both fields!'
   } else {
+    store.state.isLoading = true
     let result = await axios.post(Base_Url + '/account.php', {
       action: 'signup',
       firstName: signUpFname.value,
@@ -305,6 +312,7 @@ async function SignUp() {
       Password1: signUpPassword1.value,
       Password2: signUpPassword2.value
     })
+    store.state.isLoading = false
     if (result.status == 200 || result.status == 201) {
       console.log(result.data)
       console.log(signUpPassword1.value + ', ' + signUpPassword2.value)
@@ -403,5 +411,4 @@ async function SignUp() {
   --bs-btn-disabled-border-color: #b47501;
   --bs-gradient: none;
 }
-
 </style>

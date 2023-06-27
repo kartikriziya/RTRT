@@ -209,19 +209,19 @@ async function login() {
     Login_Error.style.display = 'block'
     LogIn_Error_Message.value = 'Please enter valid Credentials!'
   } else {
-    //store.state.isLoading = true
+    // Email validation
+    const Login_emailRegex = /@gmail\.com$/i
+    if (!Login_emailRegex.test(loginEmail.value)) {
+      Login_Error.style.display = 'block'
+      LogIn_Error_Message.value = 'Please use a valid E-Mail format.!'
+      return
+    }
+    store.state.isLoading = true
     let result = await axios.post(Base_Url + '/account.php', {
       action: 'login_login',
       logEmail: loginEmail.value,
       logPassword: loginPassword.value
     })
-    // Email validation
-    const Login_emailRegex = /@gmail\.com$/i
-    if (!Login_emailRegex.test(loginEmail.value)) {
-      Login_Error.style.display = 'block'
-      LogIn_Error_Message.value = 'Please use a Gmail account!'
-      return
-    }
     store.state.isLoading = false
 
     if (result.status == 200 || result.status == 201) {
@@ -265,10 +265,12 @@ async function getOTP() {
     Login_getOTPError.style.display = 'block'
     LogIn_Error_Message.value = 'Please enter your email address!'
   } else {
+    store.state.isLoading = true
     let result = await axios.post(Base_Url + '/forgetPassword.php', {
       action: 'get_OTP',
       forgetPasswordEmail: forgetPasswordEmail.value
     })
+    store.state.isLoading = false
     if (result.status == 200 || result.status == 201) {
       console.log(result.data)
       console.log(forgetPasswordEmail.value)
@@ -308,10 +310,12 @@ async function getOTP() {
 /* ______ ResendOTP ______ */
 async function LogIn_resendOTP() {
   console.log('LogIn_resendOTP')
+  store.state.isLoading = true
   let result = await axios.post(Base_Url + '/forgetPassword.php', {
     action: 'LogIn_resendOTP',
     forgetPasswordEmail: forgetPasswordEmail.value
   })
+  store.state.isLoading = false
   if (result.status == 200 || result.status == 201) {
     console.log(result.data)
     console.log(forgetPasswordEmail.value)
@@ -329,11 +333,13 @@ async function verifyOTP() {
     Login_verifyOTPError.style.display = 'block'
     LogIn_Error_Message.value = 'Please enter the One-Time Password (OTP)!'
   } else {
+    store.state.isLoading = true
     let result = await axios.post(Base_Url + '/forgetPassword.php', {
       action: 'verify_OTP',
       forgetPasswordEmail: forgetPasswordEmail.value,
       loginVerifyOTP: loginVerifyOTP.value
     })
+    store.state.isLoading = false
     if (result.status == 200 || result.status == 201) {
       console.log(result.data)
       console.log(forgetPasswordEmail.value + ',' + loginVerifyOTP.value)
@@ -360,12 +366,14 @@ async function resetPassword() {
     Login_createPasswordError.style.display = 'block'
     LogIn_Error_Message.value = 'Please enter your new password!'
   } else {
+    store.state.isLoading = true
     let result = await axios.post(Base_Url + '/forgetPassword.php', {
       action: 'reset_Password',
       forgetPasswordEmail: forgetPasswordEmail.value,
       password1: loginForgotPassword1.value,
       password2: loginForgotPassword1.value
     })
+    store.state.isLoading = false
     if (result.status == 200 || result.status == 201) {
       console.log(result.data)
       console.log(loginForgotPassword1.value + ',' + loginForgotPassword2.value)

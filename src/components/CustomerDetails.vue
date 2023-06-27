@@ -164,6 +164,7 @@ async function reserveTable() {
     Reservation_Error.style.display = 'block'
     Reservation_Error_msg.value = 'Please enter missing value!'
   } else {
+    store.state.isLoading = true
     let result = await axios.post(Base_Url + '/reservation.php', {
       action: 'reserve_Table',
       props: props,
@@ -171,6 +172,7 @@ async function reserveTable() {
       reserveDate: collectDate.value,
       reserveTime: collectTime.value
     })
+    store.state.isLoading = false
     if (result.status == 200 || result.status == 201) {
       console.log(result.data)
       console.log(
