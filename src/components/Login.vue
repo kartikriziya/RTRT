@@ -289,7 +289,7 @@ async function getOTP() {
             logInOTPexpire.classList.add('R_Error')
             logInOTPexpire.style.display = 'block'
 
-            document.querySelector('.signUp_VerifyOTP_btn').disabled = true
+            document.querySelector('.LogIn_VerifyOTP_btn').disabled = true
           } else {
             login_OTP_Time.value = timeleft
           }
