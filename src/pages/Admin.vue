@@ -10,7 +10,13 @@
           </h4>
         </div>
         <div class="col-4 text-start">
-          <input type="date" id="datePicker" />
+          <input
+            v-model="collectDate"
+            type="date"
+            id="datePicker"
+            @click="datePickerRestrictions()"
+            @change="showReservations()"
+          />
         </div>
         <!-- End of Date Picker -->
       </div>
@@ -67,28 +73,36 @@
   </div>
 </template>
 <script setup>
-import { ref, onBeforeMount, onMounted, inject } from 'vue'
+import { ref, onMounted, inject } from 'vue'
+import axios from 'axios'
 
 const store = inject('store')
-const action_id = ref('')
-const action = ref('')
+const Base_Url = 'https://olivewood.elementfx.com'
 
-// onBeforeMount(() => {
-//   store.state.isLoading = true
-//   console.log('onBeforeMount isLoading : ' + store.state.isLoading)
-// })
+const collectDate = ref('')
+const action = ref('')
+const action_id = ref('')
+
 onMounted(() => {
   store.state.isLoading = false
-  //console.log('onMounted isLoading : ' + store.state.isLoading)
 })
 
-// Array named 'reservationList' as const contains all Reservation of the selected Date.
-const reservationList = ref([
-  { Id: '1', Name: 'Kartik', Email: 'kartikriziya30721@gmail.com', Time: '14:00', Result: 0 },
-  { Id: '2', Name: 'Nancy', Email: 'nancybalar132313@gmail.com', Time: '18:00', Result: 0 }
-])
+// Array named 'reservationList' as const contains all Reservations of the selected Date.
+const reservationList = ref([])
 
-console.log(reservationList.value)
+async function showReservations() {
+  console.log(reservationList.value)
+  reservationList.value.push(
+    { Id: '1', Name: 'Kartik', Email: 'kartikriziya30721@gmail.com', Time: '14:00', Action: 0 },
+    { Id: '2', Name: 'Nancy', Email: 'nancybalar132313@gmail.com', Time: '18:00', Action: 0 }
+  ) // add new data to an Array 'reservationList'
+  let result = await axios.post(Base_Url + '/admin.php', {
+    date: collectDate
+  })
+  if (result.status == 200 || result.status == 201) {
+    console.log(result)
+  }
+}
 
 function arrived(boolean) {
   action.value = boolean
@@ -96,32 +110,59 @@ function arrived(boolean) {
 function cancel(boolean) {
   action.value = boolean
 }
-function reservationAction(id) {
+async function reservationAction(id) {
   action_id.value = id
-
-  let action_id_index = reservationList.value
-    .map((el) => {
-      return el.Id
-    })
-    .indexOf(action_id.value) // finds index based on the selected action_id in an array reservation_list.
-
-  reservationList.value.splice(action_id_index, 1)
-  console.log(
-    'Reservation ID: ' +
-      action_id.value +
-      ' is on Index: ' +
-      action_id_index +
-      ' and has been ARRIVED: ' +
-      action.value
-  )
+  console.log('Reservation ID: ' + action_id.value + ' and has been: ' + action.value)
 }
+
+const current = new Date()
+const date = current.getDate()
+const month = current.getMonth() + 1
+const year = current.getFullYear()
+const totalDays = new Date(year, month, 0).getDate()
+
+const minDate = ref('')
+//const minDate = ref(year + '-0' + month + '-0' + date)
+
+if (month <= 9 || date <= 9) {
+  if (month <= 9 && date >= 9) {
+    minDate.value = year + '-0' + month + '-' + date
+    //console.log(minDate.value)
+  } else if (date <= 9 && month >= 9) {
+    minDate.value = year + '-' + month + '-0' + date
+    //console.log(minDate.value)
+  } else {
+    minDate.value = year + '-0' + month + '-0' + date
+    //console.log(minDate.value)
+  }
+} else {
+  minDate = year + '-' + month + '-' + date
+  //console.log(minDate.value)
+}
+
+function datePickerRestrictions() {
+  document.querySelector('#datePicker').setAttribute('min', minDate.value)
+}
+
+// const reservationList = ref([
+//   { Id: '1', Name: 'Kartik', Email: 'kartikriziya30721@gmail.com', Time: '14:00', Result: 0 },
+//   { Id: '2', Name: 'Nancy', Email: 'nancybalar132313@gmail.com', Time: '18:00', Result: 0 }
+// ])
+
+// let action_id_index = reservationList.value
+//     .map((el) => {
+//       return el.Id
+//     })
+//     .indexOf(action_id.value) // finds index based on the selected action_id in an array reservation_list.
+
+//   reservationList.value.splice(action_id_index, 1)
 
 // reservationList.value.push({
 //   Id: 3,
 //   Name: 'RTRT',
 //   Email: 'rtrt@gmail.com',
 //   Time: '19:00',
-//   Result: 0
+//   Action: 0
 // }) // add new data to an Array 'reservationList'
 
 //reservationList.value.splice(action_id_index, 1) // remove data based on 'action_id_index' from an Array 'reservationList'
