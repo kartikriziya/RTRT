@@ -40,25 +40,46 @@
               <tbody class="table-group-divider">
                 <tr v-for="reservation in reservationList">
                   <td scope="row" id="table_row_data" style="color: #262626">
-                    {{ reservation.Id }}
+                    {{ reservation.reservation_id }}
                     <input
                       type="text"
-                      :id="reservation.Id"
-                      :value="reservation.Id"
+                      :id="reservation.reservation_id"
+                      :value="reservation.reservation_id"
                       @click="reservationAction($event.target.value)"
                       style="display: none"
+                      :disabled="reservation.reservation_status"
                     />
                   </td>
-                  <td id="table_row_data">{{ reservation.Name }}</td>
-                  <td id="table_row_data">{{ reservation.Email }}</td>
-                  <td id="table_row_data">{{ reservation.Time }}</td>
+                  <td id="table_row_data">
+                    {{ reservation.guest_fname + ' ' + reservation.guest_lname }}
+                  </td>
+                  <td id="table_row_data">{{ reservation.email }}</td>
+                  <td id="table_row_data">{{ reservation.reserve_time }}</td>
                   <td class="text-center">
-                    <label id="table_row_data_action" :for="reservation.Id" @click="arrived(true)"
+                    <label
+                      id="table_row_data_action"
+                      :for="reservation.reservation_id"
+                      @click="arrived(true)"
+                      :style="[
+                        reservation.reservation_status == 1
+                          ? { color: 'green', cursor: 'not-allowed' }
+                          : {},
+                        reservation.reservation_status == 0 ? { display: 'none' } : {}
+                      ]"
                       ><i class="fa-solid fa-check fa-2xl"></i
                     ></label>
                   </td>
                   <td class="text-center">
-                    <label id="table_row_data_action" :for="reservation.Id" @click="cancel(false)"
+                    <label
+                      id="table_row_data_action"
+                      :for="reservation.reservation_id"
+                      @click="cancel(false)"
+                      :style="[
+                        reservation.reservation_status == 0
+                          ? { color: 'red', cursor: 'not-allowed' }
+                          : {},
+                        reservation.reservation_status == 1 ? { display: 'none' } : {}
+                      ]"
                       ><i class="fa-solid fa-xmark fa-2xl"></i
                     ></label>
                   </td>
@@ -88,19 +109,19 @@ onMounted(() => {
 })
 
 // Array named 'reservationList' as const contains all Reservations of the selected Date.
-const reservationList = ref([])
+const reservationList = ref('')
 
 async function showReservations() {
-  console.log(reservationList.value)
-  reservationList.value.push(
-    { Id: '1', Name: 'Kartik', Email: 'kartikriziya30721@gmail.com', Time: '14:00', Action: 0 },
-    { Id: '2', Name: 'Nancy', Email: 'nancybalar132313@gmail.com', Time: '18:00', Action: 0 }
-  ) // add new data to an Array 'reservationList'
+  // reservationList.value.push(
+  //   { Id: '1', Name: 'Kartik', Email: 'kartikriziya30721@gmail.com', Time: '14:00', Action: 0 },
+  //   { Id: '2', Name: 'Nancy', Email: 'nancybalar132313@gmail.com', Time: '18:00', Action: 0 }
+  // ) // add new data to an Array 'reservationList'
   let result = await axios.post(Base_Url + '/admin.php', {
-    date: collectDate
+    date: collectDate.value
   })
   if (result.status == 200 || result.status == 201) {
-    console.log(result)
+    reservationList.value = result.data
+    //console.log(reservationList.value)
   }
 }
 
@@ -122,22 +143,17 @@ const year = current.getFullYear()
 const totalDays = new Date(year, month, 0).getDate()
 
 const minDate = ref('')
-//const minDate = ref(year + '-0' + month + '-0' + date)
 
 if (month <= 9 || date <= 9) {
   if (month <= 9 && date >= 9) {
     minDate.value = year + '-0' + month + '-' + date
-    //console.log(minDate.value)
   } else if (date <= 9 && month >= 9) {
     minDate.value = year + '-' + month + '-0' + date
-    //console.log(minDate.value)
   } else {
     minDate.value = year + '-0' + month + '-0' + date
-    //console.log(minDate.value)
   }
 } else {
   minDate = year + '-' + month + '-' + date
-  //console.log(minDate.value)
 }
 
 function datePickerRestrictions() {
