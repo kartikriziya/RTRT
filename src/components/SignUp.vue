@@ -52,9 +52,14 @@
         <div class="invalid-feedback">Please enter valid Email</div>
       </div>
     </div>
+    <div class="col-12">
+      <div class="form-floating">
+        <div class="R_Error SignUp_Error">{{ signUp_Error_Message }}</div>
+      </div>
+    </div>
     <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center d-grid pt-3">
-      <button class="btn" id="signUpBtn">Verify Email</button>
+      <button class="btn" id="signUpBtn" @click.prevent="verifyEmail()">Verify Email</button>
     </div>
   </form>
   <form
@@ -81,9 +86,16 @@
     <div class="col-sm-6">
       <div class="row">
         <div class="col-12">
-          <a href="#" id="signUpResendOTP">Resend OTP?</a>
+          <a href="#" id="signUpResendOTP" @click.prevent="SignUp_resendOTP()">Resend OTP?</a>
         </div>
-        <div class="col-12" id="signUpOTPexpire">OTP expire in : <span>123</span></div>
+        <div class="col-12" id="signUpOTPexpire">
+          OTP expire in : <span>{{ signUP_OTP_Time }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="form-floating">
+        <div class="R_Error SignUp_verifyOTPError">{{ signUp_Error_Message }}</div>
       </div>
     </div>
     <div class="col-sm-3"></div>
@@ -126,9 +138,14 @@
         <label for="signUpPassword2" id="signUpLabels">Re-password</label>
       </div>
     </div>
+    <div class="col-12">
+      <div class="form-floating">
+        <div class="R_Error SignUp_createPasswordError">{{ signUp_Error_Message }}</div>
+      </div>
+    </div>
     <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center d-grid pt-3">
-      <button class="btn" id="signUpBtn">Signup</button>
+      <button class="btn" id="signUpBtn" @click.prevent="SignUp()">Signup</button>
     </div>
     <div class="col-sm-3"></div>
   </form>
@@ -161,18 +178,21 @@ async function verifyEmail() {
     SignUp_Error.style.display = 'block'
     signUp_Error_Message.value = 'Please fill in all the required fields!'
   } else {
+    const SignUp_emailRegex = /@gmail\.com$/i
+    if (!SignUp_emailRegex.test(signUpEmail.value)) {
+      SignUp_Error.style.display = 'block'
+      signUp_Error_Message.value = 'Please use a valid E-Mail format!'
+      return
+    }
+    store.state.isLoading = true
     let result = await axios.post(Base_Url + '/account.php', {
       action: 'verify_email',
       firstName: signUpFname.value,
       lastName: signUpLname.value,
       Email: signUpEmail.value
     })
-    const SignUp_emailRegex = /@gmail\.com$/i
-    if (!SignUp_emailRegex.test(signUpEmail.value)) {
-      SignUp_Error.style.display = 'block'
-      signUp_Error_Message.value = 'Please use a Gmail account!'
-      return
-    }
+    store.state.isLoading = false
+
     if (result.status == 200 || result.status == 201) {
       console.log(result.data)
       console.log(signUpFname.value + ', ' + signUpLname.value + ', ' + signUpEmail.value)
@@ -210,6 +230,7 @@ async function verifyEmail() {
 /* ______ ResendOTP ______ */
 async function SignUp_resendOTP() {
   console.log('SignUp_resendOTP')
+  store.state.isLoading = true
   await axios
     .post(Base_Url + '/account.php', {
       action: 'SignUp_resendOTP',
@@ -222,6 +243,7 @@ async function SignUp_resendOTP() {
     .catch(function (error) {
       console.log(error)
     })
+  store.state.isLoading = false
 }
 
 /* ______ verifyOTP ______ */
@@ -232,11 +254,13 @@ async function verifyOTP() {
     SignUp_verifyOTPError.style.display = 'block'
     signUp_Error_Message.value = 'Please enter the One-Time Password (OTP)!'
   } else {
+    store.state.isLoading = true
     let result = await axios.post(Base_Url + '/account.php', {
       action: 'verify_otp',
       signUpOTP: signUpOTP.value,
       Email: signUpEmail.value
     })
+    store.state.isLoading = false
     if (result.status == 200 || result.status == 201) {
       console.log(result.data)
       console.log(signUpEmail.value + ',' + signUpOTP.value)
@@ -269,6 +293,7 @@ async function SignUp() {
     SignUp_createPasswordError.style.display = 'block'
     signUp_Error_Message.value = 'Please enter password in both fields!'
   } else {
+    store.state.isLoading = true
     let result = await axios.post(Base_Url + '/account.php', {
       action: 'signup',
       firstName: signUpFname.value,
@@ -277,6 +302,7 @@ async function SignUp() {
       Password1: signUpPassword1.value,
       Password2: signUpPassword2.value
     })
+    store.state.isLoading = false
     if (result.status == 200 || result.status == 201) {
       console.log(result.data)
       console.log(signUpPassword1.value + ', ' + signUpPassword2.value)
@@ -333,22 +359,20 @@ async function SignUp() {
 #signUpOTPexpire {
   color: burlywood;
 }
+.R_Error {
+  display: none;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 0.875em;
+  color: #dc3545;
+  animation: erroBlinker 1.5s linear infinite;
+}
+@keyframes erroBlinker {
+  50% {
+    opacity: 0;
+  }
+}
 #signUpBtn {
-  /* border-radius: 15px;
-  --bs-btn-color: #b47501;
-  --bs-btn-border-color: #b47501;
-  --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #b47501;
-  --bs-btn-hover-border-color: #b47501;
-  --bs-btn-focus-shadow-rgb: 25, 135, 84;
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #b47501;
-  --bs-btn-active-border-color: #b47501;
-  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #b47501;
-  --bs-btn-disabled-bg: transparent;
-  --bs-btn-disabled-border-color: #b47501;
-  --bs-gradient: none; */
   font-family: Rockwell;
   display: inline-block;
   padding: 10px 20px;

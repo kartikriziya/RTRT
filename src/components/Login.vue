@@ -40,6 +40,9 @@
         <label for="loginPassword" id="loginLabels">Password</label>
       </div>
     </div>
+    <div class="col-12">
+      <div class="R_Error Login_Error">{{ LogIn_Error_Message }}</div>
+    </div>
     <div class="col-12 ms-2">
       <a id="loginForgot" @click.prevent="forgetPassword()">Forgot Password?</a>
     </div>
@@ -83,6 +86,12 @@
         >
       </div>
     </div>
+    <div class="col-12">
+      <div class="form-floating">
+        <div class="R_Error Login_getOTPError">{{ LogIn_Error_Message }}</div>
+      </div>
+    </div>
+
     <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center d-grid pt-3">
       <button class="btn" id="getOTPBtn" @click.prevent="getOTP()">Get OTP</button>
@@ -114,6 +123,18 @@
           required
         />
         <label for="loginVerifyOTP" id="loginLabels">OTP</label>
+      </div>
+    </div>
+    <div class="col-12 ms-2">
+      <a id="logInResendOTP" @click.prevent="LogIn_resendOTP()">Resend OTP?</a>
+    </div>
+    <div class="col-12 ms-2" id="logInOTPexpire">
+      OTP expire in : <span>{{ login_OTP_Time }}</span>
+    </div>
+
+    <div class="col-12">
+      <div class="form-floating">
+        <div class="R_Error Login_verifyOTPError">{{ LogIn_Error_Message }}</div>
       </div>
     </div>
     <div class="col-sm-3"></div>
@@ -166,6 +187,11 @@
         <label for="loginForgotPassword2" id="loginLabels">Re-password</label>
       </div>
     </div>
+    <div class="col-12">
+      <div class="form-floating">
+        <div class="R_Error Login_createPasswordError">{{ LogIn_Error_Message }}</div>
+      </div>
+    </div>
     <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center d-grid pt-3">
       <button class="btn" id="changePasswordBtn" @click.prevent="resetPassword()">
@@ -202,19 +228,19 @@ async function login() {
     Login_Error.style.display = 'block'
     LogIn_Error_Message.value = 'Please enter valid Credentials!'
   } else {
-    //store.state.isLoading = true
+    // Email validation
+    const Login_emailRegex = /@gmail\.com$/i
+    if (!Login_emailRegex.test(loginEmail.value)) {
+      Login_Error.style.display = 'block'
+      LogIn_Error_Message.value = 'Please use a valid E-Mail format.!'
+      return
+    }
+    store.state.isLoading = true
     let result = await axios.post(Base_Url + '/account.php', {
       action: 'login_login',
       logEmail: loginEmail.value,
       logPassword: loginPassword.value
     })
-    // Email validation
-    const Login_emailRegex = /@gmail\.com$/i
-    if (!Login_emailRegex.test(loginEmail.value)) {
-      Login_Error.style.display = 'block'
-      LogIn_Error_Message.value = 'Please use a Gmail account!'
-      return
-    }
     store.state.isLoading = false
 
     if (result.status == 200 || result.status == 201) {
@@ -231,7 +257,7 @@ async function login() {
         document.querySelector('#loginForm').style.display = 'flex'
         /* Email get saved in sessionStorage as named of 'user-email' */
         sessionStorage.setItem('user-email', JSON.stringify(loginEmail.value))
-        store.methods.updateUser()
+        store.methods.loginUser()
         router.push({ path: '/reservation' })
       } else {
         document.querySelector('#loginForm').style.display = 'none'
@@ -258,10 +284,12 @@ async function getOTP() {
     Login_getOTPError.style.display = 'block'
     LogIn_Error_Message.value = 'Please enter your email address!'
   } else {
+    store.state.isLoading = true
     let result = await axios.post(Base_Url + '/forgetPassword.php', {
       action: 'get_OTP',
       forgetPasswordEmail: forgetPasswordEmail.value
     })
+    store.state.isLoading = false
     if (result.status == 200 || result.status == 201) {
       console.log(result.data)
       console.log(forgetPasswordEmail.value)
@@ -301,10 +329,12 @@ async function getOTP() {
 /* ______ ResendOTP ______ */
 async function LogIn_resendOTP() {
   console.log('LogIn_resendOTP')
+  store.state.isLoading = true
   let result = await axios.post(Base_Url + '/forgetPassword.php', {
     action: 'LogIn_resendOTP',
     forgetPasswordEmail: forgetPasswordEmail.value
   })
+  store.state.isLoading = false
   if (result.status == 200 || result.status == 201) {
     console.log(result.data)
     console.log(forgetPasswordEmail.value)
@@ -322,11 +352,13 @@ async function verifyOTP() {
     Login_verifyOTPError.style.display = 'block'
     LogIn_Error_Message.value = 'Please enter the One-Time Password (OTP)!'
   } else {
+    store.state.isLoading = true
     let result = await axios.post(Base_Url + '/forgetPassword.php', {
       action: 'verify_OTP',
       forgetPasswordEmail: forgetPasswordEmail.value,
       loginVerifyOTP: loginVerifyOTP.value
     })
+    store.state.isLoading = false
     if (result.status == 200 || result.status == 201) {
       console.log(result.data)
       console.log(forgetPasswordEmail.value + ',' + loginVerifyOTP.value)
@@ -353,12 +385,14 @@ async function resetPassword() {
     Login_createPasswordError.style.display = 'block'
     LogIn_Error_Message.value = 'Please enter your new password!'
   } else {
+    store.state.isLoading = true
     let result = await axios.post(Base_Url + '/forgetPassword.php', {
       action: 'reset_Password',
       forgetPasswordEmail: forgetPasswordEmail.value,
       password1: loginForgotPassword1.value,
       password2: loginForgotPassword1.value
     })
+    store.state.isLoading = false
     if (result.status == 200 || result.status == 201) {
       console.log(result.data)
       console.log(loginForgotPassword1.value + ',' + loginForgotPassword2.value)
@@ -406,22 +440,20 @@ async function resetPassword() {
 #loginForgot:hover {
   color: #f7bb08;
 }
+.R_Error {
+  display: none;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 0.875em;
+  color: #dc3545;
+  animation: erroBlinker 1.5s linear infinite;
+}
+@keyframes erroBlinker {
+  50% {
+    opacity: 0;
+  }
+}
 #loginBtn {
-  /* border-radius: 15px;
-  --bs-btn-color: #b47501;
-  --bs-btn-border-color: #b47501;
-  --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #b47501;
-  --bs-btn-hover-border-color: #b47501;
-  --bs-btn-focus-shadow-rgb: 25, 135, 84;
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #b47501;
-  --bs-btn-active-border-color: #b47501;
-  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #b47501;
-  --bs-btn-disabled-bg: transparent;
-  --bs-btn-disabled-border-color: #b47501;
-  --bs-gradient: none; */
   font-family: Rockwell;
   display: inline-block;
   padding: 10px 20px;
@@ -465,6 +497,20 @@ async function resetPassword() {
 }
 
 /* Verify OTP*/
+
+#verify_OTP {
+  font-size: 23px;
+  font-weight: bold;
+}
+#logInResendOTP {
+  color: #b47501;
+}
+#logInResendOTP:hover {
+  color: #f8b333;
+}
+#logInOTPexpire {
+  color: burlywood;
+}
 #resetPasswordBtn {
   font-family: Rockwell;
   display: inline-block;
@@ -476,14 +522,8 @@ async function resetPassword() {
   border-radius: 50px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
-
 #resetPasswordBtn:hover {
   background-color: #f7bb08;
-}
-
-#verify_OTP {
-  font-size: 23px;
-  font-weight: bold;
 }
 
 /* Password */
@@ -498,7 +538,6 @@ async function resetPassword() {
   border-radius: 50px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
-
 #changePasswordBtn:hover {
   background-color: #f7bb08;
 }

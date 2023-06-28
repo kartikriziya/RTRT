@@ -133,6 +133,50 @@
           >
         </div>
       </div>
+      <div class="row pt-5">
+        <div class="col-12" style="text-align: center">
+          <h3 style="cursor: default">Guest</h3>
+          <form
+            action=""
+            class="row gy-3 needs-validation pt-5 ps-3 pe-3 pb-5"
+            autocomplete="off"
+            id="loginForm"
+          >
+            <div class="row">
+              <div class="col-md-1 col-lg-2 col-xl-3"></div>
+              <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3 text-center">
+                <div class="form-floating">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="guest_fname"
+                    placeholder="guestFname"
+                  />
+                  <label for="guest_fname" id="guest_labels">Firstname</label>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3 text-center">
+                <div class="form-floating">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="guest_lname"
+                    placeholder="guestLname"
+                  />
+                  <label for="guest_lname" id="guest_labels">Lastname</label>
+                </div>
+              </div>
+              <div class="col-md-1 col-lg-2 col-xl-3"></div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="row pt-3">
+        <div class="col-12 text-center">
+          <div class="R_Error" id="Reservation_Error">{{ Reservation_Error_msg }}</div>
+        </div>
+      </div>
     </div>
   </div>
   <!-- Reservation Button -->
@@ -384,6 +428,20 @@ Reservation_Error_msg.value = 'ERROR!!'
 #timinings input:not(:checked) + #timeLabel:hover {
   background-color: #f8b333;
   color: #f4ebd9;
+}
+
+.R_Error {
+  display: none;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 0.875em;
+  color: #dc3545;
+  animation: erroBlinker 1.5s linear infinite;
+}
+@keyframes erroBlinker {
+  50% {
+    opacity: 0;
+  }
 }
 
 /* ********************************** */

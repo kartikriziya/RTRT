@@ -9,6 +9,7 @@
       <Footer />
     </div>
   </div>
+  <Loader />
 </template>
 
 <script setup>
