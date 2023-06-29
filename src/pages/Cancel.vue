@@ -61,22 +61,11 @@ const store = inject('store')
 const action_id = ref('')
 const action = ref('')
 
-// onBeforeMount(() => {
-//   store.state.isLoading = true
-//   console.log('onBeforeMount isLoading : ' + store.state.isLoading)
-// })
 onMounted(() => {
   store.state.isLoading = false
-  console.log('onMounted isLoading : ' + store.state.isLoading)
 })
 
-// Array named 'reservationList' as const contains all Reservation of the selected Date.
-const reservationList = ref([
-  { Id: '1', Date: '01.01.2023', Time: '14:00' },
-  { Id: '2', Date: '02.02.2023', Time: '18:00' },
-  { Id: '3', Date: '22.01.2023', Time: '14:00' },
-  { Id: '4', Date: '30.02.2023', Time: '15:00' }
-])
+const reservationList = ref() // Array named 'reservationList' as const contains all Reservation of the selected Date.
 </script>
 <style scoped>
 #cancel {

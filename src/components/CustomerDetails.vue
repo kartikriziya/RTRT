@@ -163,7 +163,6 @@ const guest_lname = ref('')
 
 const LogIn_Email = ref('')
 LogIn_Email.value = JSON.parse(sessionStorage.getItem('user-email'))
-console.log(LogIn_Email.value)
 
 /********************************************************************************/
 /* Start of reserveTable() */
@@ -201,15 +200,15 @@ async function reserveTable() {
           ', Date = ' +
           collectDate.value +
           ', Time = ' +
-          collectTime.value + 
+          collectTime.value +
           ', gFname = ' +
-          guest_fname.value + 
+          guest_fname.value +
           ', gLname = ' +
-          guest_lname.value + 
+          guest_lname.value +
           ', Login Email = ' +
-          LogIn_Email.value 
+          LogIn_Email.value
       )
-      
+
       if (result.data.includes('Reservation added!')) {
         console.log('Data stored.')
         Reservation_Error.style.display = 'none'
@@ -289,7 +288,7 @@ const timinings = ref([
   { id: 'nineteen', time: '19:00' },
   { id: 'nineteenteenthirty', time: '19:30' }
 ])
-function disableError(){
+function disableError() {
   const Reservation_Error = document.getElementById('Reservation_Error')
   Reservation_Error.style.display = 'none'
 }
