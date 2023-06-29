@@ -16,6 +16,7 @@
                 name="people"
                 :id="People.id"
                 :value="People.people"
+                @click="disableError()"
               />
               <label :for="People.id" id="numberLabel"
                 ><span id="number">{{ People.people }}</span></label
@@ -33,6 +34,7 @@
                 name="people"
                 :id="People.id"
                 :value="People.people"
+                @click="disableError()"
               />
               <label :for="People.id" id="numberLabel"
                 ><span id="number">{{ People.people }}</span></label
@@ -55,7 +57,7 @@
                 type="date"
                 class="ms-3"
                 id="datePicker"
-                @click="datePickerRestrictions()"
+                @click="datePickerRestrictions(), disableError()"
               />
             </div>
           </div>
@@ -76,6 +78,7 @@
                 name="slots"
                 :id="Slot.id"
                 :value="Slot.time"
+                @click="disableError()"
               />
               <label :for="Slot.id" id="timeLabel"
                 ><span id="time">{{ Slot.time }}</span></label
@@ -86,6 +89,7 @@
       </div>
       <div class="row pt-5">
         <div class="col-12">
+          <!-- Guest Details -->
           <h3 style="cursor: default">Guest</h3>
           <form
             action=""
@@ -98,6 +102,7 @@
               <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3 text-center">
                 <div class="form-floating">
                   <input
+                    v-model="guest_fname"
                     type="text"
                     class="form-control"
                     id="guest_fname"
@@ -109,6 +114,7 @@
               <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3 text-center">
                 <div class="form-floating">
                   <input
+                    v-model="guest_lname"
                     type="text"
                     class="form-control"
                     id="guest_lname"
@@ -152,15 +158,22 @@ const props = defineProps({ sendStars: String }) // props defined in props varia
 const collectPeople = ref('') // no. of people will be updated in collectPeople variable as const
 const collectDate = ref('') // date will be updated in collectDate variable as const
 const collectTime = ref('') // time will be updated in collectTime variable as const
+const guest_fname = ref('')
+const guest_lname = ref('')
+
+const LogIn_Email = ref('')
+LogIn_Email.value = JSON.parse(sessionStorage.getItem('user-email'))
+console.log(LogIn_Email.value)
 
 /********************************************************************************/
 /* Start of reserveTable() */
 /* -> Rating Stars received => as a Prop name 'sendStars'
 /********************************************************************************/
+
 async function reserveTable() {
   console.log('reserveTable')
+  const Reservation_Error = document.getElementById('Reservation_Error')
   if (collectPeople.value == '' || collectDate.value == '' || collectTime == '') {
-    const Reservation_Error = document.getElementById('Reservation_Error')
     Reservation_Error.style.display = 'block'
     Reservation_Error_msg.value = 'Please enter missing value!'
   } else {
@@ -170,7 +183,10 @@ async function reserveTable() {
       props: props,
       noOfPeople: collectPeople.value,
       reserveDate: collectDate.value,
-      reserveTime: collectTime.value
+      reserveTime: collectTime.value,
+      guestFname: guest_fname.value,
+      guestLname: guest_lname.value,
+      loginEmail: LogIn_Email.value
     })
     store.state.isLoading = false
     if (result.status == 200 || result.status == 201) {
@@ -185,12 +201,21 @@ async function reserveTable() {
           ', Date = ' +
           collectDate.value +
           ', Time = ' +
-          collectTime.value
+          collectTime.value + 
+          ', gFname = ' +
+          guest_fname.value + 
+          ', gLname = ' +
+          guest_lname.value + 
+          ', Login Email = ' +
+          LogIn_Email.value 
       )
+      
       if (result.data.includes('Reservation added!')) {
         console.log('Data stored.')
+        Reservation_Error.style.display = 'none'
       } else {
-        console.log('NO Data received.')
+        Reservation_Error.style.display = 'block'
+        Reservation_Error_msg.value = 'Please try some other date and time!'
       }
     } else {
       console.log(result.data)
@@ -264,7 +289,10 @@ const timinings = ref([
   { id: 'nineteen', time: '19:00' },
   { id: 'nineteenteenthirty', time: '19:30' }
 ])
-Reservation_Error_msg.value = 'ERROR!!'
+function disableError(){
+  const Reservation_Error = document.getElementById('Reservation_Error')
+  Reservation_Error.style.display = 'none'
+}
 </script>
 <style scoped>
 /* ********************************** */
