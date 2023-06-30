@@ -106,16 +106,12 @@ onMounted(() => {
 const reservationList = ref('')
 
 async function showReservations() {
-  console.log('sss')
   let result = await axios.post(Base_Url + '/reservationAction.php', {
     reservationAction: 'admin',
     date: collectDate.value
   })
   if (result.status == 200 || result.status == 201) {
     reservationList.value = result.data
-    console.log(result)
-  } else {
-    console.log(result.status)
   }
 }
 
