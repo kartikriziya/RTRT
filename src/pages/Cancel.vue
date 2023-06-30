@@ -24,7 +24,7 @@
               <tbody class="table-group-divider">
                 <tr v-for="reservation in reservationList">
                   <td scope="row" id="table_row_data" style="color: #262626">
-                    {{ reservation.Id }}
+                    {{ reservation.reservation_id }}
                     <input
                       type="text"
                       :id="reservation.Id"
@@ -33,16 +33,17 @@
                       style="display: none"
                     />
                   </td>
-                  <td id="table_row_data">{{ reservation.Date }}</td>
-                  <td id="table_row_data">{{ reservation.Time }}</td>
-                  <td id="table_row_data">
-                    <button
-                      class="btn"
-                      id="cancel_reservation_btn"
-                      @click.prevent="cancelReservation(reservation.Id)"
-                    >
-                      Cancel
-                    </button>
+                  <td id="table_row_data">{{ reservation.reserve_date }}</td>
+                  <td id="table_row_data">{{ reservation.reserve_time }}</td>
+                  <td v-show="reservation.reservation_status != 0" id="table_row_data">
+                    <button class="btn" id="cancel_reservation_btn">Cancel</button>
+                  </td>
+                  <td
+                    v-show="reservation.reservation_status == 0"
+                    id="table_row_data"
+                    style="cursor: none"
+                  >
+                    Cancelled
                   </td>
                 </tr>
               </tbody>
@@ -54,19 +55,36 @@
     </div>
   </div>
 </template>
+
 <script setup>
-import { ref, onBeforeMount, onMounted, inject } from 'vue'
+import { ref, onMounted, inject } from 'vue'
+import axios from 'axios'
 
 const store = inject('store')
+const Base_Url = 'https://olivewood.elementfx.com'
 const action_id = ref('')
 const action = ref('')
 
 onMounted(() => {
   store.state.isLoading = false
+  showReservations()
 })
 
 const reservationList = ref() // Array named 'reservationList' as const contains all Reservation of the selected Date.
+
+async function showReservations() {
+  let result = await axios.post(Base_Url + '/reservationAction.php', {
+    reservationAction: 'user',
+    date: '2023-07-26'
+  })
+  if (result.status == 200 || result.status == 201) {
+    reservationList.value = result.data
+  }
+}
+
+async function cancelReservation() {}
 </script>
+
 <style scoped>
 #cancel {
   background-color: #f4ebd9;

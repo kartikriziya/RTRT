@@ -317,7 +317,7 @@ async function SignUp() {
       console.log(result.data)
       console.log(signUpPassword1.value + ', ' + signUpPassword2.value)
 
-      if (result.data.includes === 'successfully signup') {
+      if (result.data === 'successfully signup') {
         const slider = document.querySelector('#slider')
         slider.classList.remove('showSignUp')
         slider.classList.add('showLogin') /* -------> */
