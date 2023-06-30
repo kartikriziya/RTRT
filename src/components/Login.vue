@@ -210,7 +210,7 @@ async function login() {
     LogIn_Error_Message.value = 'Please enter valid Credentials!'
   } else {
     // Email validation
-    const Login_emailRegex = /@gmail\.com$/i
+    const Login_emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+[^ \t\r\n]*/
     if (!Login_emailRegex.test(loginEmail.value)) {
       Login_Error.style.display = 'block'
       LogIn_Error_Message.value = 'Please use a valid E-Mail format.!'

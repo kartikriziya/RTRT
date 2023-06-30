@@ -188,7 +188,7 @@ async function verifyEmail() {
     SignUp_Error.style.display = 'block'
     signUp_Error_Message.value = 'Please fill in all the required fields!'
   } else {
-    const SignUp_emailRegex = /@gmail\.com$/i
+    const SignUp_emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+[^ \t\r\n]*/
     if (!SignUp_emailRegex.test(signUpEmail.value)) {
       SignUp_Error.style.display = 'block'
       signUp_Error_Message.value = 'Please use a valid E-Mail format!'
@@ -317,7 +317,7 @@ async function SignUp() {
       console.log(result.data)
       console.log(signUpPassword1.value + ', ' + signUpPassword2.value)
 
-      if (result.data === 'successfully signup') {
+      if (result.data.includes === 'successfully signup') {
         const slider = document.querySelector('#slider')
         slider.classList.remove('showSignUp')
         slider.classList.add('showLogin') /* -------> */
