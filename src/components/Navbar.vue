@@ -45,7 +45,8 @@ const store = inject('store')
 const router = useRouter()
 
 onMounted(() => {
-  if (store.state.isUser) {
+  if (sessionStorage.getItem('user-email')) {
+    store.state.isUser = true
     document.getElementById('logout').style.display = 'block'
   } else {
     document.getElementById('logout').style.display = 'none'
@@ -60,6 +61,7 @@ watchEffect(() => {
 function logout() {
   document.getElementById('logout').style.display = 'none'
   sessionStorage.removeItem('user-email')
+  store.state.isUser = false
   router.push({ path: '/' })
 }
 </script>

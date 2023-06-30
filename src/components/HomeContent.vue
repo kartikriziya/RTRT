@@ -4,7 +4,7 @@
       <img src="../assets/los.svg" id="logoWrapper" height="236" width="229" alt="" />
       <div class="mt-5" id="reserve">
         <router-link class="nav-link" id="reserveBtn" :to="{ name: 'reservation' }"
-          >Register Now</router-link
+          >register Now</router-link
         >
       </div>
     </div>
@@ -26,26 +26,24 @@ const store = inject('store')
 <style scoped>
 #videoContent {
   min-height: calc(100vh - 150px);
-  padding-top: 15rem;
+  padding-top: 10rem;
 }
 #wrapper {
   position: relative;
   z-index: 1;
 }
 #logoWrapper {
-  /* margin: 20vh 0 0 35px; */
   border-radius: 50% 50%;
+  height: 150px;
+  width: 150px;
 }
-/* #reserve {
-  margin-bottom: 20vh;
-} */
 #reserveBtn {
   color: #fff;
   display: inline-block;
-  font-size: 25px;
-  font-weight: 700;
   font-family: 'trade_gothic_bdcn20', 'Roboto', Helvetica Neue, Helvetica, Arial, sans-serif;
-  line-height: 46px;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 28px;
   letter-spacing: calc(100px / 100);
   border: 2px solid #fff;
   border-radius: 50px;
@@ -57,7 +55,7 @@ const store = inject('store')
   color: #b47501;
   border-color: #f8b333;
 }
-#scroll {
+/* #scroll {
   color: #fff;
   text-align: center;
   cursor: pointer;
@@ -76,5 +74,80 @@ const store = inject('store')
 #arrow {
   height: 25px;
   width: 25px;
+} */
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+  #videoContent {
+    padding-top: 11rem;
+  }
+  #logoWrapper {
+    height: 165px;
+    width: 165px;
+  }
+  #reserveBtn {
+    font-size: 16px;
+    line-height: 30px;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  #videoContent {
+    padding-top: 12rem;
+  }
+  #logoWrapper {
+    height: 175px;
+    width: 175px;
+  }
+  #reserveBtn {
+    font-size: 17px;
+    line-height: 32px;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  #videoContent {
+    padding-top: 13rem;
+  }
+  #logoWrapper {
+    height: 185px;
+    width: 185px;
+  }
+  #reserveBtn {
+    font-size: 18px;
+    line-height: 35px;
+  }
+}
+
+/* X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  #videoContent {
+    padding-top: 14rem;
+  }
+  #logoWrapper {
+    height: 200px;
+    width: 200px;
+  }
+  #reserveBtn {
+    font-size: 20px;
+    line-height: 40px;
+  }
+}
+
+/* XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) {
+  #videoContent {
+    padding-top: 15rem;
+  }
+  #logoWrapper {
+    height: 236px;
+    width: 229px;
+  }
+  #reserveBtn {
+    font-size: 25px;
+    line-height: 46px;
+  }
 }
 </style>

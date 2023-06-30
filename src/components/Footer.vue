@@ -26,9 +26,6 @@
           <router-link class="nav-link mb-2" id="links" :to="{ name: 'terms' }"
             >Terms & Conditions</router-link
           >
-          <!-- <router-link class="nav-link mb-2" id="links" :to="{ name: 'contact' }"
-            >Kontaktdatenerhebung Covid-19</router-link
-          > -->
         </div>
       </div>
       <div class="row">
@@ -62,6 +59,7 @@
 import { inject } from 'vue'
 const store = inject('store')
 </script>
+
 <style scoped>
 #footer {
   min-height: 25vh;
@@ -107,4 +105,3 @@ const store = inject('store')
     margin-bottom: 20px;
   }
 }
-</style>

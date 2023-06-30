@@ -201,6 +201,7 @@
     <div class="col-sm-3"></div>
   </form>
 </template>
+
 <script setup>
 import { ref, inject } from 'vue'
 import { useRouter } from 'vue-router'
@@ -297,7 +298,7 @@ async function getOTP() {
         document.querySelector('#getOTPForm').style.display = 'none'
         document.querySelector('#verifyOTPForm').style.display = 'flex'
 
-        let timeleft = 10
+        let timeleft = 120
         const logInOTPexpire = document.getElementById('logInOTPexpire')
         const otpTimer = setInterval(function () {
           if (timeleft <= 0) {
@@ -308,7 +309,7 @@ async function getOTP() {
             logInOTPexpire.classList.add('R_Error')
             logInOTPexpire.style.display = 'block'
 
-            document.querySelector('.signUp_VerifyOTP_btn').disabled = true
+            document.querySelector('.LogIn_VerifyOTP_btn').disabled = true
           } else {
             login_OTP_Time.value = timeleft
           }
@@ -410,6 +411,7 @@ async function resetPassword() {
   }
 }
 </script>
+
 <style scoped>
 #loginForm,
 #changePasswordFrom,

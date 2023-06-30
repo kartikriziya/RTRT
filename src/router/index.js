@@ -64,18 +64,25 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  let user = sessionStorage.getItem('user-email')
+  let isUser = sessionStorage.getItem('user-email')
 
   /* Navigation Guard for 'account.vue' page */
   if (to.path === '/account') {
-    if (user) {
+    if (isUser) {
       next({ name: 'reservieren' })
     } else {
       next()
     }
     /* Navigation Guard for 'reservation.vue' page */
   } else if (to.path === '/reservation') {
-    if (!user) {
+    if (!isUser) {
+      next({ name: 'account' })
+    } else {
+      next()
+    }
+    /* Navigation Guard for 'cancel.vue' page */
+  } else if (to.path === '/cancel') {
+    if (!isUser) {
       next({ name: 'account' })
     } else {
       next()

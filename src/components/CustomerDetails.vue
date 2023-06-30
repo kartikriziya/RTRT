@@ -188,6 +188,7 @@
     <div class="col-lg-4"></div>
   </div>
 </template>
+
 <script setup>
 import { ref, inject } from 'vue'
 import axios from 'axios'
@@ -201,25 +202,36 @@ const props = defineProps({ sendStars: String }) // props defined in props varia
 const collectPeople = ref('') // no. of people will be updated in collectPeople variable as const
 const collectDate = ref('') // date will be updated in collectDate variable as const
 const collectTime = ref('') // time will be updated in collectTime variable as const
+const guest_fname = ref('')
+const guest_lname = ref('')
+
+const LogIn_Email = ref('')
+LogIn_Email.value = JSON.parse(sessionStorage.getItem('user-email'))
 
 /********************************************************************************/
 /* Start of reserveTable() */
 /* -> Rating Stars received => as a Prop name 'sendStars'
 /********************************************************************************/
+
 async function reserveTable() {
   console.log('reserveTable')
+  const Reservation_Error = document.getElementById('Reservation_Error')
   if (collectPeople.value == '' || collectDate.value == '' || collectTime == '') {
-    const Reservation_Error = document.getElementById('Reservation_Error')
     Reservation_Error.style.display = 'block'
     Reservation_Error_msg.value = 'Please enter missing value!'
   } else {
+    store.state.isLoading = true
     let result = await axios.post(Base_Url + '/reservation.php', {
       action: 'reserve_Table',
       props: props,
       noOfPeople: collectPeople.value,
       reserveDate: collectDate.value,
-      reserveTime: collectTime.value
+      reserveTime: collectTime.value,
+      guestFname: guest_fname.value,
+      guestLname: guest_lname.value,
+      loginEmail: LogIn_Email.value
     })
+    store.state.isLoading = false
     if (result.status == 200 || result.status == 201) {
       console.log(result.data)
       console.log(
@@ -232,12 +244,21 @@ async function reserveTable() {
           ', Date = ' +
           collectDate.value +
           ', Time = ' +
-          collectTime.value
+          collectTime.value +
+          ', gFname = ' +
+          guest_fname.value +
+          ', gLname = ' +
+          guest_lname.value +
+          ', Login Email = ' +
+          LogIn_Email.value
       )
+
       if (result.data.includes('Reservation added!')) {
         console.log('Data stored.')
+        Reservation_Error.style.display = 'none'
       } else {
-        console.log('NO Data received.')
+        Reservation_Error.style.display = 'block'
+        Reservation_Error_msg.value = 'Please try some other date and time!'
       }
     } else {
       console.log(result.data)
@@ -311,8 +332,12 @@ const timinings = ref([
   { id: 'nineteen', time: '19:00' },
   { id: 'nineteenteenthirty', time: '19:30' }
 ])
-Reservation_Error_msg.value = 'ERROR!!'
+function disableError() {
+  const Reservation_Error = document.getElementById('Reservation_Error')
+  Reservation_Error.style.display = 'none'
+}
 </script>
+
 <style scoped>
 /* ********************************** */
 /*            No of People            */
