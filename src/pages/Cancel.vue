@@ -74,7 +74,7 @@ const reservationList = ref() // Array named 'reservationList' as const contains
 
 async function showReservations() {
   let result = await axios.post(Base_Url + '/reservationAction.php', {
-    reservationAction: 'user',
+    action: 'user',
     date: '2023-07-26'
   })
   if (result.status == 200 || result.status == 201) {
