@@ -10,13 +10,7 @@
           </h4>
         </div>
         <div class="col-4 text-start">
-          <input
-            v-model="collectDate"
-            type="date"
-            id="datePicker"
-            @click="datePickerRestrictions()"
-            @change="showReservations()"
-          />
+          <input v-model="collectDate" type="date" id="datePicker" @change="showReservations()" />
         </div>
         <!-- End of Date Picker -->
       </div>
@@ -112,16 +106,12 @@ onMounted(() => {
 const reservationList = ref('')
 
 async function showReservations() {
-  // reservationList.value.push(
-  //   { Id: '1', Name: 'Kartik', Email: 'kartikriziya30721@gmail.com', Time: '14:00', Action: 0 },
-  //   { Id: '2', Name: 'Nancy', Email: 'nancybalar132313@gmail.com', Time: '18:00', Action: 0 }
-  // ) // add new data to an Array 'reservationList'
-  let result = await axios.post(Base_Url + '/admin.php', {
+  let result = await axios.post(Base_Url + '/reservationAction.php', {
+    reservationAction: 'admin',
     date: collectDate.value
   })
   if (result.status == 200 || result.status == 201) {
     reservationList.value = result.data
-    //console.log(reservationList.value)
   }
 }
 
