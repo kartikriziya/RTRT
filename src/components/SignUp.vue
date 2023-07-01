@@ -215,7 +215,7 @@ async function verifyEmail() {
       return
     }
     store.state.isLoading = true
-    let result = await axios.post(Base_Url + '/account.php', {
+    let result = await axios.post(Base_Url + '/RTRT/account.php', {
       action: 'verify_email',
       firstName: signUpFname.value,
       lastName: signUpLname.value,
@@ -246,7 +246,7 @@ async function SignUp_resendOTP() {
   console.log('SignUp_resendOTP')
   store.state.isLoading = true
   await axios
-    .post(Base_Url + '/account.php', {
+    .post(Base_Url + '/RTRT/account.php', {
       action: 'SignUp_resendOTP',
       Email: signUpEmail.value
     })
@@ -273,7 +273,7 @@ async function verifyOTP() {
     signUp_Error_Message.value = 'Please enter the One-Time Password (OTP)!'
   } else {
     store.state.isLoading = true
-    let result = await axios.post(Base_Url + '/account.php', {
+    let result = await axios.post(Base_Url + '/RTRT/account.php', {
       action: 'verify_otp',
       signUpOTP: signUpOTP.value,
       Email: signUpEmail.value
@@ -312,7 +312,7 @@ async function SignUp() {
     signUp_Error_Message.value = 'Please enter password in both fields!'
   } else {
     store.state.isLoading = true
-    let result = await axios.post(Base_Url + '/account.php', {
+    let result = await axios.post(Base_Url + '/RTRT/account.php', {
       action: 'signup',
       firstName: signUpFname.value,
       lastName: signUpLname.value,

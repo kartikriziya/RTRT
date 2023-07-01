@@ -177,7 +177,7 @@ async function reserveTable() {
     Reservation_Error_msg.value = 'Please enter missing value!'
   } else {
     store.state.isLoading = true
-    let result = await axios.post(Base_Url + '/reservation.php', {
+    let result = await axios.post(Base_Url + '/RTRT/reservation.php', {
       action: 'reserve_Table',
       props: props,
       noOfPeople: collectPeople.value,

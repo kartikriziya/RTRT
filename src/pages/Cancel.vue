@@ -71,7 +71,7 @@ onMounted(() => {
 const reservationList = ref('') 
 
 async function showReservations() {
-  let result = await axios.post(Base_Url + '/reservationAction.php', {
+  let result = await axios.post(Base_Url + '/RTRT/reservationAction.php', {
     action: 'user',
     loggedInEmail: LoggedIn_Email.value
   })
@@ -85,7 +85,7 @@ async function showReservations() {
 async function cancelReservation(id) {
   action_id.value = id
   console.log('Reservation ID: ' + action_id.value + ' and has been cancelled.' )
-  let result = await axios.post(Base_Url + '/reservationAction.php', {
+  let result = await axios.post(Base_Url + '/RTRT/reservationAction.php', {
     action: 'user',
     actionID: action_id.value,
     loggedInEmail: LoggedIn_Email.value
