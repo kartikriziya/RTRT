@@ -16,6 +16,7 @@
           class="form-control"
           id="loginEmail"
           placeholder="name@example.com"
+          @input="login_hideError()"
           required
         />
         <label for="loginEmail" id="loginLabels">Email address *</label>
@@ -29,6 +30,7 @@
           class="form-control"
           id="loginPassword"
           placeholder="********"
+          @input="login_hideError()"
           required
         />
         <label for="loginPassword" id="loginLabels">Password *</label>
@@ -68,6 +70,7 @@
           class="form-control"
           id="forgetPasswordEmail"
           placeholder="name@example.com"
+          @input="getOTP_hideError()"
           required
         />
         <label for="forgetPasswordEmail" id="loginLabels" @click.prevent="getOTP()"
@@ -98,6 +101,9 @@
     style="display: none"
   >
     <div class="col-12">
+      <p class="ms-2" style="color: burlywood; font-size: xx-small">
+        OTP has been sent successfully to : {{ forgetPasswordEmail }}
+      </p>
       <div class="form-floating">
         <input
           v-model="loginVerifyOTP"
@@ -105,17 +111,20 @@
           class="form-control"
           id="loginVerifyOTP"
           placeholder="12345678"
+          @input="verifyOTP_hideError()"
           required
         />
         <label for="loginVerifyOTP" id="loginLabels">OTP *</label>
       </div>
     </div>
-
     <div class="col-12 ms-2">
       <a id="logInResendOTP" @click.prevent="LogIn_resendOTP()">Resend OTP?</a>
     </div>
     <div class="col-12 ms-2" id="logInOTPexpire">
       OTP expire in : <span>{{ login_OTP_Time }}</span>
+    </div>
+    <div class="col-12 ms-2" id="logInOTPexpire_error">
+      <span>OTP expired</span>
     </div>
 
     <div class="col-12">
@@ -125,8 +134,8 @@
     </div>
     <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center d-grid pt-3">
-      <button class="btn LogIn_VerifyOTP_btn" id="resetPasswordBtn" @click.prevent="verifyOTP()">
-        Reset Password
+      <button class="btn LogIn_VerifyOTP_btn" id="verifyOTPBtn" @click.prevent="verifyOTP()">
+        Verify OTP
       </button>
     </div>
     <div class="col-sm-3"></div>
@@ -149,6 +158,7 @@
           class="form-control"
           id="loginForgotPassword1"
           placeholder="password"
+          @input="resetPassword_hideError()"
           required
         />
         <label for="loginForgotPassword1" id="loginLabels">Password *</label>
@@ -162,6 +172,7 @@
           class="form-control"
           id="loginForgotPassword2"
           placeholder="password"
+          @input="resetPassword_hideError()"
           required
         />
         <label for="loginForgotPassword2" id="loginLabels">Re-password *</label>
@@ -194,12 +205,28 @@ const Base_Url = 'https://olivewood.elementfx.com'
 const loginEmail = ref('')
 const loginPassword = ref('')
 const forgetPasswordEmail = ref('')
+const otpTimer = ref('')
 const login_OTP_Time = ref('')
 const loginVerifyOTP = ref('')
 const loginForgotPassword1 = ref('')
 const loginForgotPassword2 = ref('')
 
 const LogIn_Error_Message = ref('')
+function logInTimer() {
+  let timeleft = 120
+  otpTimer.value = setInterval(function () {
+    if (timeleft <= 0) {
+      clearInterval(otpTimer.value)
+      login_OTP_Time.value = null
+      document.getElementById('logInOTPexpire').style.display = 'none'
+      document.getElementById('logInOTPexpire_error').style.display = 'block'
+      document.querySelector('.LogIn_VerifyOTP_btn').disabled = true
+    } else {
+      login_OTP_Time.value = timeleft
+    }
+    timeleft -= 1
+  }, 1000)
+}
 
 /* ______ login ______ */
 async function login() {
@@ -256,6 +283,9 @@ function forgetPassword() {
   document.querySelector('#loginForm').style.display = 'none'
   document.querySelector('#getOTPForm').style.display = 'flex'
 }
+function login_hideError() {
+  document.querySelector('.Login_Error').style.display = 'none'
+}
 
 /* ______ getOTP ______ */
 async function getOTP() {
@@ -277,24 +307,8 @@ async function getOTP() {
       if (result.data != 'No_Email_Found!') {
         document.querySelector('#getOTPForm').style.display = 'none'
         document.querySelector('#verifyOTPForm').style.display = 'flex'
-
-        let timeleft = 10
-        const logInOTPexpire = document.getElementById('logInOTPexpire')
-        const otpTimer = setInterval(function () {
-          if (timeleft <= 0) {
-            clearInterval(otpTimer)
-            login_OTP_Time.value = null
-            logInOTPexpire.innerHTML = 'OTP expired'
-            logInOTPexpire.style.color = '#dc3545'
-            logInOTPexpire.classList.add('R_Error')
-            logInOTPexpire.style.display = 'block'
-
-            document.querySelector('.LogIn_VerifyOTP_btn').disabled = true
-          } else {
-            login_OTP_Time.value = timeleft
-          }
-          timeleft -= 1
-        }, 1000)
+        clearInterval(otpTimer.value)
+        logInTimer()
       } else {
         //alert(result.data)
         Login_getOTPError.style.display = 'block'
@@ -306,20 +320,29 @@ async function getOTP() {
     }
   }
 }
+function getOTP_hideError() {
+  document.querySelector('.Login_getOTPError').style.display = 'none'
+}
 
 /* ______ ResendOTP ______ */
 async function LogIn_resendOTP() {
+  verifyOTP_hideError()
   console.log('LogIn_resendOTP')
+  const logInOTPexpire = document.getElementById('logInOTPexpire')
   store.state.isLoading = true
   let result = await axios.post(Base_Url + '/forgetPassword.php', {
     action: 'LogIn_resendOTP',
     forgetPasswordEmail: forgetPasswordEmail.value
   })
   store.state.isLoading = false
+  document.getElementById('logInOTPexpire').style.display = 'block'
+  document.getElementById('logInOTPexpire_error').style.display = 'none'
+  document.querySelector('.LogIn_VerifyOTP_btn').disabled = false
   if (result.status == 200 || result.status == 201) {
     console.log(result.data)
     console.log(forgetPasswordEmail.value)
-    document.querySelector('.LogIn_VerifyOTP_btn').disabled = true
+    clearInterval(otpTimer.value)
+    logInTimer()
   } else {
     console.log(result.data)
   }
@@ -347,7 +370,6 @@ async function verifyOTP() {
         document.querySelector('#verifyOTPForm').style.display = 'none'
         document.querySelector('#changePasswordFrom').style.display = 'flex'
       } else {
-        //alert(result.data)
         Login_verifyOTPError.style.display = 'block'
         LogIn_Error_Message.value =
           'Incorrect OTP. Please check your One-Time Password and try again!'
@@ -356,6 +378,9 @@ async function verifyOTP() {
       console.log(result.data)
     }
   }
+}
+function verifyOTP_hideError() {
+  document.querySelector('.Login_verifyOTPError').style.display = 'none'
 }
 
 /* ______ Reset Password ______ */
@@ -389,6 +414,9 @@ async function resetPassword() {
       console.log(result.data)
     }
   }
+}
+function resetPassword_hideError() {
+  document.querySelector('.Login_createPasswordError').style.display = 'none'
 }
 </script>
 
@@ -426,19 +454,7 @@ async function resetPassword() {
 #loginForgot:hover {
   color: #f8b333;
 }
-.R_Error {
-  display: none;
-  width: 100%;
-  margin-top: 0.25rem;
-  font-size: 0.875em;
-  color: #dc3545;
-  animation: erroBlinker 1.5s linear infinite;
-}
-@keyframes erroBlinker {
-  50% {
-    opacity: 0;
-  }
-}
+
 #loginBtn {
   --bs-btn-color: #b47501;
   --bs-btn-border-color: #b47501;
@@ -480,19 +496,26 @@ async function resetPassword() {
 #verifyOTP {
   color: #b47501;
 }
-#resetPasswordBtn:hover {
+#verifyOTPBtn:hover {
   color: #f8b333;
 }
 #logInResendOTP {
   color: #b47501;
+  cursor: pointer;
 }
 #logInResendOTP:hover {
   color: #f8b333;
 }
 #logInOTPexpire {
   color: burlywood;
+  font-size: small;
 }
-#resetPasswordBtn {
+#logInOTPexpire_error {
+  display: none;
+  color: #dc3545;
+  animation: erroBlinker 1.5s linear infinite;
+}
+#verifyOTPBtn {
   --bs-btn-color: #b47501;
   --bs-btn-border-color: #b47501;
   --bs-btn-hover-color: #fff;
@@ -528,5 +551,19 @@ async function resetPassword() {
   --bs-btn-disabled-bg: transparent;
   --bs-btn-disabled-border-color: #b47501;
   --bs-gradient: none;
+}
+
+.R_Error {
+  display: none;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 0.875em;
+  color: #dc3545;
+  animation: erroBlinker 1.5s linear infinite;
+}
+@keyframes erroBlinker {
+  50% {
+    opacity: 0;
+  }
 }
 </style>

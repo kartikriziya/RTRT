@@ -58,7 +58,7 @@
     </div>
     <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center d-grid pt-4">
-      <button class="btn" id="signUpBtn" @click.prevent="verifyEmail()">Verify Email</button>
+      <button class="btn" id="signUp_emailBtn" @click.prevent="verifyEmail()">Verify Email</button>
     </div>
   </form>
   <!-- --------------------------------------------------------------------------------------------------- -->
@@ -72,7 +72,7 @@
     novalidate
     style="display: none"
   >
-    <div class="col-sm-6 pb-5">
+    <div class="col-sm-6">
       <div class="form-floating">
         <input
           v-model="signUpOTP"
@@ -86,7 +86,7 @@
         <label for="signUpOTP" id="signUpLabels">OTP *</label>
       </div>
     </div>
-    <div class="col-sm-6 pb-5">
+    <div class="col-sm-6">
       <div class="row">
         <div class="col-12">
           <a id="signUpResendOTP" @click.prevent="SignUp_resendOTP()">Resend OTP?</a>
@@ -94,16 +94,22 @@
         <div class="col-12" id="signUpOTPexpire">
           OTP expire in : <span>{{ signUP_OTP_Time }}</span>
         </div>
+        <div class="col-12" id="signUpOTPexpire_error">
+          <span>OTP expired</span>
+        </div>
       </div>
     </div>
     <div class="col-12">
+      <p class="pb-5" style="color: burlywood; font-size: xx-small">
+        OTP has been sent successfully to : {{ signUpEmail }}
+      </p>
       <div class="form-floating">
         <div class="R_Error SignUp_verifyOTPError">{{ signUp_Error_Message }}</div>
       </div>
     </div>
     <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center d-grid">
-      <button class="btn signUp_VerifyOTP_btn" id="signUpBtn" @click.prevent="verifyOTP()">
+      <button class="btn signUp_VerifyOTP_btn" id="signUp_verifyBtn" @click.prevent="verifyOTP()">
         Verify OTP
       </button>
     </div>
@@ -155,7 +161,7 @@
     </div>
     <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center d-grid pt-3">
-      <button class="btn" id="signUpBtn" @click.prevent="SignUp()">Signup</button>
+      <button class="btn" id="signUp_passwordBtn" @click.prevent="SignUp()">Signup</button>
     </div>
     <div class="col-sm-3"></div>
   </form>
@@ -171,14 +177,28 @@ const Base_Url = 'https://olivewood.elementfx.com'
 const signUpFname = ref('')
 const signUpLname = ref('')
 const signUpEmail = ref('')
-
+const otpTimer = ref('')
 const signUP_OTP_Time = ref('')
 const signUpOTP = ref('')
-
 const signUpPassword1 = ref('')
 const signUpPassword2 = ref('')
-
 const signUp_Error_Message = ref('')
+
+function signUpTimer() {
+  let timeleft = 120
+  otpTimer.value = setInterval(function () {
+    if (timeleft <= 0) {
+      clearInterval(otpTimer.value)
+      signUP_OTP_Time.value = null
+      document.getElementById('signUpOTPexpire').style.display = 'none'
+      document.getElementById('signUpOTPexpire_error').style.display = 'block'
+      document.querySelector('.signUp_VerifyOTP_btn').disabled = true
+    } else {
+      signUP_OTP_Time.value = timeleft
+    }
+    timeleft -= 1
+  }, 1000)
+}
 
 /* ______ verifyEmail ______ */
 async function verifyEmail() {
@@ -209,24 +229,8 @@ async function verifyEmail() {
       if (result.data != 'Account with this Email already exists!') {
         document.querySelector('#signUpForm').style.display = 'none'
         document.querySelector('#signUpOTPForm').style.display = 'flex'
-
-        let timeleft = 120
-        const signUpOTPexpire = document.getElementById('signUpOTPexpire')
-        const otpTimer = setInterval(function () {
-          if (timeleft <= 0) {
-            clearInterval(otpTimer)
-            signUP_OTP_Time.value = null
-            signUpOTPexpire.innerHTML = 'OTP expired'
-            signUpOTPexpire.style.color = '#dc3545'
-            signUpOTPexpire.classList.add('R_Error')
-            signUpOTPexpire.style.display = 'block'
-
-            document.querySelector('.signUp_VerifyOTP_btn').disabled = true
-          } else {
-            signUP_OTP_Time.value = timeleft
-          }
-          timeleft -= 1
-        }, 1000)
+        clearInterval(otpTimer.value)
+        signUpTimer()
       } else {
         SignUp_Error.style.display = 'block'
         signUp_Error_Message.value = 'Account with this Email already exists. Try another Email!'
@@ -248,7 +252,11 @@ async function SignUp_resendOTP() {
     })
     .then((result) => {
       console.log(result.data)
-      //document.querySelector('.signUp_VerifyOTP_btn').disabled = true
+      document.getElementById('signUpOTPexpire').style.display = 'block'
+      document.getElementById('signUpOTPexpire_error').style.display = 'none'
+      document.querySelector('.signUp_VerifyOTP_btn').disabled = false
+      clearInterval(otpTimer.value)
+      signUpTimer()
     })
     .catch(function (error) {
       console.log(error)
@@ -374,28 +382,23 @@ async function SignUp() {
 }
 #signUpResendOTP {
   color: #b47501;
+  cursor: pointer;
 }
 #signUpResendOTP:hover {
   color: #f8b333;
 }
 #signUpOTPexpire {
   color: burlywood;
+  font-size: small;
 }
-
-.R_Error {
+#signUpOTPexpire_error {
   display: none;
-  width: 100%;
-  margin-top: 0.25rem;
-  font-size: 0.875em;
   color: #dc3545;
   animation: erroBlinker 1.5s linear infinite;
 }
-@keyframes erroBlinker {
-  50% {
-    opacity: 0;
-  }
-}
-#signUpBtn {
+#signUp_emailBtn,
+#signUp_verifyBtn,
+#signUp_passwordBtn {
   --bs-btn-color: #b47501;
   --bs-btn-border-color: #b47501;
   --bs-btn-hover-color: #fff;
@@ -410,5 +413,19 @@ async function SignUp() {
   --bs-btn-disabled-bg: transparent;
   --bs-btn-disabled-border-color: #b47501;
   --bs-gradient: none;
+}
+
+.R_Error {
+  display: none;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 0.875em;
+  color: #dc3545;
+  animation: erroBlinker 1.5s linear infinite;
+}
+@keyframes erroBlinker {
+  50% {
+    opacity: 0;
+  }
 }
 </style>
