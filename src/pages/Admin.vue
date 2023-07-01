@@ -95,7 +95,7 @@ const store = inject('store')
 const Base_Url = 'https://olivewood.elementfx.com'
 
 const collectDate = ref('')
-const action = ref('')
+const action_reservation = ref('')
 const action_id = ref('')
 
 onMounted(() => {
@@ -107,7 +107,7 @@ const reservationList = ref('')
 
 async function showReservations() {
   let result = await axios.post(Base_Url + '/reservationAction.php', {
-    reservationAction: 'admin',
+    action: 'admin',
     date: collectDate.value
   })
   if (result.status == 200 || result.status == 201) {
@@ -116,14 +116,23 @@ async function showReservations() {
 }
 
 function arrived(boolean) {
-  action.value = boolean
+  action_reservation.value = boolean
 }
 function cancel(boolean) {
-  action.value = boolean
+  action_reservation.value = boolean
 }
 async function reservationAction(id) {
   action_id.value = id
-  console.log('Reservation ID: ' + action_id.value + ' and has been: ' + action.value)
+  console.log('Reservation ID: ' + action_id.value + ' and has been: ' + action_reservation.value)
+  let result = await axios.post(Base_Url + '/reservationAction.php', {
+    action: 'admin',
+    actionID: action_id.value,
+    actionReservation: action_reservation.value
+  })
+  if (result.status == 200 || result.status == 201) {
+    console.log(result.data)
+    await showReservations();
+  }
 }
 
 const current = new Date()
