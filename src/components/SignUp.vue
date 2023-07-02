@@ -115,7 +115,7 @@
     </div>
     <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center d-grid pt-3">
-      <button class="btn" id="signUpBtn" @click.prevent="verifyOTP()">Verify OTP</button>
+      <button class="btn signUp_VerifyOTP_btn" id="signUpBtn" @click.prevent="verifyOTP()">Verify OTP</button>
     </div>
     <div class="col-sm-3"></div>
   </form>
@@ -210,7 +210,6 @@ function signUpTimer() {
 /* ______ verifyEmail ______ */
 async function verifyEmail() {
   const SignUp_Error = document.querySelector('.SignUp_Error')
-  console.log('verifyEmail')
   if (signUpFname.value == '' || signUpLname.value == '' || signUpEmail.value == '') {
     SignUp_Error.style.display = 'block'
     signUp_Error_Message.value = 'Please fill in all the required fields!'
@@ -231,8 +230,6 @@ async function verifyEmail() {
     store.state.isLoading = false
 
     if (result.status == 200 || result.status == 201) {
-      console.log(result.data)
-      console.log(signUpFname.value + ', ' + signUpLname.value + ', ' + signUpEmail.value)
       if (result.data != 'Account with this Email already exists!') {
         document.querySelector('#signUpForm').style.display = 'none'
         document.querySelector('#signUpOTPForm').style.display = 'flex'
@@ -242,8 +239,6 @@ async function verifyEmail() {
         SignUp_Error.style.display = 'block'
         signUp_Error_Message.value = 'Account with this Email already exists. Try another Email!'
       }
-    } else {
-      console.log(result.data)
     }
   }
 }
@@ -254,7 +249,6 @@ function verifyEmail_hideError() {
 /* ______ ResendOTP ______ */
 async function SignUp_resendOTP() {
   verifyOTP_hideError()
-  console.log('SignUp_resendOTP')
   store.state.isLoading = true
   await axios
     .post(Base_Url + '/RTRT/account.php', {
@@ -262,7 +256,6 @@ async function SignUp_resendOTP() {
       Email: signUpEmail.value
     })
     .then((result) => {
-      console.log(result.data)
       document.getElementById('signUpOTPexpire').style.display = 'block'
       document.getElementById('signUpOTPexpire_error').style.display = 'none'
       document.querySelector('.signUp_VerifyOTP_btn').disabled = false
@@ -278,7 +271,6 @@ async function SignUp_resendOTP() {
 /* ______ verifyOTP ______ */
 async function verifyOTP() {
   const SignUp_verifyOTPError = document.querySelector('.SignUp_verifyOTPError')
-  console.log('verifyOTP')
   if (signUpOTP.value == '') {
     SignUp_verifyOTPError.style.display = 'block'
     signUp_Error_Message.value = 'Please enter the One-Time Password (OTP)!'
@@ -291,8 +283,6 @@ async function verifyOTP() {
     })
     store.state.isLoading = false
     if (result.status == 200 || result.status == 201) {
-      console.log(result.data)
-      console.log(signUpEmail.value + ',' + signUpOTP.value)
       if (result.data != 'Incorrect_OTP') {
         document.querySelector('#signUpOTPForm').style.display = 'none'
         document.querySelector('#signUpPasswordForm').style.display = 'flex'
@@ -300,8 +290,6 @@ async function verifyOTP() {
         SignUp_verifyOTPError.style.display = 'block'
         signUp_Error_Message.value = 'OTP Incorrect.Try Again!'
       }
-    } else {
-      console.log(result.data)
     }
   }
 }
@@ -313,16 +301,6 @@ function verifyOTP_hideError() {
 
 /* ________ SignUp _______ */
 async function SignUp() {
-  console.log('SignUp')
-  console.log(
-    signUpFname.value +
-      ', ' +
-      signUpLname.value +
-      ', ' +
-      signUpPassword1.value +
-      ', ' +
-      signUpPassword2.value
-  )
   const SignUp_createPasswordError = document.querySelector('.SignUp_createPasswordError')
   if (signUpPassword1.value == '' || signUpPassword2.value == '') {
     SignUp_createPasswordError.style.display = 'block'
@@ -340,8 +318,6 @@ async function SignUp() {
       })
       store.state.isLoading = false
       if (result.status == 200 || result.status == 201) {
-        console.log(result.data)
-        console.log(signUpPassword1.value + ', ' + signUpPassword2.value)
         if (result.data === 'successfully signup') {
           const slider = document.querySelector('#slider')
           slider.classList.remove('showSignUp')
@@ -356,8 +332,6 @@ async function SignUp() {
           SignUp_createPasswordError.style.display = 'block'
           signUp_Error_Message.value = 'Please make sure your passwords match!'
         }
-      } else {
-        console.log(result.data)
       }
     } else {
       SignUp_createPasswordError.style.display = 'block'

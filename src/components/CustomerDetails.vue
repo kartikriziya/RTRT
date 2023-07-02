@@ -191,13 +191,14 @@
 
 <script setup>
 import { ref, inject } from 'vue'
+import { useRouter } from 'vue-router'
 import axios from 'axios'
 
+
 const store = inject('store')
+const router = useRouter()
 const Base_Url = 'https://olivewood.elementfx.com'
-
 const Reservation_Error_msg = ref('')
-
 const props = defineProps({ sendStars: String }) // props defined in props variable as const
 const collectPeople = ref('') // no. of people will be updated in collectPeople variable as const
 const collectDate = ref('') // date will be updated in collectDate variable as const
@@ -214,14 +215,13 @@ LogIn_Email.value = JSON.parse(sessionStorage.getItem('user-email'))
 /********************************************************************************/
 
 async function reserveTable() {
-  console.log('reserveTable')
   const Reservation_Error = document.getElementById('Reservation_Error')
   if (collectPeople.value == '' || collectDate.value == '' || collectTime == '') {
     Reservation_Error.style.display = 'block'
     Reservation_Error_msg.value = 'Please enter missing value!'
   } else {
     store.state.isLoading = true
-    let result = await axios.post(Base_Url + '/reservation.php', {
+    let result = await axios.post(Base_Url + '/RTRT/reservation.php', {
       action: 'reserve_Table',
       props: props,
       noOfPeople: collectPeople.value,
@@ -233,36 +233,14 @@ async function reserveTable() {
     })
     store.state.isLoading = false
     if (result.status == 200 || result.status == 201) {
-      console.log(result.data)
-      console.log(
-        'Reserve Now clicked' +
-          'with -> ' +
-          'Stars = ' +
-          props.sendStars +
-          ', People = ' +
-          collectPeople.value +
-          ', Date = ' +
-          collectDate.value +
-          ', Time = ' +
-          collectTime.value +
-          ', gFname = ' +
-          guest_fname.value +
-          ', gLname = ' +
-          guest_lname.value +
-          ', Login Email = ' +
-          LogIn_Email.value
-      )
-
       if (result.data.includes('Reservation added!')) {
-        console.log('Data stored.')
         Reservation_Error.style.display = 'none'
+        router.push({path: '/cancel'})
       } else {
         Reservation_Error.style.display = 'block'
         Reservation_Error_msg.value = 'Please try some other date and time!'
       }
-    } else {
-      console.log(result.data)
-    }
+    } 
   }
 }
 /* End of reserveTable()  */
@@ -279,17 +257,13 @@ const minDate = ref('')
 if (month <= 9 || date <= 9) {
   if (month <= 9 && date >= 9) {
     minDate.value = year + '-0' + month + '-' + date
-    //console.log(minDate.value)
   } else if (date <= 9 && month >= 9) {
     minDate.value = year + '-' + month + '-0' + date
-    //console.log(minDate.value)
   } else {
     minDate.value = year + '-0' + month + '-0' + date
-    //console.log(minDate.value)
   }
 } else {
   minDate = year + '-' + month + '-' + date
-  //console.log(minDate.value)
 }
 
 function datePickerRestrictions() {
