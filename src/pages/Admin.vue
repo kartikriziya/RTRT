@@ -1,13 +1,10 @@
 <template>
   <div class="container-fluid" id="admin">
-    <h1 style="color: #262626">Admin</h1>
     <div class="container">
-      <div class="row">
+      <div class="row pt-5">
         <!-- Date Picker to get all Reservation of the respectively Date. -->
         <div class="col-8 text-end">
-          <h4 style="font-weight: 700">
-            Select a Date to see all Reservation on respectively Date.
-          </h4>
+          <h4 style="font-weight: 700">Select a Date to see all the Reservations:</h4>
         </div>
         <div class="col-4 text-start">
           <input v-model="collectDate" type="date" id="datePicker" @change="showReservations()" />
@@ -131,7 +128,7 @@ async function reservationAction(id) {
   })
   if (result.status == 200 || result.status == 201) {
     console.log(result.data)
-    await showReservations();
+    await showReservations()
   }
 }
 
