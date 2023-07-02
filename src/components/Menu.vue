@@ -11,72 +11,72 @@
   *********************************************************************************************-->
   <div class="row mt-5">
     <!-- Item 1 -->
-    <div class="col-sm-4 col-md-4 col-lg-3 mt-5" id="itemCol">
+    <div class="col-sm-6 col-md-4 col-lg-3 mt-5" id="itemCol">
       <div id="item">
         <div id="front" style="">
           <img src="../assets/pizza1.jpg" alt="items" id="itemImg" />
         </div>
         <div id="back">
           <div class="text-center" id="itemText">
-            <h3>Pizza</h3>
+            <p id="item_head_name">Pizza</p>
           </div>
           <div id="name_price">
             <div id="names">
-              <h6>Margerita</h6>
-              <h6>Caprese</h6>
-              <h6>Carbonara</h6>
-              <h6>Frutti di Romana</h6>
-              <h6>Bombay</h6>
-              <h6>Calzone</h6>
-              <h6>Pizza al Pesto</h6>
-              <h6>Funghi</h6>
+              <p>Margerita</p>
+              <p>Caprese</p>
+              <p>Carbonara</p>
+              <p>Frutti di Romana</p>
+              <p>Bombay</p>
+              <p>Calzone</p>
+              <p>Pizza al Pesto</p>
+              <p>Funghi</p>
             </div>
 
             <div id="prices">
-              <h6>11.00 €</h6>
-              <h6>13.00 €</h6>
-              <h6>12.00 €</h6>
-              <h6>9.00 €</h6>
-              <h6>12.50 €</h6>
-              <h6>11.50 €</h6>
-              <h6>13.00 €</h6>
-              <h6>9.00 €</h6>
+              <p>11.00 €</p>
+              <p>13.00 €</p>
+              <p>12.00 €</p>
+              <p>9.00 €</p>
+              <p>12.50 €</p>
+              <p>11.50 €</p>
+              <p>13.00 €</p>
+              <p>9.00 €</p>
             </div>
           </div>
         </div>
       </div>
     </div>
     <!-- Item 2 -->
-    <div class="col-sm-4 col-md-4 col-lg-3 mt-5" id="itemCol">
+    <div class="col-sm-6 col-md-4 col-lg-3 mt-5" id="itemCol">
       <div id="item">
         <div id="front">
           <img src="../assets/pasta.png" alt="items" id="itemImg" />
         </div>
         <div id="back">
           <div class="text-center" id="itemText">
-            <h3>Pasta</h3>
+            <p id="item_head_name">Pasta</p>
           </div>
           <div id="name_price">
             <div id="names">
-              <h6>Spaghetti Bolognese</h6>
-              <h6>Penne Arrabbiata</h6>
-              <h6>Fettuccine Alfredo</h6>
-              <h6>Lasagna</h6>
-              <h6>Carbonara</h6>
-              <h6>Rigatoni alla Vodka</h6>
-              <h6>Ravioli with Tomato Sauce</h6>
-              <h6>Lobster Ravioli</h6>
+              <p>Spaghetti Bolognese</p>
+              <p>Penne Arrabbiata</p>
+              <p>Fettuccine Alfredo</p>
+              <p>Lasagna</p>
+              <p>Carbonara</p>
+              <p>Rigatoni alla Vodka</p>
+              <p>Ravioli with Tomato Sauce</p>
+              <p>Lobster Ravioli</p>
             </div>
 
             <div id="prices">
-              <h6>12.50 €</h6>
-              <h6>10.95 €</h6>
-              <h6>14.75 €</h6>
-              <h6>13.50 €</h6>
-              <h6>11.95 €</h6>
-              <h6>12.95 €</h6>
-              <h6>13.00 €</h6>
-              <h6>18.95 €</h6>
+              <p>12.50 €</p>
+              <p>10.95 €</p>
+              <p>14.75 €</p>
+              <p>13.50 €</p>
+              <p>11.95 €</p>
+              <p>12.95 €</p>
+              <p>13.00 €</p>
+              <p>18.95 €</p>
             </div>
           </div>
         </div>
@@ -84,36 +84,36 @@
     </div>
 
     <!-- Item 3 -->
-    <div class="col-sm-4 col-md-4 col-lg-3 mt-5" id="itemCol">
+    <div class="col-sm-6 col-md-4 col-lg-3 mt-5" id="itemCol">
       <div id="item">
         <div id="front">
           <img src="../assets/spoon.jpg" alt="items" id="itemImg" />
         </div>
         <div id="back">
           <div class="text-center" id="itemText">
-            <h3>Risotto</h3>
+            <p id="item_head_name">Risotto</p>
           </div>
           <div id="name_price">
             <div id="names">
-              <h6>Mushroom Risotto</h6>
-              <h6>Seafood Risotto</h6>
-              <h6>Truffle Risotto</h6>
-              <h6>Chicken & Asparagus Risotto</h6>
-              <h6>Spinach & Parmesan Risotto</h6>
-              <h6>Saffron Risotto</h6>
-              <h6>Butternut Squash Risotto</h6>
-              <h6>Smoked Salmon Risotto</h6>
+              <p>Mushroom Risotto</p>
+              <p>Seafood Risotto</p>
+              <p>Truffle Risotto</p>
+              <p>Chicken & Asparagus Risotto</p>
+              <p>Spinach & Parmesan Risotto</p>
+              <p>Saffron Risotto</p>
+              <p>Butternut Squash Risotto</p>
+              <p>Smoked Salmon Risotto</p>
             </div>
 
             <div id="prices">
-              <h6>14.50 €</h6>
-              <h6>16.95 €</h6>
-              <h6>18.75 €</h6>
-              <h6>15.95 €</h6>
-              <h6>12.50 €</h6>
-              <h6>11.50 €</h6>
-              <h6>13.00 €</h6>
-              <h6>16.25 €</h6>
+              <p>14.50 €</p>
+              <p>16.95 €</p>
+              <p>18.75 €</p>
+              <p>15.95 €</p>
+              <p>12.50 €</p>
+              <p>11.50 €</p>
+              <p>13.00 €</p>
+              <p>16.25 €</p>
             </div>
           </div>
         </div>
@@ -122,36 +122,36 @@
 
     <!-- Item 4 -->
 
-    <div class="col-sm-4 col-md-4 col-lg-3 mt-5" id="itemCol">
+    <div class="col-sm-6 col-md-4 col-lg-3 mt-5" id="itemCol">
       <div id="item">
         <div id="front">
           <img src="../assets/pp.jpg" alt="items" id="itemImg" />
         </div>
         <div id="back">
           <div class="text-center" id="itemText">
-            <h3>Antipasti</h3>
+            <p id="item_head_name">Antipasti</p>
           </div>
           <div id="name_price">
             <div id="names">
-              <h6>Bruschetta</h6>
-              <h6>Caprese Salad</h6>
-              <h6>Prosciutto and Melon</h6>
-              <h6>Stuffed Mushroom</h6>
-              <h6>Antipasto Platter</h6>
-              <h6>Grilled Vegetables</h6>
-              <h6>Fried Calamari</h6>
-              <h6>Garlic Shrimp</h6>
+              <p>Bruschetta</p>
+              <p>Caprese Salad</p>
+              <p>Prosciutto and Melon</p>
+              <p>Stuffed Mushroom</p>
+              <p>Antipasto Platter</p>
+              <p>Grilled Vegetables</p>
+              <p>Fried Calamari</p>
+              <p>Garlic Shrimp</p>
             </div>
 
             <div id="prices">
-              <h6>8.50 €</h6>
-              <h6>9.95 €</h6>
-              <h6>11.75 €</h6>
-              <h6>10.50 €</h6>
-              <h6>14.95 €</h6>
-              <h6>9.25 €</h6>
-              <h6>12.50 €</h6>
-              <h6>13.95 €</h6>
+              <p>8.50 €</p>
+              <p>9.95 €</p>
+              <p>11.75 €</p>
+              <p>10.50 €</p>
+              <p>14.95 €</p>
+              <p>9.25 €</p>
+              <p>12.50 €</p>
+              <p>13.95 €</p>
             </div>
           </div>
         </div>
@@ -160,36 +160,36 @@
 
     <!-- Item 5 -->
 
-    <div class="col-sm-4 col-md-4 col-lg-3 mt-5" id="itemCol">
+    <div class="col-sm-6 col-md-4 col-lg-3 mt-5" id="itemCol">
       <div id="item">
         <div id="front">
           <img src="../assets/burger.png" alt="items" id="itemImg" />
         </div>
         <div id="back">
           <div class="text-center" id="itemText">
-            <h3>Burger</h3>
+            <p id="item_head_name">Burger</p>
           </div>
           <div id="name_price">
             <div id="names">
-              <h6>Classic Cheeseburger</h6>
-              <h6>Bacon Mushroom Swiss Burger</h6>
-              <h6>BBQ Bacon Burger</h6>
-              <h6>Spicy Jalapeno Burger</h6>
-              <h6>Veggie Burger</h6>
-              <h6>Blue Cheese Burger</h6>
-              <h6>Hawaiian Teriyaki Burger</h6>
-              <h6>Double Bacon Cheddar Burger</h6>
+              <p>Classic Cheeseburger</p>
+              <p>Bacon Mushroom Swiss Burger</p>
+              <p>BBQ Bacon Burger</p>
+              <p>Spicy Jalapeno Burger</p>
+              <p>Veggie Burger</p>
+              <p>Blue Cheese Burger</p>
+              <p>Hawaiian Teriyaki Burger</p>
+              <p>Double Bacon Cheddar Burger</p>
             </div>
 
             <div id="prices">
-              <h6>9.95 €</h6>
-              <h6>11.50 €</h6>
-              <h6>10.75 €</h6>
-              <h6>9.95 €</h6>
-              <h6>10.25 €</h6>
-              <h6>11.95 €</h6>
-              <h6>10.50 €</h6>
-              <h6>12.75 €</h6>
+              <p>9.95 €</p>
+              <p>11.50 €</p>
+              <p>10.75 €</p>
+              <p>9.95 €</p>
+              <p>10.25 €</p>
+              <p>11.95 €</p>
+              <p>10.50 €</p>
+              <p>12.75 €</p>
             </div>
           </div>
         </div>
@@ -198,36 +198,36 @@
 
     <!-- Item 6 -->
 
-    <div class="col-sm-4 col-md-4 col-lg-3 mt-5" id="itemCol">
+    <div class="col-sm-6 col-md-4 col-lg-3 mt-5" id="itemCol">
       <div id="item">
         <div id="front">
           <img src="../assets/em.png" alt="items" id="itemImg" />
         </div>
         <div id="back">
           <div class="text-center" id="itemText">
-            <h3>Drinks</h3>
+            <p id="item_head_name">Drinks</p>
           </div>
           <div id="name_price">
             <div id="names">
-              <h6>Coca-Cola</h6>
-              <h6>Freshly Squeezed Orange Juice</h6>
-              <h6>Iced Coffee</h6>
-              <h6>Lemonade</h6>
-              <h6>Mojito</h6>
-              <h6>Fruit Smoothie</h6>
-              <h6>Mineral Water</h6>
-              <h6>Red Wine (glass)</h6>
+              <p>Coca-Cola</p>
+              <p>Freshly Squeezed Orange Juice</p>
+              <p>Iced Coffee</p>
+              <p>Lemonade</p>
+              <p>Mojito</p>
+              <p>Fruit Smoothie</p>
+              <p>Mineral Water</p>
+              <p>Red Wine (glass)</p>
             </div>
 
             <div id="prices">
-              <h6>2.50 €</h6>
-              <h6>3.95 €</h6>
-              <h6>4.25 €</h6>
-              <h6>3.50 €</h6>
-              <h6>8.75 €</h6>
-              <h6>4.95 €</h6>
-              <h6>1.95 €</h6>
-              <h6>6.50 €</h6>
+              <p>2.50 €</p>
+              <p>3.95 €</p>
+              <p>4.25 €</p>
+              <p>3.50 €</p>
+              <p>8.75 €</p>
+              <p>4.95 €</p>
+              <p>1.95 €</p>
+              <p>6.50 €</p>
             </div>
           </div>
         </div>
@@ -236,36 +236,36 @@
 
     <!-- Item 7 -->
 
-    <div class="col-sm-4 col-md-4 col-lg-3 mt-5" id="itemCol">
+    <div class="col-sm-6 col-md-4 col-lg-3 mt-5" id="itemCol">
       <div id="item">
         <div id="front">
           <img src="../assets/date.png" alt="items" id="itemImg" />
         </div>
         <div id="back">
           <div class="text-center" id="itemText">
-            <h3>Dessert</h3>
+            <p id="item_head_name">Dessert</p>
           </div>
           <div id="name_price">
             <div id="names">
               Chocolate Lava Cake
-              <h6>Tiramisu</h6>
-              <h6>Cheesecake</h6>
-              <h6>Apple Pie with Vanilla Ice Cream</h6>
-              <h6>Crème Brûlée</h6>
-              <h6>Brownie Sundae</h6>
-              <h6>Fruit Tart</h6>
-              <h6>Gelato (per scoop)</h6>
+              <p>Tiramisu</p>
+              <p>Cheesecake</p>
+              <p>Apple Pie with Vanilla Ice Cream</p>
+              <p>Crème Brûlée</p>
+              <p>Brownie Sundae</p>
+              <p>Fruit Tart</p>
+              <p>Gelato (per scoop)</p>
             </div>
 
             <div id="prices">
-              <h6>7.95 €</h6>
-              <h6>6.50 €</h6>
-              <h6>6.75 €</h6>
-              <h6>7.25 €</h6>
-              <h6>7.50 €</h6>
-              <h6>8.25 €</h6>
-              <h6>6.95 €</h6>
-              <h6>3.50 €</h6>
+              <p>7.95 €</p>
+              <p>6.50 €</p>
+              <p>6.75 €</p>
+              <p>7.25 €</p>
+              <p>7.50 €</p>
+              <p>8.25 €</p>
+              <p>6.95 €</p>
+              <p>3.50 €</p>
             </div>
           </div>
         </div>
@@ -274,36 +274,36 @@
 
     <!-- Item 8 -->
 
-    <div class="col-sm-4 col-md-4 col-lg-3 mt-5" id="itemCol">
+    <div class="col-sm-6 col-md-4 col-lg-3 mt-5" id="itemCol">
       <div id="item">
         <div id="front">
           <img src="../assets/date.png" alt="items" id="itemImg" />
         </div>
         <div id="back">
           <div class="text-center" id="itemText">
-            <h3>Finger Food</h3>
+            <p id="item_head_name">Finger Food</p>
           </div>
           <div id="name_price">
             <div id="names">
-              <h6>Chicken Wings</h6>
-              <h6>Mozzarella Sticks</h6>
-              <h6>Mini Sliders (beef or chicken)</h6>
-              <h6>Nachos (Cheese or Guacamole)</h6>
-              <h6>Potato Skins with Sour Cream</h6>
-              <h6>Mini Spring Rolls</h6>
-              <h6>Buffalo Cauliflower Bites</h6>
-              <h6>Garlic Parmesan Fries</h6>
+              <p>Chicken Wings</p>
+              <p>Mozzarella Sticks</p>
+              <p>Mini Sliders (beef or chicken)</p>
+              <p>Nachos (Cheese or Guacamole)</p>
+              <p>Potato Skins with Sour Cream</p>
+              <p>Mini Spring Rolls</p>
+              <p>Buffalo Cauliflower Bites</p>
+              <p>Garlic Parmesan Fries</p>
             </div>
 
             <div id="prices">
-              <h6>8.50 €</h6>
-              <h6>7.95 €</h6>
-              <h6>9.50 €</h6>
-              <h6>8.75 €</h6>
-              <h6>7.95 €</h6>
-              <h6>7.25 €</h6>
-              <h6>8.95 €</h6>
-              <h6>6.50 €</h6>
+              <p>8.50 €</p>
+              <p>7.95 €</p>
+              <p>9.50 €</p>
+              <p>8.75 €</p>
+              <p>7.95 €</p>
+              <p>7.25 €</p>
+              <p>8.95 €</p>
+              <p>6.50 €</p>
             </div>
           </div>
         </div>
@@ -320,6 +320,26 @@ const store = inject('store')
 </script>
 
 <style scoped>
+#item_head_name {
+  font-size: 1rem;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+  margin-block-start: 2.33em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+#name_price {
+  font-size: 0.8rem;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+  margin-block-start: 2.33em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
 #names {
   font-family: 'Apple Chancery';
   font-style: italic;
@@ -366,8 +386,8 @@ const store = inject('store')
 }
 #item {
   position: relative;
-  width: 150px;
-  height: 250px;
+  width: 250px;
+  height: 350px;
 }
 #item:hover #names {
   animation: 1.2s ease-out 0s 1 slideUp;
@@ -487,22 +507,40 @@ both hovers takes place at a same time
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
+  #item_head_name {
+    font-size: 1.2rem;
+  }
+  #name_price {
+    font-size: 0.7rem;
+  }
   #item {
-    width: 150px;
-    height: 250px;
+    width: 250px;
+    height: 350px;
   }
 }
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
+  #item_head_name {
+    font-size: 1.2rem;
+  }
+  #name_price {
+    font-size: 0.7rem;
+  }
   #item {
-    width: 200px;
-    height: 300px;
+    width: 230px;
+    height: 330px;
   }
 }
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
+  #item_head_name {
+    font-size: 1.2rem;
+  }
+  #name_price {
+    font-size: 0.7rem;
+  }
   #item {
     width: 210px;
     height: 310px;
@@ -511,14 +549,26 @@ both hovers takes place at a same time
 
 /* X-Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
+  #item_head_name {
+    font-size: 1.3rem;
+  }
+  #name_price {
+    font-size: 0.8rem;
+  }
   #item {
-    width: 230px;
-    height: 330px;
+    width: 250px;
+    height: 350px;
   }
 }
 
 /* XX-Large devices (larger desktops, 1400px and up) */
 @media (min-width: 1400px) {
+  #item_head_name {
+    font-size: 1.4rem;
+  }
+  #name_price {
+    font-size: 0.9rem;
+  }
   #item {
     width: 300px;
     height: 400px;
