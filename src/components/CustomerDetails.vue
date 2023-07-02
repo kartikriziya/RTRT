@@ -147,9 +147,11 @@
 </template>
 <script setup>
 import { ref, inject } from 'vue'
+import { useRouter } from 'vue-router'
 import axios from 'axios'
 
 const store = inject('store')
+const router = useRouter()
 const Base_Url = 'https://olivewood.elementfx.com'
 
 const Reservation_Error_msg = ref('')
