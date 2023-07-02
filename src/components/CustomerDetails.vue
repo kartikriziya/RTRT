@@ -209,9 +209,10 @@ async function reserveTable() {
           LogIn_Email.value
       )
 
-      if (result.data.includes('Reservation added!')) {
-        console.log('Data stored.')
+      if (result.data == 'Reservation added!') {
+        console.log(result.data)
         Reservation_Error.style.display = 'none'
+        router.push({ path: '/cancel' })
       } else {
         Reservation_Error.style.display = 'block'
         Reservation_Error_msg.value = 'Please try some other date and time!'
