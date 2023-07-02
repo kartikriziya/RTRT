@@ -10,8 +10,4 @@ import Navbar from './Navbar.vue'
 const store = inject('store')
 </script>
 
-<style scoped>
-/* #header {
-  background-color: black;
-} */
-</style>
+<style scoped></style>

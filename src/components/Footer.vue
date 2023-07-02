@@ -33,17 +33,25 @@
           class="col-12 text-center p-3"
           style="display: flex; flex-direction: row; justify-content: center"
         >
-          <div class="ms-5" id="social_icons">
-            <i class="fa-brands fa-instagram fa-2xl"></i>
+          <div class="ms-5">
+            <a href="https://www.instagram.com/" id="social_icons"
+              ><i class="fa-brands fa-instagram fa-2xl"></i
+            ></a>
           </div>
-          <div class="ms-5" id="social_icons">
-            <i class="fa-brands fa-snapchat fa-2xl"></i>
+          <div class="ms-5">
+            <a href="https://www.snapchat.com/" id="social_icons">
+              <i class="fa-brands fa-snapchat fa-2xl"></i
+            ></a>
           </div>
-          <div class="ms-5" id="social_icons">
-            <i class="fa-brands fa-square-twitter fa-2xl"></i>
+          <div class="ms-5">
+            <a href="https://twitter.com/" id="social_icons">
+              <i class="fa-brands fa-square-twitter fa-2xl"></i
+            ></a>
           </div>
-          <div class="ms-5" id="social_icons">
-            <i class="fa-brands fa-square-facebook fa-2xl"></i>
+          <div class="ms-5">
+            <a href="https://www.facebook.com/" id="social_icons">
+              <i class="fa-brands fa-square-facebook fa-2xl"></i
+            ></a>
           </div>
         </div>
       </div>
@@ -59,7 +67,6 @@
 import { inject } from 'vue'
 const store = inject('store')
 </script>
-
 <style scoped>
 #footer {
   min-height: 25vh;
@@ -81,6 +88,7 @@ const store = inject('store')
 }
 #social_icons {
   color: #f4ebd9;
+  text-decoration: none;
   cursor: pointer;
 }
 #social_icons:hover {
@@ -105,3 +113,4 @@ const store = inject('store')
     margin-bottom: 20px;
   }
 }
+</style>

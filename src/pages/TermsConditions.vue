@@ -1,5 +1,3 @@
-<script setup></script>
-
 <template>
 
     <div class="container">
@@ -114,6 +112,14 @@
   
 
 </template>
+
+<script setup>
+import { onMounted, inject } from 'vue'
+const store = inject('store')
+onMounted(() => {
+  store.state.isLoading = false
+})
+</script>
 
 <style scoped>
 

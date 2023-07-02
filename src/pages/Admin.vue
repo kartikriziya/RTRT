@@ -1,22 +1,13 @@
 <template>
   <div class="container-fluid" id="admin">
-    <h1 style="color: #262626">Admin</h1>
     <div class="container">
-      <div class="row">
+      <div class="row pt-5">
         <!-- Date Picker to get all Reservation of the respectively Date. -->
         <div class="col-8 text-end">
-          <h4 style="font-weight: 700">
-            Select a Date to see all Reservation on respectively Date.
-          </h4>
+          <h4 style="font-weight: 700">Select a Date to see all the Reservations:</h4>
         </div>
         <div class="col-4 text-start">
-          <input
-            v-model="collectDate"
-            type="date"
-            id="datePicker"
-            @click="datePickerRestrictions()"
-            @change="showReservations()"
-          />
+          <input v-model="collectDate" type="date" id="datePicker" @change="showReservations()" />
         </div>
         <!-- End of Date Picker -->
       </div>
@@ -101,7 +92,7 @@ const store = inject('store')
 const Base_Url = 'https://olivewood.elementfx.com'
 
 const collectDate = ref('')
-const action = ref('')
+const action_reservation = ref('')
 const action_id = ref('')
 
 onMounted(() => {
@@ -112,28 +103,33 @@ onMounted(() => {
 const reservationList = ref('')
 
 async function showReservations() {
-  // reservationList.value.push(
-  //   { Id: '1', Name: 'Kartik', Email: 'kartikriziya30721@gmail.com', Time: '14:00', Action: 0 },
-  //   { Id: '2', Name: 'Nancy', Email: 'nancybalar132313@gmail.com', Time: '18:00', Action: 0 }
-  // ) // add new data to an Array 'reservationList'
-  let result = await axios.post(Base_Url + '/admin.php', {
+  let result = await axios.post(Base_Url + '/RTRT/reservationAction.php', {
+    action: 'admin',
     date: collectDate.value
   })
   if (result.status == 200 || result.status == 201) {
     reservationList.value = result.data
-    //console.log(reservationList.value)
   }
 }
 
 function arrived(boolean) {
-  action.value = boolean
+  action_reservation.value = boolean
 }
 function cancel(boolean) {
-  action.value = boolean
+  action_reservation.value = boolean
 }
 async function reservationAction(id) {
   action_id.value = id
-  console.log('Reservation ID: ' + action_id.value + ' and has been: ' + action.value)
+  console.log('Reservation ID: ' + action_id.value + ' and has been: ' + action_reservation.value)
+  let result = await axios.post(Base_Url + '/RTRT/reservationAction.php', {
+    action: 'admin',
+    actionID: action_id.value,
+    actionReservation: action_reservation.value
+  })
+  if (result.status == 200 || result.status == 201) {
+    console.log(result.data)
+    await showReservations()
+  }
 }
 
 const current = new Date()

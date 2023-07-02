@@ -39,7 +39,7 @@
 </template>
 
 <script setup>
-import { ref, onBeforeMount, onMounted, inject } from 'vue'
+import { ref, onMounted, inject } from 'vue'
 import axios from 'axios'
 import Rating from '../components/Rating.vue'
 import CustomerDetails from '../components/CustomerDetails.vue'

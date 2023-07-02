@@ -22,9 +22,10 @@
           class="form-control"
           id="loginEmail"
           placeholder="name@example.com"
+          @input="login_hideError()"
           required
         />
-        <label for="loginEmail" id="loginLabels">Email address</label>
+        <label for="loginEmail" id="loginLabels">Email address *</label>
       </div>
     </div>
     <div class="col-12">
@@ -35,9 +36,10 @@
           class="form-control"
           id="loginPassword"
           placeholder="********"
+          @input="login_hideError()"
           required
         />
-        <label for="loginPassword" id="loginLabels">Password</label>
+        <label for="loginPassword" id="loginLabels">Password *</label>
       </div>
     </div>
     <div class="col-12">
@@ -79,6 +81,7 @@
           class="form-control"
           id="forgetPasswordEmail"
           placeholder="name@example.com"
+          @input="getOTP_hideError()"
           required
         />
         <label for="forgetPasswordEmail" id="loginLabels" @click.prevent="getOTP()"
@@ -113,6 +116,9 @@
       <div id="verify_OTP">Verify OTP</div>
     </div>
     <div class="col-12">
+      <p class="ms-2" style="color: burlywood; font-size: xx-small">
+        OTP has been sent successfully to : {{ forgetPasswordEmail }}
+      </p>
       <div class="form-floating">
         <input
           v-model="loginVerifyOTP"
@@ -120,6 +126,7 @@
           class="form-control"
           id="loginVerifyOTP"
           placeholder="12345678"
+          @input="verifyOTP_hideError()"
           required
         />
         <label for="loginVerifyOTP" id="loginLabels">OTP</label>
@@ -131,6 +138,9 @@
     <div class="col-12 ms-2" id="logInOTPexpire">
       OTP expire in : <span>{{ login_OTP_Time }}</span>
     </div>
+    <div class="col-12 ms-2" id="logInOTPexpire_error">
+      <span>OTP expired</span>
+    </div>
 
     <div class="col-12">
       <div class="form-floating">
@@ -139,14 +149,10 @@
     </div>
     <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center d-grid pt-3">
-      <button class="btn" id="resetPasswordBtn" @click.prevent="verifyOTP()">Reset Password</button>
+      <button class="btn" id="verifyOTPBtn" @click.prevent="verifyOTP()">Verify OTP</button>
     </div>
     <div class="col-sm-3"></div>
   </form>
-
-  <!-- --------------------------------------------------------------------------------------------------- -->
-  <!--                                            Change Password                                          -->
-  <!-- --------------------------------------------------------------------------------------------------- -->
 
   <!-- changePasswordFrom -->
   <form
@@ -169,9 +175,10 @@
           class="form-control"
           id="loginForgotPassword1"
           placeholder="password"
+          @input="resetPassword_hideError()"
           required
         />
-        <label for="loginForgotPassword1" id="loginLabels">Password</label>
+        <label for="loginForgotPassword1" id="loginLabels">Password *</label>
       </div>
     </div>
     <div class="col-12">
@@ -182,9 +189,10 @@
           class="form-control"
           id="loginForgotPassword2"
           placeholder="password"
+          @input="resetPassword_hideError()"
           required
         />
-        <label for="loginForgotPassword2" id="loginLabels">Re-password</label>
+        <label for="loginForgotPassword2" id="loginLabels">Re-password *</label>
       </div>
     </div>
     <div class="col-12">
@@ -214,12 +222,28 @@ const Base_Url = 'https://olivewood.elementfx.com'
 const loginEmail = ref('')
 const loginPassword = ref('')
 const forgetPasswordEmail = ref('')
+const otpTimer = ref('')
 const login_OTP_Time = ref('')
 const loginVerifyOTP = ref('')
 const loginForgotPassword1 = ref('')
 const loginForgotPassword2 = ref('')
 
 const LogIn_Error_Message = ref('')
+function logInTimer() {
+  let timeleft = 120
+  otpTimer.value = setInterval(function () {
+    if (timeleft <= 0) {
+      clearInterval(otpTimer.value)
+      login_OTP_Time.value = null
+      document.getElementById('logInOTPexpire').style.display = 'none'
+      document.getElementById('logInOTPexpire_error').style.display = 'block'
+      document.querySelector('.LogIn_VerifyOTP_btn').disabled = true
+    } else {
+      login_OTP_Time.value = timeleft
+    }
+    timeleft -= 1
+  }, 1000)
+}
 
 /* ______ login ______ */
 async function login() {
@@ -230,14 +254,14 @@ async function login() {
     LogIn_Error_Message.value = 'Please enter valid Credentials!'
   } else {
     // Email validation
-    const Login_emailRegex = /@gmail\.com$/i
+    const Login_emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+[^ \t\r\n]*/
     if (!Login_emailRegex.test(loginEmail.value)) {
       Login_Error.style.display = 'block'
       LogIn_Error_Message.value = 'Please use a valid E-Mail format.!'
       return
     }
     store.state.isLoading = true
-    let result = await axios.post(Base_Url + '/account.php', {
+    let result = await axios.post(Base_Url + '/RTRT/account.php', {
       action: 'login_login',
       logEmail: loginEmail.value,
       logPassword: loginPassword.value
@@ -276,6 +300,9 @@ function forgetPassword() {
   document.querySelector('#loginForm').style.display = 'none'
   document.querySelector('#getOTPForm').style.display = 'flex'
 }
+function login_hideError() {
+  document.querySelector('.Login_Error').style.display = 'none'
+}
 
 /* ______ getOTP ______ */
 async function getOTP() {
@@ -286,7 +313,7 @@ async function getOTP() {
     LogIn_Error_Message.value = 'Please enter your email address!'
   } else {
     store.state.isLoading = true
-    let result = await axios.post(Base_Url + '/forgetPassword.php', {
+    let result = await axios.post(Base_Url + '/RTRT/forgetPassword.php', {
       action: 'get_OTP',
       forgetPasswordEmail: forgetPasswordEmail.value
     })
@@ -297,24 +324,8 @@ async function getOTP() {
       if (result.data != 'No_Email_Found!') {
         document.querySelector('#getOTPForm').style.display = 'none'
         document.querySelector('#verifyOTPForm').style.display = 'flex'
-
-        let timeleft = 120
-        const logInOTPexpire = document.getElementById('logInOTPexpire')
-        const otpTimer = setInterval(function () {
-          if (timeleft <= 0) {
-            clearInterval(otpTimer)
-            login_OTP_Time.value = null
-            logInOTPexpire.innerHTML = 'OTP expired'
-            logInOTPexpire.style.color = '#dc3545'
-            logInOTPexpire.classList.add('R_Error')
-            logInOTPexpire.style.display = 'block'
-
-            document.querySelector('.LogIn_VerifyOTP_btn').disabled = true
-          } else {
-            login_OTP_Time.value = timeleft
-          }
-          timeleft -= 1
-        }, 1000)
+        clearInterval(otpTimer.value)
+        logInTimer()
       } else {
         //alert(result.data)
         Login_getOTPError.style.display = 'block'
@@ -326,20 +337,29 @@ async function getOTP() {
     }
   }
 }
+function getOTP_hideError() {
+  document.querySelector('.Login_getOTPError').style.display = 'none'
+}
 
 /* ______ ResendOTP ______ */
 async function LogIn_resendOTP() {
+  verifyOTP_hideError()
   console.log('LogIn_resendOTP')
+  const logInOTPexpire = document.getElementById('logInOTPexpire')
   store.state.isLoading = true
-  let result = await axios.post(Base_Url + '/forgetPassword.php', {
+  let result = await axios.post(Base_Url + '/RTRT/forgetPassword.php', {
     action: 'LogIn_resendOTP',
     forgetPasswordEmail: forgetPasswordEmail.value
   })
   store.state.isLoading = false
+  document.getElementById('logInOTPexpire').style.display = 'block'
+  document.getElementById('logInOTPexpire_error').style.display = 'none'
+  document.querySelector('.LogIn_VerifyOTP_btn').disabled = false
   if (result.status == 200 || result.status == 201) {
     console.log(result.data)
     console.log(forgetPasswordEmail.value)
-    document.querySelector('.LogIn_VerifyOTP_btn').disabled = true
+    clearInterval(otpTimer.value)
+    logInTimer()
   } else {
     console.log(result.data)
   }
@@ -354,7 +374,7 @@ async function verifyOTP() {
     LogIn_Error_Message.value = 'Please enter the One-Time Password (OTP)!'
   } else {
     store.state.isLoading = true
-    let result = await axios.post(Base_Url + '/forgetPassword.php', {
+    let result = await axios.post(Base_Url + '/RTRT/forgetPassword.php', {
       action: 'verify_OTP',
       forgetPasswordEmail: forgetPasswordEmail.value,
       loginVerifyOTP: loginVerifyOTP.value
@@ -367,7 +387,6 @@ async function verifyOTP() {
         document.querySelector('#verifyOTPForm').style.display = 'none'
         document.querySelector('#changePasswordFrom').style.display = 'flex'
       } else {
-        //alert(result.data)
         Login_verifyOTPError.style.display = 'block'
         LogIn_Error_Message.value =
           'Incorrect OTP. Please check your One-Time Password and try again!'
@@ -376,6 +395,9 @@ async function verifyOTP() {
       console.log(result.data)
     }
   }
+}
+function verifyOTP_hideError() {
+  document.querySelector('.Login_verifyOTPError').style.display = 'none'
 }
 
 /* ______ Reset Password ______ */
@@ -386,29 +408,37 @@ async function resetPassword() {
     Login_createPasswordError.style.display = 'block'
     LogIn_Error_Message.value = 'Please enter your new password!'
   } else {
-    store.state.isLoading = true
-    let result = await axios.post(Base_Url + '/forgetPassword.php', {
-      action: 'reset_Password',
-      forgetPasswordEmail: forgetPasswordEmail.value,
-      password1: loginForgotPassword1.value,
-      password2: loginForgotPassword1.value
-    })
-    store.state.isLoading = false
-    if (result.status == 200 || result.status == 201) {
-      console.log(result.data)
-      console.log(loginForgotPassword1.value + ',' + loginForgotPassword2.value)
-      if (loginForgotPassword1.value == loginForgotPassword2.value) {
-        document.querySelector('#changePasswordFrom').style.display = 'none'
-        document.querySelector('#loginForm').style.display = 'flex'
+    if (loginForgotPassword1.value.length >= 8 && loginForgotPassword2.value.length >= 8) {
+      store.state.isLoading = true
+      let result = await axios.post(Base_Url + '/RTRT/forgetPassword.php', {
+        action: 'reset_Password',
+        forgetPasswordEmail: forgetPasswordEmail.value,
+        password1: loginForgotPassword1.value,
+        password2: loginForgotPassword1.value
+      })
+      store.state.isLoading = false
+      if (result.status == 200 || result.status == 201) {
+        console.log(result.data)
+        console.log(loginForgotPassword1.value + ',' + loginForgotPassword2.value)
+        if (loginForgotPassword1.value == loginForgotPassword2.value) {
+          document.querySelector('#changePasswordFrom').style.display = 'none'
+          document.querySelector('#loginForm').style.display = 'flex'
+        } else {
+          //alert(result.data)
+          Login_createPasswordError.style.display = 'block'
+          LogIn_Error_Message.value = 'Please make sure your passwords match!'
+        }
       } else {
-        //alert(result.data)
-        Login_createPasswordError.style.display = 'block'
-        LogIn_Error_Message.value = 'Please make sure your passwords match!'
+        console.log(result.data)
       }
     } else {
-      console.log(result.data)
+      Login_createPasswordError.style.display = 'block'
+      LogIn_Error_Message.value = 'Password length must be minimum 8 bytes long!'
     }
   }
+}
+function resetPassword_hideError() {
+  document.querySelector('.Login_createPasswordError').style.display = 'none'
 }
 </script>
 
@@ -441,19 +471,6 @@ async function resetPassword() {
 }
 #loginForgot:hover {
   color: #f7bb08;
-}
-.R_Error {
-  display: none;
-  width: 100%;
-  margin-top: 0.25rem;
-  font-size: 0.875em;
-  color: #dc3545;
-  animation: erroBlinker 1.5s linear infinite;
-}
-@keyframes erroBlinker {
-  50% {
-    opacity: 0;
-  }
 }
 #loginBtn {
   font-family: Rockwell;
@@ -512,8 +529,14 @@ async function resetPassword() {
 }
 #logInOTPexpire {
   color: burlywood;
+  font-size: small;
 }
-#resetPasswordBtn {
+#logInOTPexpire_error {
+  display: none;
+  color: #dc3545;
+  animation: erroBlinker 1.5s linear infinite;
+}
+#verifyOTPBtn {
   font-family: Rockwell;
   display: inline-block;
   padding: 10px 20px;
@@ -524,7 +547,7 @@ async function resetPassword() {
   border-radius: 50px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
-#resetPasswordBtn:hover {
+#verifyOTPBtn:hover {
   background-color: #f7bb08;
 }
 
@@ -547,5 +570,19 @@ async function resetPassword() {
 #change_password {
   font-size: 23px;
   font-weight: bold;
+}
+
+.R_Error {
+  display: none;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 0.875em;
+  color: #dc3545;
+  animation: erroBlinker 1.5s linear infinite;
+}
+@keyframes erroBlinker {
+  50% {
+    opacity: 0;
+  }
 }
 </style>

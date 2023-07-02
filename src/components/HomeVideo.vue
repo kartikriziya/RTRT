@@ -1,11 +1,5 @@
 <template>
   <video autoplay muted loop id="bgVideo">
-    <!-- <source src="../assets/test.mp4" type="video/mp4" /> -->
-    <!-- <source src="../assets/test_dining.mp4" type="video/mp4" /> -->
-    <!-- <source src="../assets/people.mp4" type="video/mp4" /> -->
-    <!-- <source src="../assets/high_dining.mp4" type="video/mp4" /> -->
-    <!-- <source src="../assets/dining.mp4" type="video/mp4" /> -->
-    <!-- <source src="../assets/dev.mp4" type="video/mp4" /> -->
     <source src="../assets/bg_video.mp4" type="video/mp4" />
     Your browser does not support HTML5 video.
   </video>
