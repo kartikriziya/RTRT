@@ -7,42 +7,56 @@ import Reservation from '../pages/Reservation.vue'
 import Account from '../pages/Account.vue'
 import Admin from '../pages/Admin.vue'
 import Cancel from '../pages/Cancel.vue'
+import notFound from '../pages/404.vue'
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: Home
+    component: Home,
+    meta: { title: 'RTRT - Home' }
   },
   {
     path: '/about',
     name: 'about',
-    component: About
+    component: About,
+    meta: { title: 'RTRT - About Us' }
   },
   {
     path: '/contact',
     name: 'contact',
-    component: Contact
+    component: Contact,
+    meta: { title: 'RTRT - Contact Us' }
   },
   {
     path: '/reservation',
     name: 'reservation',
-    component: Reservation
+    component: Reservation,
+    meta: { title: 'RTRT - Reservation' }
   },
   {
     path: '/account',
     name: 'account',
-    component: Account
+    component: Account,
+    meta: { title: 'RTRT - Account' }
   },
   {
-    path: '/admin',
+    path: '/frauas@07',
     name: 'admin',
-    component: Admin
+    component: Admin,
+    meta: { title: 'RTRT - Admin' }
   },
   {
     path: '/cancel',
     name: 'cancel',
-    component: Cancel
+    component: Cancel,
+    meta: { title: 'RTRT - Cancel' }
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'notFound',
+    component: notFound,
+    meta: { title: 'Page not found - RTRT' }
   }
 ]
 
@@ -78,6 +92,8 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
+
+  document.title = `${to.meta.title}`
 })
 
 export default router

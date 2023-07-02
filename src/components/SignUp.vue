@@ -18,6 +18,7 @@
           name="signUpFname"
           id="signUpFname"
           placeholder="first name"
+          @input="verifyEmail_hideError()"
           required
         />
         <label for="signUpFname" id="signUpLabels">First name *</label>
@@ -32,6 +33,7 @@
           name="signUpLname"
           id="signUpLname"
           placeholder="last name"
+          @input="verifyEmail_hideError()"
           required
         />
         <label for="signUpLname" id="signUpLabels">Last name *</label>
@@ -46,6 +48,7 @@
           name="signUpEmail"
           id="signUpEmail"
           placeholder="name@example.com"
+          @input="verifyEmail_hideError()"
           required
         />
         <label for="signUpEmail" id="signUpLabels">Email address *</label>
@@ -81,6 +84,7 @@
           name="signUpOTP"
           id="signUpOTP"
           placeholder="otp"
+          @input="verifyOTP_hideError()"
           required
         />
         <label for="signUpOTP" id="signUpLabels">OTP *</label>
@@ -135,6 +139,7 @@
           name="signUpPassword"
           id="signUpPassword1"
           placeholder="********"
+          @input="SignUp_hideError()"
           required
         />
         <label for="signUpPassword1" id="signUpLabels">Password *</label>
@@ -149,6 +154,7 @@
           name="signUpPassword"
           id="signUpPassword2"
           placeholder="********"
+          @input="SignUp_hideError()"
           required
         />
         <label for="signUpPassword2" id="signUpLabels">Re-password *</label>
@@ -240,9 +246,13 @@ async function verifyEmail() {
     }
   }
 }
+function verifyEmail_hideError() {
+  document.querySelector('.SignUp_Error').style.display = 'none'
+}
 
 /* ______ ResendOTP ______ */
 async function SignUp_resendOTP() {
+  verifyOTP_hideError()
   console.log('SignUp_resendOTP')
   store.state.isLoading = true
   await axios
@@ -294,6 +304,10 @@ async function verifyOTP() {
     }
   }
 }
+function verifyOTP_hideError() {
+  document.querySelector('.SignUp_verifyOTPError').style.display = 'none'
+}
+
 /* ________ SignUp _______ */
 async function SignUp() {
   console.log('SignUp')
@@ -311,39 +325,45 @@ async function SignUp() {
     SignUp_createPasswordError.style.display = 'block'
     signUp_Error_Message.value = 'Please enter password in both fields!'
   } else {
-    store.state.isLoading = true
-    let result = await axios.post(Base_Url + '/RTRT/account.php', {
-      action: 'signup',
-      firstName: signUpFname.value,
-      lastName: signUpLname.value,
-      Email: signUpEmail.value,
-      Password1: signUpPassword1.value,
-      Password2: signUpPassword2.value
-    })
-    store.state.isLoading = false
-    if (result.status == 200 || result.status == 201) {
-      console.log(result.data)
-      console.log(signUpPassword1.value + ', ' + signUpPassword2.value)
-
-      if (result.data === 'successfully signup') {
-        const slider = document.querySelector('#slider')
-        slider.classList.remove('showSignUp')
-        slider.classList.add('showLogin') /* -------> */
-        document.querySelector('#loginLink').style.display = 'none'
-        document.querySelector('#signUpLink').style.display = 'block'
-
-        const loginForm = document.querySelector('#loginForm')
-        loginForm.classList.add('loginForm_animation')
-        const signUpForm = document.querySelector('#signUpForm')
-        signUpForm.classList.remove('signUpForm_animation')
+    if (signUpPassword1.value.length >= 8 && signUpPassword2.value.length >= 8) {
+      store.state.isLoading = true
+      let result = await axios.post(Base_Url + '/RTRT/account.php', {
+        action: 'signup',
+        firstName: signUpFname.value,
+        lastName: signUpLname.value,
+        Email: signUpEmail.value,
+        Password1: signUpPassword1.value,
+        Password2: signUpPassword2.value
+      })
+      store.state.isLoading = false
+      if (result.status == 200 || result.status == 201) {
+        console.log(result.data)
+        console.log(signUpPassword1.value + ', ' + signUpPassword2.value)
+        if (result.data === 'successfully signup') {
+          const slider = document.querySelector('#slider')
+          slider.classList.remove('showSignUp')
+          slider.classList.add('showLogin') /* -------> */
+          document.querySelector('#loginLink').style.display = 'none'
+          document.querySelector('#signUpLink').style.display = 'block'
+          const loginForm = document.querySelector('#loginForm')
+          loginForm.classList.add('loginForm_animation')
+          const signUpForm = document.querySelector('#signUpForm')
+          signUpForm.classList.remove('signUpForm_animation')
+        } else {
+          SignUp_createPasswordError.style.display = 'block'
+          signUp_Error_Message.value = 'Please make sure your passwords match!'
+        }
       } else {
-        SignUp_createPasswordError.style.display = 'block'
-        signUp_Error_Message.value = 'Please make sure your passwords match!'
+        console.log(result.data)
       }
     } else {
-      console.log(result.data)
+      SignUp_createPasswordError.style.display = 'block'
+      signUp_Error_Message.value = 'Password length must be minimum 8 bytes long!'
     }
   }
+}
+function SignUp_hideError() {
+  document.querySelector('.SignUp_createPasswordError').style.display = 'none'
 }
 </script>
 
