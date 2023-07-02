@@ -147,6 +147,7 @@
               <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3 text-center">
                 <div class="form-floating">
                   <input
+                    v-model="guest_fname"
                     type="text"
                     class="form-control"
                     id="guest_fname"
@@ -158,6 +159,7 @@
               <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3 text-center">
                 <div class="form-floating">
                   <input
+                    v-model="guest_lname"
                     type="text"
                     class="form-control"
                     id="guest_lname"
