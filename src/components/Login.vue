@@ -213,7 +213,7 @@ const loginForgotPassword2 = ref('')
 
 const LogIn_Error_Message = ref('')
 function logInTimer() {
-  let timeleft = 10
+  let timeleft = 120
   otpTimer.value = setInterval(function () {
     if (timeleft <= 0) {
       clearInterval(otpTimer.value)

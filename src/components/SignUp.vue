@@ -191,7 +191,7 @@ const signUpPassword2 = ref('')
 const signUp_Error_Message = ref('')
 
 function signUpTimer() {
-  let timeleft = 10
+  let timeleft = 120
   otpTimer.value = setInterval(function () {
     if (timeleft <= 0) {
       clearInterval(otpTimer.value)
