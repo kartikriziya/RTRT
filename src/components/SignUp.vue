@@ -63,7 +63,7 @@
     </div>
     <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center d-grid pt-3">
-      <button class="btn" id="signUpBtn" @click.prevent="verifyEmail()">Verify Email</button>
+      <button class="btn" id="signUp_emailBtn" @click.prevent="verifyEmail()">Verify Email</button>
     </div>
   </form>
   <!-- --------------------------------------------------------------------------------------------------- -->
@@ -115,7 +115,9 @@
     </div>
     <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center d-grid pt-3">
-      <button class="btn signUp_VerifyOTP_btn" id="signUpBtn" @click.prevent="verifyOTP()">Verify OTP</button>
+      <button class="btn signUp_VerifyOTP_btn" id="signUp_verifyBtn" @click.prevent="verifyOTP()">
+        Verify OTP
+      </button>
     </div>
     <div class="col-sm-3"></div>
   </form>
@@ -167,7 +169,7 @@
     </div>
     <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center d-grid pt-3">
-      <button class="btn" id="signUpBtn" @click.prevent="SignUp()">Signup</button>
+      <button class="btn" id="signUp_passwordBtn" @click.prevent="SignUp()">Signup</button>
     </div>
     <div class="col-sm-3"></div>
   </form>
@@ -380,7 +382,9 @@ function SignUp_hideError() {
   color: #dc3545;
   animation: erroBlinker 1.5s linear infinite;
 }
-#signUpBtn {
+#signUp_emailBtn,
+#signUp_verifyBtn,
+#signUp_passwordBtn {
   font-family: Rockwell;
   display: inline-block;
   padding: 10px 20px;
