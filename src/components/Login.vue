@@ -235,6 +235,7 @@ function logInTimer() {
     if (timeleft <= 0) {
       clearInterval(otpTimer.value)
       login_OTP_Time.value = null
+      document.querySelector('.Login_verifyOTPError').style.display = 'none'
       document.getElementById('logInOTPexpire').style.display = 'none'
       document.getElementById('logInOTPexpire_error').style.display = 'block'
       document.querySelector('.LogIn_VerifyOTP_btn').disabled = true
@@ -285,8 +286,7 @@ async function login() {
         store.methods.loginUser()
         router.push({ path: '/reservation' })
       } else {
-        document.querySelector('#loginForm').style.display = 'none'
-        document.querySelector('#loginForm').style.display = 'flex'
+        Login_Error.style.display = 'block'
         LogIn_Error_Message.value =
           'Invalid email or password. Please check your credentials and try again!'
       }
@@ -398,6 +398,8 @@ async function verifyOTP() {
 }
 function verifyOTP_hideError() {
   document.querySelector('.Login_verifyOTPError').style.display = 'none'
+  document.getElementById('logInOTPexpire_error').style.display = 'none'
+  document.querySelector('.LogIn_VerifyOTP_btn').disabled = false
 }
 
 /* ______ Reset Password ______ */

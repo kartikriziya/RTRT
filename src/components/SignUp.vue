@@ -196,6 +196,7 @@ function signUpTimer() {
     if (timeleft <= 0) {
       clearInterval(otpTimer.value)
       signUP_OTP_Time.value = null
+      document.querySelector('.SignUp_verifyOTPError').style.display = 'none'
       document.getElementById('signUpOTPexpire').style.display = 'none'
       document.getElementById('signUpOTPexpire_error').style.display = 'block'
       document.querySelector('.signUp_VerifyOTP_btn').disabled = true
@@ -306,6 +307,8 @@ async function verifyOTP() {
 }
 function verifyOTP_hideError() {
   document.querySelector('.SignUp_verifyOTPError').style.display = 'none'
+  document.getElementById('signUpOTPexpire_error').style.display = 'none'
+  document.querySelector('.signUp_VerifyOTP_btn').disabled = false
 }
 
 /* ________ SignUp _______ */
