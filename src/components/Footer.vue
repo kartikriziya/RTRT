@@ -19,7 +19,7 @@
             >Cancel Reservation</router-link
           >
         </div>
-        <div class="col-sm-4 p-3" id="footer_end">
+        <div class="col-sm-4 p-3" id="footer_end" style="background-color: ">
           <router-link class="nav-link mb-2" id="links" :to="{ name: 'home' }"
             >Impressum</router-link
           >
@@ -29,6 +29,43 @@
           <router-link class="nav-link mb-2" id="links" :to="{ name: 'contact' }"
             >Kontaktdatenerhebung Covid-19</router-link
           >
+          <div class="row" style="background-color: ">
+            <div v-show="stars == 1" class="col-12" id="wrapperRating">
+              <i id="stars" class="fa fa-star" style="color: #b47501"></i>
+              <i id="stars" class="fa fa-star"></i>
+              <i id="stars" class="fa fa-star"></i>
+              <i id="stars" class="fa fa-star"></i>
+              <i id="stars" class="fa fa-star"></i>
+            </div>
+            <div v-show="stars == 2" class="col-12" id="wrapperRating">
+              <i id="stars" class="fa fa-star" style="color: #b47501"></i>
+              <i id="stars" class="fa fa-star" style="color: #b47501"></i>
+              <i id="stars" class="fa fa-star"></i>
+              <i id="stars" class="fa fa-star"></i>
+              <i id="stars" class="fa fa-star"></i>
+            </div>
+            <div v-show="stars == 3" class="col-12" id="wrapperRating">
+              <i id="stars" class="fa fa-star" style="color: #b47501"></i>
+              <i id="stars" class="fa fa-star" style="color: #b47501"></i>
+              <i id="stars" class="fa fa-star" style="color: #b47501"></i>
+              <i id="stars" class="fa fa-star"></i>
+              <i id="stars" class="fa fa-star"></i>
+            </div>
+            <div v-show="stars == 4" class="col-12" id="wrapperRating">
+              <i id="stars" class="fa fa-star" style="color: #b47501"></i>
+              <i id="stars" class="fa fa-star" style="color: #b47501"></i>
+              <i id="stars" class="fa fa-star" style="color: #b47501"></i>
+              <i id="stars" class="fa fa-star" style="color: #b47501"></i>
+              <i id="stars" class="fa fa-star"></i>
+            </div>
+            <div v-show="stars == 5" class="col-12" id="wrapperRating">
+              <i id="stars" class="fa fa-star" style="color: #b47501"></i>
+              <i id="stars" class="fa fa-star" style="color: #b47501"></i>
+              <i id="stars" class="fa fa-star" style="color: #b47501"></i>
+              <i id="stars" class="fa fa-star" style="color: #b47501"></i>
+              <i id="stars" class="fa fa-star" style="color: #b47501"></i>
+            </div>
+          </div>
         </div>
       </div>
       <div class="row">
@@ -66,10 +103,32 @@
     </div>
   </footer>
 </template>
+
 <script setup>
-import { inject } from 'vue'
+import { ref, onMounted, inject } from 'vue'
+import axios from 'axios'
+
 const store = inject('store')
+const Base_Url = 'https://olivewood.elementfx.com'
+
+const stars = ref('')
+
+onMounted(() => {
+  store.state.isLoading = false
+  showRating()
+})
+
+async function showRating() {
+  let result = await axios.post(Base_Url + '/RTRT/rating.php', {
+    action: 'rating'
+  })
+  if (result.status == 200 || result.status == 201) {
+    stars.value = result.data
+    console.log(stars.value)
+  }
+}
 </script>
+
 <style scoped>
 #footer {
   min-height: 25vh;
@@ -81,6 +140,18 @@ const store = inject('store')
   text-align: center !important;
   margin-bottom: 20px;
 }
+#wrapperRating {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+/* Stars */
+#stars {
+  color: #a28a5a;
+  cursor: pointer;
+  transition: color 0.2s, trasnform 0.2s;
+}
+
 #links {
   color: #f4ebd9;
   font-size: 15px;

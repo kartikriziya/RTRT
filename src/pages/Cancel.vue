@@ -37,10 +37,18 @@
                   <td id="table_row_data">{{ reservation.reserve_date }}</td>
                   <td id="table_row_data">{{ reservation.reserve_time }}</td>
                   <td id="table_row_data">
-                  <button v-if="reservation.reservation_status != 0" class="btn" id="cancel_reservation_btn" @click="cancelReservation(reservation.reservation_id)">Cancel</button>
-                  <span v-else>Cancelled</span>
-                </td>
-              </tr>
+                    <button
+                      v-if="
+                        reservation.reservation_status != 1 && reservation.reservation_status != 0
+                      "
+                      class="btn"
+                      id="cancel_reservation_btn"
+                      @click="cancelReservation(reservation.reservation_id)"
+                    >
+                      Cancel
+                    </button>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -59,7 +67,6 @@ const store = inject('store')
 const Base_Url = 'https://olivewood.elementfx.com'
 const action_id = ref('')
 
-
 const LoggedIn_Email = ref('')
 LoggedIn_Email.value = JSON.parse(sessionStorage.getItem('user-email'))
 
@@ -68,7 +75,7 @@ onMounted(() => {
   showReservations()
 })
 
-const reservationList = ref('') 
+const reservationList = ref('')
 
 async function showReservations() {
   let result = await axios.post(Base_Url + '/RTRT/reservationAction.php', {
@@ -79,12 +86,11 @@ async function showReservations() {
     reservationList.value = result.data
     console.log(result.data)
   }
-
 }
 
 async function cancelReservation(id) {
   action_id.value = id
-  console.log('Reservation ID: ' + action_id.value + ' and has been cancelled.' )
+  console.log('Reservation ID: ' + action_id.value + ' and has been cancelled.')
   let result = await axios.post(Base_Url + '/RTRT/reservationAction.php', {
     action: 'user',
     actionID: action_id.value,
@@ -92,7 +98,7 @@ async function cancelReservation(id) {
   })
   if (result.status == 200 || result.status == 201) {
     console.log(result.data)
-    await showReservations();
+    await showReservations()
   }
 }
 </script>
