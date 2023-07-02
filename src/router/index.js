@@ -66,7 +66,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  let isUser = sessionStorage.getItem('user-email')
+  let isUser = JSON.parse(sessionStorage.getItem('user-email'))
 
   /* Navigation Guard for 'account.vue' page */
   if (to.path === '/account') {
@@ -80,14 +80,22 @@ router.beforeEach((to, from, next) => {
     if (!isUser) {
       next({ name: 'account' })
     } else {
-      next()
+      if (isUser == 'rtrt@olivewood.elementfx.com') {
+        next({ name: 'admin' })
+      } else {
+        next()
+      }
     }
     /* Navigation Guard for 'cancel.vue' page */
   } else if (to.path === '/cancel') {
     if (!isUser) {
       next({ name: 'account' })
     } else {
-      next()
+      if (isUser == 'rtrt@olivewood.elementfx.com') {
+        next({ name: 'admin' })
+      } else {
+        next()
+      }
     }
   } else {
     next()
