@@ -103,10 +103,12 @@ onMounted(() => {
 const reservationList = ref('')
 
 async function showReservations() {
+  store.state.isLoading = true
   let result = await axios.post(Base_Url + '/RTRT/reservationAction.php', {
     action: 'admin',
     date: collectDate.value
   })
+  store.state.isLoading = false
   if (result.status == 200 || result.status == 201) {
     reservationList.value = result.data
   }

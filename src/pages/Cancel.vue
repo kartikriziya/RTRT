@@ -38,14 +38,15 @@
                   <td id="table_row_data">{{ reservation.reserve_time }}</td>
                   <td id="table_row_data">
                     <button
-                      v-if="reservation.reservation_status != 0"
+                      v-if="
+                        reservation.reservation_status != 1 && reservation.reservation_status != 0
+                      "
                       class="btn"
                       id="cancel_reservation_btn"
                       @click="cancelReservation(reservation.reservation_id)"
                     >
                       Cancel
                     </button>
-                    <span v-else>Cancelled</span>
                   </td>
                 </tr>
               </tbody>
@@ -77,10 +78,12 @@ onMounted(() => {
 const reservationList = ref('')
 
 async function showReservations() {
+  store.state.isLoading = true
   let result = await axios.post(Base_Url + '/RTRT/reservationAction.php', {
     action: 'user',
     loggedInEmail: LoggedIn_Email.value
   })
+  store.state.isLoading = false
   if (result.status == 200 || result.status == 201) {
     reservationList.value = result.data
   }
