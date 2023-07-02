@@ -103,10 +103,12 @@ onMounted(() => {
 const reservationList = ref('')
 
 async function showReservations() {
+  store.state.isLoading = true
   let result = await axios.post(Base_Url + '/RTRT/reservationAction.php', {
     action: 'admin',
     date: collectDate.value
   })
+  store.state.isLoading = false
   if (result.status == 200 || result.status == 201) {
     reservationList.value = result.data
   }
@@ -120,14 +122,12 @@ function cancel(boolean) {
 }
 async function reservationAction(id) {
   action_id.value = id
-  console.log('Reservation ID: ' + action_id.value + ' and has been: ' + action_reservation.value)
   let result = await axios.post(Base_Url + '/RTRT/reservationAction.php', {
     action: 'admin',
     actionID: action_id.value,
     actionReservation: action_reservation.value
   })
   if (result.status == 200 || result.status == 201) {
-    console.log(result.data)
     await showReservations()
   }
 }
