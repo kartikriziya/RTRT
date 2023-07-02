@@ -55,7 +55,7 @@ const routes = [
     meta: { title: 'RTRT - Terms & Conditions' }
   },
   {
-    path: '/admin',
+    path: '/frauas@07',
     name: 'admin',
     component: Admin,
     meta: { title: 'RTRT - Admin' }

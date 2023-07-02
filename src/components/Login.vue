@@ -149,7 +149,7 @@
     </div>
     <div class="col-sm-3"></div>
     <div class="col-sm-6 text-center d-grid pt-3">
-      <button class="btn" id="verifyOTPBtn" @click.prevent="verifyOTP()">Verify OTP</button>
+      <button class="btn LogIn_VerifyOTP_btn" id="verifyOTPBtn" @click.prevent="verifyOTP()">Verify OTP</button>
     </div>
     <div class="col-sm-3"></div>
   </form>
@@ -249,7 +249,6 @@ function logInTimer() {
 /* ______ login ______ */
 async function login() {
   const Login_Error = document.querySelector('.Login_Error')
-  console.log('login')
   if (loginEmail.value == '' || loginPassword.value == '') {
     Login_Error.style.display = 'block'
     LogIn_Error_Message.value = 'Please enter valid Credentials!'
@@ -270,8 +269,6 @@ async function login() {
     store.state.isLoading = false
 
     if (result.status == 200 || result.status == 201) {
-      console.log(result.data)
-      console.log(loginEmail.value + ', ' + loginPassword.value)
       if (result.data == 'No_Email_Found') {
         document.querySelector('#loginForm').style.display = 'none'
         document.querySelector('#loginForm').style.display = 'flex'
@@ -290,8 +287,6 @@ async function login() {
         LogIn_Error_Message.value =
           'Invalid email or password. Please check your credentials and try again!'
       }
-    } else {
-      console.log(result.data)
     }
   }
 }
@@ -307,7 +302,6 @@ function login_hideError() {
 /* ______ getOTP ______ */
 async function getOTP() {
   const Login_getOTPError = document.querySelector('.Login_getOTPError')
-  console.log('getOTP')
   if (forgetPasswordEmail.value == '') {
     Login_getOTPError.style.display = 'block'
     LogIn_Error_Message.value = 'Please enter your email address!'
@@ -319,8 +313,6 @@ async function getOTP() {
     })
     store.state.isLoading = false
     if (result.status == 200 || result.status == 201) {
-      console.log(result.data)
-      console.log(forgetPasswordEmail.value)
       if (result.data != 'No_Email_Found!') {
         document.querySelector('#getOTPForm').style.display = 'none'
         document.querySelector('#verifyOTPForm').style.display = 'flex'
@@ -332,8 +324,6 @@ async function getOTP() {
         LogIn_Error_Message.value =
           'Email not found. Please check your email address or sign up for a new account!'
       }
-    } else {
-      console.log(result.data)
     }
   }
 }
@@ -344,7 +334,6 @@ function getOTP_hideError() {
 /* ______ ResendOTP ______ */
 async function LogIn_resendOTP() {
   verifyOTP_hideError()
-  console.log('LogIn_resendOTP')
   const logInOTPexpire = document.getElementById('logInOTPexpire')
   store.state.isLoading = true
   let result = await axios.post(Base_Url + '/RTRT/forgetPassword.php', {
@@ -356,19 +345,14 @@ async function LogIn_resendOTP() {
   document.getElementById('logInOTPexpire_error').style.display = 'none'
   document.querySelector('.LogIn_VerifyOTP_btn').disabled = false
   if (result.status == 200 || result.status == 201) {
-    console.log(result.data)
-    console.log(forgetPasswordEmail.value)
     clearInterval(otpTimer.value)
     logInTimer()
-  } else {
-    console.log(result.data)
   }
 }
 
 /* ______ verifyOTP ______ */
 async function verifyOTP() {
   const Login_verifyOTPError = document.querySelector('.Login_verifyOTPError')
-  console.log('verifyOTP')
   if (loginVerifyOTP.value == '') {
     Login_verifyOTPError.style.display = 'block'
     LogIn_Error_Message.value = 'Please enter the One-Time Password (OTP)!'
@@ -381,8 +365,6 @@ async function verifyOTP() {
     })
     store.state.isLoading = false
     if (result.status == 200 || result.status == 201) {
-      console.log(result.data)
-      console.log(forgetPasswordEmail.value + ',' + loginVerifyOTP.value)
       if (result.data != 'Incorrect_OTP') {
         document.querySelector('#verifyOTPForm').style.display = 'none'
         document.querySelector('#changePasswordFrom').style.display = 'flex'
@@ -391,8 +373,6 @@ async function verifyOTP() {
         LogIn_Error_Message.value =
           'Incorrect OTP. Please check your One-Time Password and try again!'
       }
-    } else {
-      console.log(result.data)
     }
   }
 }
@@ -405,7 +385,6 @@ function verifyOTP_hideError() {
 /* ______ Reset Password ______ */
 async function resetPassword() {
   const Login_createPasswordError = document.querySelector('.Login_createPasswordError')
-  console.log('resetPassword')
   if (loginForgotPassword1.value == '' || loginForgotPassword2.value == '') {
     Login_createPasswordError.style.display = 'block'
     LogIn_Error_Message.value = 'Please enter your new password!'
@@ -420,8 +399,6 @@ async function resetPassword() {
       })
       store.state.isLoading = false
       if (result.status == 200 || result.status == 201) {
-        console.log(result.data)
-        console.log(loginForgotPassword1.value + ',' + loginForgotPassword2.value)
         if (loginForgotPassword1.value == loginForgotPassword2.value) {
           document.querySelector('#changePasswordFrom').style.display = 'none'
           document.querySelector('#loginForm').style.display = 'flex'
@@ -430,8 +407,6 @@ async function resetPassword() {
           Login_createPasswordError.style.display = 'block'
           LogIn_Error_Message.value = 'Please make sure your passwords match!'
         }
-      } else {
-        console.log(result.data)
       }
     } else {
       Login_createPasswordError.style.display = 'block'

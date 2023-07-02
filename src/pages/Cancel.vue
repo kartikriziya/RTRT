@@ -83,20 +83,17 @@ async function showReservations() {
   })
   if (result.status == 200 || result.status == 201) {
     reservationList.value = result.data
-    console.log(result.data)
   }
 }
 
 async function cancelReservation(id) {
   action_id.value = id
-  console.log('Reservation ID: ' + action_id.value + ' and has been cancelled.')
   let result = await axios.post(Base_Url + '/RTRT/reservationAction.php', {
     action: 'user',
     actionID: action_id.value,
     loggedInEmail: LoggedIn_Email.value
   })
   if (result.status == 200 || result.status == 201) {
-    console.log(result.data)
     await showReservations()
   }
 }
