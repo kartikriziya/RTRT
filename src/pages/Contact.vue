@@ -41,18 +41,13 @@
       <h2>You can Contact us here!</h2>
       <br />
       <p>
-        <strong>Restaurants:</strong>
-        <br />
-        Telefone: (+49) 30 9173 5681<br />
-        E-Mail: <a href="mailto:support.de@quandoo.com">support.de@quandoo.com</a>
-      </p>
-      <p>
         <strong>Customers:</strong>
         <br />
         Telefone: (+49) 30 3080 6278
         <br />
-        E-Mail: <a href="mailto:service.de@quandoo.com">service.de@quandoo.com</a>
+        E-Mail: <a href="mailto:service.de@quandoo.com">rtrt@olivewood.elementfx.com</a>
       </p>
+      <br />
     </div>
   </div>
 </template>
