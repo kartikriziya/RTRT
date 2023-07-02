@@ -244,7 +244,7 @@ async function login() {
       return
     }
     store.state.isLoading = true
-    let result = await axios.post(Base_Url + '/account.php', {
+    let result = await axios.post(Base_Url + '/RTRT/account.php', {
       action: 'login_login',
       logEmail: loginEmail.value,
       logPassword: loginPassword.value
@@ -330,7 +330,7 @@ async function LogIn_resendOTP() {
   console.log('LogIn_resendOTP')
   const logInOTPexpire = document.getElementById('logInOTPexpire')
   store.state.isLoading = true
-  let result = await axios.post(Base_Url + '/forgetPassword.php', {
+  let result = await axios.post(Base_Url + '/RTRT/forgetPassword.php', {
     action: 'LogIn_resendOTP',
     forgetPasswordEmail: forgetPasswordEmail.value
   })
@@ -357,7 +357,7 @@ async function verifyOTP() {
     LogIn_Error_Message.value = 'Please enter the One-Time Password (OTP)!'
   } else {
     store.state.isLoading = true
-    let result = await axios.post(Base_Url + '/forgetPassword.php', {
+    let result = await axios.post(Base_Url + '/RTRT/forgetPassword.php', {
       action: 'verify_OTP',
       forgetPasswordEmail: forgetPasswordEmail.value,
       loginVerifyOTP: loginVerifyOTP.value
@@ -392,7 +392,7 @@ async function resetPassword() {
     LogIn_Error_Message.value = 'Please enter your new password!'
   } else {
     store.state.isLoading = true
-    let result = await axios.post(Base_Url + '/forgetPassword.php', {
+    let result = await axios.post(Base_Url + '/RTRT/forgetPassword.php', {
       action: 'reset_Password',
       forgetPasswordEmail: forgetPasswordEmail.value,
       password1: loginForgotPassword1.value,
