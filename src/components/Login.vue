@@ -296,7 +296,7 @@ async function getOTP() {
     LogIn_Error_Message.value = 'Please enter your email address!'
   } else {
     store.state.isLoading = true
-    let result = await axios.post(Base_Url + '/forgetPassword.php', {
+    let result = await axios.post(Base_Url + '/RTRT/forgetPassword.php', {
       action: 'get_OTP',
       forgetPasswordEmail: forgetPasswordEmail.value
     })
@@ -391,27 +391,32 @@ async function resetPassword() {
     Login_createPasswordError.style.display = 'block'
     LogIn_Error_Message.value = 'Please enter your new password!'
   } else {
-    store.state.isLoading = true
-    let result = await axios.post(Base_Url + '/RTRT/forgetPassword.php', {
-      action: 'reset_Password',
-      forgetPasswordEmail: forgetPasswordEmail.value,
-      password1: loginForgotPassword1.value,
-      password2: loginForgotPassword1.value
-    })
-    store.state.isLoading = false
-    if (result.status == 200 || result.status == 201) {
-      console.log(result.data)
-      console.log(loginForgotPassword1.value + ',' + loginForgotPassword2.value)
-      if (loginForgotPassword1.value == loginForgotPassword2.value) {
-        document.querySelector('#changePasswordFrom').style.display = 'none'
-        document.querySelector('#loginForm').style.display = 'flex'
+    if (loginForgotPassword1.value.length >= 8 && loginForgotPassword2.value.length >= 8) {
+      store.state.isLoading = true
+      let result = await axios.post(Base_Url + '/RTRT/forgetPassword.php', {
+        action: 'reset_Password',
+        forgetPasswordEmail: forgetPasswordEmail.value,
+        password1: loginForgotPassword1.value,
+        password2: loginForgotPassword1.value
+      })
+      store.state.isLoading = false
+      if (result.status == 200 || result.status == 201) {
+        console.log(result.data)
+        console.log(loginForgotPassword1.value + ',' + loginForgotPassword2.value)
+        if (loginForgotPassword1.value == loginForgotPassword2.value) {
+          document.querySelector('#changePasswordFrom').style.display = 'none'
+          document.querySelector('#loginForm').style.display = 'flex'
+        } else {
+          //alert(result.data)
+          Login_createPasswordError.style.display = 'block'
+          LogIn_Error_Message.value = 'Please make sure your passwords match!'
+        }
       } else {
-        //alert(result.data)
-        Login_createPasswordError.style.display = 'block'
-        LogIn_Error_Message.value = 'Please make sure your passwords match!'
+        console.log(result.data)
       }
     } else {
-      console.log(result.data)
+      Login_createPasswordError.style.display = 'block'
+      LogIn_Error_Message.value = 'Password length must be minimum 8 bytes long!'
     }
   }
 }
