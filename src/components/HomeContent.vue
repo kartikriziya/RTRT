@@ -4,7 +4,7 @@
       <img src="../assets/los.svg" id="logoWrapper" alt="" />
       <div class="mt-5" id="reserve">
         <router-link class="nav-link" id="reserveBtn" :to="{ name: 'reservation' }"
-          >register now</router-link
+          >reserve now</router-link
         >
       </div>
     </div>
