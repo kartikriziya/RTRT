@@ -152,7 +152,7 @@ import axios from 'axios'
 
 const store = inject('store')
 const router = useRouter()
-const Base_Url = 'https://olivewood.elementfx.com'
+const Base_Url = import.meta.env.VITE_RTRT_START
 
 const Reservation_Error_msg = ref('')
 
@@ -179,7 +179,7 @@ async function reserveTable() {
     Reservation_Error_msg.value = 'Please enter missing value!'
   } else {
     store.state.isLoading = true
-    let result = await axios.post(Base_Url + '/RTRT/reservation.php', {
+    let result = await axios.post(Base_Url + 'RTRT/reservation.php', {
       action: 'reserve_Table',
       props: props,
       noOfPeople: collectPeople.value,

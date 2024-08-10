@@ -109,7 +109,7 @@ import { ref, onMounted, inject } from 'vue'
 import axios from 'axios'
 
 const store = inject('store')
-const Base_Url = 'https://olivewood.elementfx.com'
+const Base_Url = import.meta.env.VITE_RTRT_START
 
 const stars = ref('')
 
@@ -119,7 +119,7 @@ onMounted(() => {
 })
 
 async function showRating() {
-  let result = await axios.post(Base_Url + '/RTRT/rating.php', {
+  let result = await axios.post(Base_Url + 'RTRT/rating.php', {
     action: 'rating'
   })
   if (result.status == 200 || result.status == 201) {

@@ -64,7 +64,7 @@ import { ref, onMounted, inject } from 'vue'
 import axios from 'axios'
 
 const store = inject('store')
-const Base_Url = 'https://olivewood.elementfx.com'
+const Base_Url = import.meta.env.VITE_RTRT_START
 const action_id = ref('')
 
 const LoggedIn_Email = ref('')
@@ -79,7 +79,7 @@ const reservationList = ref('')
 
 async function showReservations() {
   store.state.isLoading = true
-  let result = await axios.post(Base_Url + '/RTRT/reservationAction.php', {
+  let result = await axios.post(Base_Url + 'RTRT/reservationAction.php', {
     action: 'user',
     loggedInEmail: LoggedIn_Email.value
   })
@@ -91,7 +91,7 @@ async function showReservations() {
 
 async function cancelReservation(id) {
   action_id.value = id
-  let result = await axios.post(Base_Url + '/RTRT/reservationAction.php', {
+  let result = await axios.post(Base_Url + 'RTRT/reservationAction.php', {
     action: 'user',
     actionID: action_id.value,
     loggedInEmail: LoggedIn_Email.value
